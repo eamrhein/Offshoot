@@ -1,6 +1,9 @@
 import { RECEIVE_USER_LOGOUT } from '../actions/session_actions';
 
-let initialState = {}
+const initialState = {
+  isAuthenticated: false,
+  user: {}
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
