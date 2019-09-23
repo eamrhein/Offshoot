@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     unique: true
   },
   lastviewedPanel: {
-    type: Schema.Type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Panel'
   },
   password: {
