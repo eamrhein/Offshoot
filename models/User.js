@@ -8,11 +8,12 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   lastviewedPanel: {
-    type: Schema.Types.ObjectId,
-    required: false
+    type: Schema.Type.ObjectId,
+    ref: 'Panel'
   },
   password: {
     type: String,
