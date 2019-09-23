@@ -6,37 +6,39 @@ class NavBar extends React.Component {
 
 
     render() {
+        return (
         <div className="nav-bar">
-            <img className="logo"></img>
+            <img className="logo" src="logo512.png"></img>
             <div className="dropdown-container">
                 <i className="material-icons dropdown-button">menu</i>
-                <div className="dropdown-list">
+                <div className="dropdown">
                     <div className="user-links">
                         <div>Profile Link</div>
                         <div>Information Widget</div>
                     </div>
                     <div className="story-links">
+                        <div>My Shoots Link</div>
                         <div>New Story Link</div>
-                        <div>My Stories Link</div>
                     </div>
-                    {currentUser ? 
+                    {/* { currentUser true */}
                         <div className="auth-links">
                             <div>
-                                sign out link
+                                Sign Out Link
                             </div> 
                         </div>
                     : 
                         <div className="auth-links">
                             <div>
-                                sign in link
+                                Sign In Link
                             </div>
                             <div>
-                                sign up link
+                                Sign Up Link
                             </div>
                         </div>}
                 </div>
             </div>
         </div>
+        )
     }
 }
 

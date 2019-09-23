@@ -1,0 +1,18 @@
+
+.nav-bar {
+    display: flex;
+    background-color: $primary;
+
+    .logo {
+        height: 50px;
+    }
+}
+
+.dropdown-container {
+    position: relative;
+
+    .dropdown {
+        visibility: hidden;
+        position: absolute;
+    }
+}
