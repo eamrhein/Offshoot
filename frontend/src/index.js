@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import "./styles/index.scss";
+
 // We will create this component shortly
 import Root from './components/root';
 import configureStore from './store/store';
