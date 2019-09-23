@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class NavBar extends React.Component {
 
@@ -10,6 +10,8 @@ class NavBar extends React.Component {
         }
 
         this.handleHamburger = this.handleHamburger.bind(this);
+
+        console.log(this.props)
     }
 
     handleHamburger() {
@@ -25,7 +27,18 @@ class NavBar extends React.Component {
                 <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
                 <div className="dropdown">
                     <div className="user-links">
-                        <div>Profile Link</div>
+                        <div>
+                            {this.props.currentUser.isSignedIn ?
+                            <NavLink>
+                                <span className="username">
+                                    <img className="acorn-icon" src="acorn-icon-black.png"></img>
+                                    <span>{this.props.currentUser.username}</span>
+                                </span>
+                            </NavLink>
+                            :
+                            <span>Browsing as guest</span>
+                            }
+                        </div>
                         <div>Information Widget</div>
                     </div>
                     <div className="story-links">
