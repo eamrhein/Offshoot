@@ -32,16 +32,30 @@
         top: 50px;
         right: 0px;
 
+        padding: 5px 0px;
+
         border-radius: $small-radius;
 
         background-color: $lighter-secondary;
 
         > div {
-            margin: 10px;
+
 
             div {
                 padding: 10px;
             }
+        }
+
+        > div:after {
+            content: "";
+            height: 1px;
+            margin: 5px;
+            display: block;
+            background-color: $light-secondary;
+        }
+
+        > div:last-child:after {
+            display: none;
         }
     }
 
