@@ -1,11 +1,14 @@
 module.exports = {
   env: {
     browser: true,
+    commonjs: true,
     es6: true,
     node: true
   },
   extends: [
-    'standard'
+    'standard',
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   globals: {
     Atomics: 'readonly',
@@ -19,9 +22,15 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'react'
+    'react',
+    'node'
   ],
   rules: {
-    semi: [2, "always"]
+    semi: [2, "always"],
+    "react/jsx-filename-extension": 0,
+    "react/jsx-uses-vars": 2,
+    "react/prop-types": 0,
+    "import/prefer-default-export": 0,
+    "no-console": 0
   }
 }
