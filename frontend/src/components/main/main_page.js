@@ -1,3 +1,4 @@
+// Temporary File To show react is working
 import React from 'react';
 
 class MainPage extends React.Component {
