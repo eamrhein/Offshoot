@@ -2,17 +2,30 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  handle: {
+  username: {
     type: String,
     required: true
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
+  },
+  lastviewedPanel: {
+    type: Schema.Type.ObjectId,
+    ref: 'Panel'
   },
   password: {
     type: String,
     required: true
+  },
+  followedRoots: {
+    type: Array,
+    required: false
+  },
+  authoredRoots: {
+    type: Array,
+    required: false
   },
   date: {
     type: Date,
