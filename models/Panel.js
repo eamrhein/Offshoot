@@ -26,7 +26,7 @@ const PanelSchema = new Schema({
         required: true
     },
 
-    body: {
+    text: {
         type: String
     }
 
