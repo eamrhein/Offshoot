@@ -1,7 +1,7 @@
 {
-  "name": "mern_twitter",
+  "name": "Offshoot",
   "version": "1.0.0",
-  "description": "A twitter clone to practice mern stack",
+  "description": "A Mobile First Storytelling App",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
