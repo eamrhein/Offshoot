@@ -1,3 +1,9 @@
+@import './reset.scss';
+
 @import './variables.scss';
 
 @import './nav.scss';
+
+body {
+    font-family: $font-family;
+}
