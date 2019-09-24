@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 
 // for accessing the panels from state
 const mapStateToProps = state => ({
-  panels: state.entities.panels
+  // panels: state.entities.panels
 });
 
 // for fetching panels
