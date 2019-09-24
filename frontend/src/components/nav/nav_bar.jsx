@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 class NavBar extends React.Component {
 
@@ -22,7 +22,7 @@ class NavBar extends React.Component {
     render() {
         return (
         <div className="nav-bar">
-            <img className="logo" src="logo512.png"></img>
+            <Link to="/"><img className="logo" src="logo512.png"></img></Link>
             <div className={this.state.dropdown ? "dropdown-container open" : "dropdown-container"}>
                 <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
                 <div className="dropdown">

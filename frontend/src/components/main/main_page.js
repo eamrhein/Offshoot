@@ -9,6 +9,9 @@ class MainPage extends React.Component {
     return (
       <div>
         <NavBarContainer />
+        <section>
+
+        </section>
         <footer>
           Copyright &copy; 2019
         </footer>
