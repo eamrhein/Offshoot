@@ -9,6 +9,7 @@ export class PanelShow extends Component {
             <div>
                 <Panel panelId={this.props.match.params.panelId}/>
                 <div>route index placeholder</div>
+                <div>comment index placeholder</div>
             </div>
         )
     }
@@ -18,8 +19,8 @@ const mapStateToProps = (state) => ({
     
 })
 
-const mapDispatchToProps = {
+const mapDispatchToProps = (dispatch) => ({
     
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow)

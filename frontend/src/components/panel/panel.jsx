@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+
 export class Panel extends Component {
 
     constructor(props) {
@@ -22,7 +23,7 @@ export class Panel extends Component {
         this.setState({
             shareDrawerOpen: !!this.state.shareDrawerOpen
         });
-        if (shareDrawerOpen) {
+        if (this.shareDrawerOpen) {
             this.copyLink();
         }
     }
@@ -39,7 +40,9 @@ export class Panel extends Component {
             <div>
                 <div className="panel-proper">
                     <h2>Panel Title</h2>
-                    <figure className="panel-image" src="testpanel.png"></figure>
+                    <figure className="panel-figure">
+                        <img src="testpanel.png"></img>
+                    </figure>
                     <figcaption>lorem ipsum whatever</figcaption>
                     <ul className="panel-action-buttons">
                         <i className="material-icons">favorite</i>
@@ -59,7 +62,6 @@ export class Panel extends Component {
 }
 
 
-import { toggleModal } from '../../actions/ui_actions'
 
 const mapStateToProps = (state, ownProps) => ({
     panel: state.entities.panels[ownProps.panelId]
