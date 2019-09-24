@@ -12,7 +12,6 @@ class NavBar extends React.Component {
     }
 
     handleHamburger() {
-        //fix this later so it works with the ui reducer
         this.props.toggleModal("nav-dropdown");
     }
 
