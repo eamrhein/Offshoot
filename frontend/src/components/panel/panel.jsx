@@ -22,10 +22,16 @@ export class Panel extends Component {
         this.setState({
             shareDrawerOpen: !!this.state.shareDrawerOpen
         });
+        if (shareDrawerOpen) {
+            this.copyLink();
+        }
     }
 
     copyLink() {
-
+        let link = document.getElementById("panelLink");
+        link.select();
+        link.setSelectionRange(0, 99999);
+        document.execCommand("copy");
     }
 
     render() {
@@ -44,6 +50,7 @@ export class Panel extends Component {
                     "share-drawer open" :
                     "share-drawer"
                 }>
+                    <span>Link copied to clipboard.</span>
                     <input type="text" value={`${this.props.url}/panels/${this.props.panelId}`} id="panelLink"></input>
                 </div>
             </div>
