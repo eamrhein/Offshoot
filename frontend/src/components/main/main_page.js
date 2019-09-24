@@ -9,7 +9,6 @@ class MainPage extends React.Component {
   render() {
     return (
       <div>
-        <NavBarContainer />
         <HomeIndex />
         <footer>
           
