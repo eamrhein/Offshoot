@@ -4,7 +4,7 @@ import {
     CLOSE_MODALS
 } from "../actions/ui_actions";
 
-initialState = {
+const initialState = {
     currentModal: null
 }
 
