@@ -6,13 +6,11 @@ import Login from './session/login_form_container';
 import MainPage from './main/main_page';
 
 const App = () => (
-  <div>
-    <Switch>
-      <AuthRoute exact path = '/register' component={Register} />
-      <AuthRoute exact path = '/login' component={Login} />
-      <AuthRoute exact path="/" component={MainPage} />
-    </Switch>
-  </div>
+  <Switch>
+    <AuthRoute exact path = '/register' component={Register} />
+    <AuthRoute exact path = '/login' component={Login} />
+    <AuthRoute exact path="/" component={MainPage} />
+  </Switch>
 );
 
 export default App;
