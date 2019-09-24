@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 
+import { receive}
+
 import NavBar from './nav_bar';
 
 
