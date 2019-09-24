@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     ui: {
-      modal: 'OPEN MODAL'
+      currentModal: null
     },
     errors: {
       session: {},
