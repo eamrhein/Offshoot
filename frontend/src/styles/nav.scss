@@ -5,6 +5,9 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
+    position: sticky;
+    top: 0px;
     
     background-color: $primary;
 
@@ -20,7 +23,9 @@
     
     .dropdown-button {
         color: $light-primary;
-        padding: 10px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: $small-radius;
     }
 
     .dropdown {
@@ -32,17 +37,18 @@
         top: 50px;
         right: 0px;
 
-        padding: 5px 0px;
+        // padding: 5px;
+        padding-bottom: 10px;
 
         border-radius: $small-radius;
 
-        background-color: $lighter-secondary;
+        background-color: $light-secondary;
 
         > div {
 
 
             div {
-                padding: 10px;
+                // padding: 10px;
             }
         }
 
@@ -59,6 +65,21 @@
         }
     }
 
+    a {
+        color: black;
+        background-color: $lighter-secondary;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        margin: 5px;
+        border-radius: $small-radius;
+    }
+
+    a:active {
+        background-color: $light-primary;
+        color: $primary;
+    }
+
 }
 
 .dropdown-container.open {
@@ -66,8 +87,20 @@
     .dropdown {
         visibility: visible
     }
+
+    .dropdown-button {
+        color: $primary;
+        background-color: $light-primary;
+    }
+
 }
 
 .acorn-icon {
     height: 16px;
+}
+
+.username {
+    display: block;
+    margin: 10px;
+    font-weight: bold;
 }
