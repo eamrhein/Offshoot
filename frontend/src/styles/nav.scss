@@ -1,0 +1,106 @@
+
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    position: sticky;
+    top: 0px;
+    
+    background-color: $primary;
+
+    .logo {
+        height: 50px;
+    }
+}
+
+.dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    .dropdown-button {
+        color: $light-primary;
+        padding: 5px;
+        margin: 5px;
+        border-radius: $small-radius;
+    }
+
+    .dropdown {
+        visibility: hidden;
+        position: absolute;
+        width: 250px;
+        box-sizing: border-box;
+
+        top: 50px;
+        right: 0px;
+
+        // padding: 5px;
+        padding-bottom: 10px;
+
+        border-radius: $small-radius;
+
+        background-color: $light-secondary;
+
+        > div {
+
+
+            div {
+                // padding: 10px;
+            }
+        }
+
+        > div:after {
+            content: "";
+            height: 1px;
+            margin: 5px;
+            display: block;
+            background-color: $light-secondary;
+        }
+
+        > div:last-child:after {
+            display: none;
+        }
+    }
+
+    a {
+        color: black;
+        background-color: $lighter-secondary;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        margin: 5px;
+        border-radius: $small-radius;
+    }
+
+    a:active {
+        background-color: $light-primary;
+        color: $primary;
+    }
+
+}
+
+.dropdown-container.open {
+
+    .dropdown {
+        visibility: visible
+    }
+
+    .dropdown-button {
+        color: $primary;
+        background-color: $light-primary;
+    }
+
+}
+
+.acorn-icon {
+    height: 16px;
+}
+
+.username {
+    display: block;
+    margin: 10px;
+    font-weight: bold;
+}

@@ -2,12 +2,14 @@
 import React from 'react';
 import HomeIndex from './homeindex';
 
+import NavBarContainer from '../nav/nav_bar_container';
+
 class MainPage extends React.Component {
 
   render() {
     return (
       <div>
-        <h1>Offshoot</h1>
+        <NavBarContainer />
         <HomeIndex />
         <footer>
           
