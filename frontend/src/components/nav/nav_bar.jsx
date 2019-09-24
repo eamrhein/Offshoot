@@ -27,39 +27,45 @@ class NavBar extends React.Component {
                 <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
                 <div className="dropdown">
                     <div className="user-links">
-                        <div>
                             {this.props.currentUser.isSignedIn ?
-                            <NavLink>
-                                <span className="username">
-                                    <img className="acorn-icon" src="acorn-icon-black.png"></img>
-                                    <span>{this.props.currentUser.username}</span>
-                                </span>
-                            </NavLink>
+                            <div>
+                                    <NavLink to={`/users/${this.currentUser.id}`}>
+                                    <span className="username">
+                                        <img className="acorn-icon" src="acorn-icon-black.png"></img>
+                                        <span>{this.props.currentUser.username}</span>
+                                    </span>
+                                    </NavLink>
+                            </div>
                             :
-                            <span>Browsing as guest</span>
+                            <div className="auth-links">
+                                <span className="username">Browsing as guest.</span>
+                                <div>
+                                    <NavLink to="/login">Sign In</NavLink>
+                                </div>
+                                <div>
+                                    <NavLink to="/signup">Sign Up</NavLink>
+                                </div>
+                            </div>
                             }
-                        </div>
-                        <div>Information Widget</div>
                     </div>
+                    {this.props.currentUser.isSignedIn ?
                     <div className="story-links">
-                        <div>My Shoots Link</div>
-                        <div>New Story Link</div>
-                    </div>
-                    {true ?
+                        <div>
+                            <NavLink to={`/users/${this.currentUser.id}/shoots`}>My Shoots Link</NavLink>
+                        </div>
+                        <div>
+                            <NavLink to={`/roots/new`}>New Story Link</NavLink>
+                        </div>
+                    </div> :
+                    "" }
+                    {false ?
                         <div className="auth-links">
                             <div>
-                                Sign Out Link
+                                Sign Out
                             </div> 
                         </div>
                     : 
-                        <div className="auth-links">
-                            <div>
-                                Sign In Link
-                            </div>
-                            <div>
-                                Sign Up Link
-                            </div>
-                        </div>}
+                    ""}
                 </div>
             </div>
         </div>
