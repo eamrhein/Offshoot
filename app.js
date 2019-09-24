@@ -13,7 +13,7 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('Hello MERN'));
+// app.get('/', (req, res) => res.send('Hello MERN'));
 app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
