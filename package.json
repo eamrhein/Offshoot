@@ -11,6 +11,7 @@
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
+  "proxy": "http://localhost:5000",
   "author": "Eric Amrhein",
   "license": "ISC",
   "dependencies": {
