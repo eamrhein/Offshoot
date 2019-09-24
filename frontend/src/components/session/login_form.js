@@ -1,24 +1,23 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-class SignupForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
-      username: '',
       password: '',
-      password2: '',
       errors: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearedErrors = false;
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.signedIn === true) {
-      this.props.history.push('/login');
+    if (nextProps.currentUser === true) {
+      this.props.history.push('/');
     }
 
     this.setState({ errors: nextProps.errors })
@@ -32,14 +31,13 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     let user = {
       email: this.state.email,
-      username: this.state.handle,
-      password: this.state.password,
-      password2: this.state.password2
+      password: this.state.password
     };
-
-    this.props.signup(user, this.props.history);
+    console.log(user)
+    this.props.login(user);
   }
 
   renderErrors() {
@@ -56,9 +54,9 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container">
+      <div>
         <form onSubmit={this.handleSubmit}>
-          <div className="login-form">
+          <div>
             <br />
             <input type="text"
               value={this.state.email}
@@ -66,22 +64,10 @@ class SignupForm extends React.Component {
               placeholder="Email"
             />
             <br />
-            <input type="text"
-              value={this.state.handle}
-              onChange={this.update('handle')}
-              placeholder="Handle"
-            />
-            <br />
             <input type="password"
               value={this.state.password}
               onChange={this.update('password')}
               placeholder="Password"
-            />
-            <br />
-            <input type="password"
-              value={this.state.password2}
-              onChange={this.update('password2')}
-              placeholder="Confirm Password"
             />
             <br />
             <input type="submit" value="Submit" />
@@ -93,4 +79,4 @@ class SignupForm extends React.Component {
   }
 }
 
-export default withRouter(SignupForm);
+export default withRouter(LoginForm);
