@@ -21,7 +21,7 @@ export class Panel extends Component {
 
     handleShare() {
         this.setState({
-            shareDrawerOpen: !!this.state.shareDrawerOpen
+            shareDrawerOpen: !this.state.shareDrawerOpen
         });
         if (this.shareDrawerOpen) {
             this.copyLink();
@@ -37,17 +37,20 @@ export class Panel extends Component {
 
     render() {
         return (
-            <div>
+            <div className="panel">
                 <div className="panel-proper">
-                    <h2>Panel Title</h2>
+                    <h1>Panel Title</h1>
                     <figure className="panel-figure">
-                        <img src="testpanel.png"></img>
+                        <img src="testpanel.png" className="panel-image" alt="the draw your squad monopoly exploitable"></img>
+                        <ul className="panel-action-buttons">
+                            <i className="material-icons like-button">favorite</i>
+                            <i className={ this.state.shareDrawerOpen ?
+                                "material-icons share-button active" :
+                                "material-icons share-button"
+                            } onClick={this.handleShare}>share</i>
+                        </ul>
                     </figure>
-                    <figcaption>lorem ipsum whatever</figcaption>
-                    <ul className="panel-action-buttons">
-                        <i className="material-icons">favorite</i>
-                        <i className="material-icons">share</i>
-                    </ul>
+                    <figcaption><span>Your PRANKSTER'S GAMBIT plunges to an all time low. You cannot hope to defeat Egbert in a prank-off. He is simply the best there is.</span></figcaption>
                 </div>
                 <div className={ this.state.shareDrawerOpen ?
                     "share-drawer open" :

@@ -6,7 +6,7 @@ import Panel from '../panel';
 export class PanelShow extends Component {
     render() {
         return (
-            <div>
+            <div className="panel-show">
                 <Panel panelId={this.props.match.params.panelId}/>
                 <div>route index placeholder</div>
                 <div>comment index placeholder</div>

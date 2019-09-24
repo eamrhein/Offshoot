@@ -3,7 +3,14 @@
 @import './variables.scss';
 
 @import './nav.scss';
+@import './show.scss';
 
 body {
     font-family: $font-family;
+    background-color: $light-primary;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
 }
