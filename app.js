@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const db = require('./config/keys').mongoURI;
 const users = require('./routes/api/users');
-
+const panels = require('./routes/api/panels');
 const bodyParser = require('body-parser');
 
 mongoose
@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => res.send('Hello MERN'));
 app.use('/api/users', users);
+app.use('/api/panels', panels);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
