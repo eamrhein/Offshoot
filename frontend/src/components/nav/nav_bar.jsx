@@ -17,55 +17,72 @@ class NavBar extends React.Component {
 
     render() {
         return (
-        <div className="nav-bar">
-            <Link to="/"><img className="logo" src="logo512.png" alt="offshoot logo"></img></Link>
-            <div className={this.props.currentModal === "nav-dropdown" ? "dropdown-container open" : "dropdown-container"}>
-                <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
-                <div className="dropdown">
-                    <div className="user-links">
-                            {this.props.currentUser.isSignedIn ?
-                            <div>
-                                    <NavLink to={`/users/${this.currentUser.id}`}>
+          <div className="nav-bar">
+            <Link to="/">
+              <img className="logo" src="logo512.png" alt="offshoot logo"></img>
+            </Link>
+            <div
+              className={
+                this.props.currentModal === "nav-dropdown"
+                  ? "dropdown-container open"
+                  : "dropdown-container"
+              }
+            >
+              <i
+                className="material-icons dropdown-button"
+                onClick={this.handleHamburger}
+              >
+                menu
+              </i>
+              <div className="dropdown">
+                <div className="user-links">
+                  {this.props.isSignedIn ? (
+                    <div>
+                      {/* <NavLink to={`/users/${this.currentUser.id}`}>
                                     <span className="username">
                                         <img className="acorn-icon" src="acorn-icon-black.png" alt="acorn icon"></img>
                                         <span>{this.props.currentUser.username}</span>
                                     </span>
-                                    </NavLink>
-                            </div>
-                            :
-                            <div className="auth-links">
-                                <span className="username">Browsing as guest.</span>
-                                <div>
-                                    <NavLink to="/login">Sign In</NavLink>
-                                </div>
-                                <div>
-                                    <NavLink to="/signup">Sign Up</NavLink>
-                                </div>
-                            </div>
-                            }
+                                    </NavLink> */}
                     </div>
-                    {this.props.currentUser.isSignedIn ?
-                    <div className="story-links">
-                        <div>
-                            <NavLink to={`/users/${this.currentUser.id}/shoots`}>My Shoots Link</NavLink>
-                        </div>
-                        <div>
-                            <NavLink to={`/roots/new`}>New Story Link</NavLink>
-                        </div>
-                    </div> :
-                    "" }
-                    {false ?
-                        <div className="auth-links">
-                            <div>
-                                Sign Out
-                            </div> 
-                        </div>
-                    : 
-                    ""}
+                  ) : (
+                    <div className="auth-links">
+                      <span className="username">Browsing as guest.</span>
+                      <div>
+                        <NavLink to="/login">Sign In</NavLink>
+                      </div>
+                      <div>
+                        <NavLink to="/register">Sign Up</NavLink>
+                      </div>
+                    </div>
+                  )}
                 </div>
+                {this.props.isSignedIn ? (
+                  <div className="story-links">
+                    <div>
+                      {/* <NavLink to={`/users/${this.currentUser.id}/shoots`}>My Shoots Link</NavLink> */}
+                    </div>
+                    <div>
+                      {/* <NavLink to={`/roots/new`}>New Story Link</NavLink> */}
+                    </div>
+                    <button onClick={this.props.logout}> Sign Out</button>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {false ? (
+                  <div className="auth-links">
+                    <div>
+                      <button onClick={this.props.logout}> Sign Out</button>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
-        </div>
-        )
+          </div>
+        );
     }
 }
 
