@@ -11,7 +11,7 @@ const PanelSchema = new Schema({
 
     parentId: {
         type: Schema.Types.ObjectId,
-        ref: PanelSchema,
+        ref: 'panels'
     },
 
     childIds: [
@@ -26,7 +26,11 @@ const PanelSchema = new Schema({
         required: true
     },
 
-    text: {
+    panelText: {
+        type: String
+    },
+
+    photoURL: {
         type: String
     }
 
