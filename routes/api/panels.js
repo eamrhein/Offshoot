@@ -12,13 +12,18 @@ const validatePanel = require('../../validation/panel');
 // aws.config.region = 'us-west-2';
 
 router
-  .get('/:id', (req, res) => {
-    const { errors, isValid } = validatePanel(req.body);
+    .get('/:id', (req, res) => {
+        const panel = Panel.findById(req.params.id);
+        const {errors, isValid} = validatePanel(panel);
 
-    if (!isValid) res.status(422).json(errors);
+        if (!isValid) res.status(422).json(errors);
 
-    // eslint-disable-next-line no-unused-vars
-    const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+        const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+
+        res.json(panel);
+    })
+    .post('/', (req, res) => {
+        const { errors, isValid } = validatePanel(req.body);
 
     const panel = Panel.findById(req.params.id);
 
@@ -27,11 +32,21 @@ router
   .post('/', (req, res) => {
     const { errors, isValid } = validatePanel(req.body);
 
-    if (!isValid) {
-      res.status(422).json(errors);
-    } else {
-      // eslint-disable-next-line no-unused-vars
-      const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+            newPanel.save()
+                .then(panel => {
+                    const { _id, authorId, title, panelText, parentId, rootId } = panel;
+                    const payload = {
+                        id: _id,
+                        authorId,
+                        title,
+                        panelText,
+                        parentId,
+                        rootId
+                    };
+                    res.json(payload);
+                })
+                .catch(err => console.log(err));
+        }
 
       const newPanel = new Panel({
         authorId,

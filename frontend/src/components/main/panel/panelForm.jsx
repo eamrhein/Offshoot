@@ -18,18 +18,23 @@ class PanelForm extends React.Component {
   }
 
   componentDidMount(){
-    // if (this.props.formType = 'edit') this.setState({panel: this.props.currPanel })
-    // if (this.props.formType = 'branch') this.setState({panel: {parentId: this.props.match}})
+    if (this.props.formType === 'edit') {
+      this.props.fetchPanel(this.props.match.params.panelId)
+        .then(() => {
+          this.setState({ panel: this.props.panels[this.props.match.params.panelId] })
+        }) 
+    } else if (this.props.formType === 'branch') {
+      this.setState({panel: {parentId: this.props.match.params.panelId}})
+    }
   }
   handleSubmit(e){
-    // debugger
     e.preventDefault();
     const panel = this.state.panel;
     panel.authorId = this.props.currentUser.id;
     this.props.action(panel)
       .then((panel)=> {
-        debugger
-        this.props.history.push(`/panels/${panel.data._id}`)});
+        // CHECK THIS
+        this.props.history.push(`/panels/${panel.panel.data.id}`)});
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){
@@ -64,3 +69,4 @@ class PanelForm extends React.Component {
 }
 
 export default PanelForm;
+
