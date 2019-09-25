@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
     authStatus: state.session.isAuthenticated
 });
 
-const mapDistpatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout())
 });
 class NavBar extends React.Component {
@@ -79,4 +79,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDistpatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
