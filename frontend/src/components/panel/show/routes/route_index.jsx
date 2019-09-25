@@ -6,9 +6,13 @@ export class RouteIndex extends Component {
     render() {
         return (
             <ul>
-                {this.props.panel.childIds.map((panelId) => {
+                
+                { this.props.panel.childIds ?
+                    this.props.panel.childIds.map((panelId) => {
                     return <RouteIndexItem panelId={panelId} />
-                })}
+                }) :
+                    ""
+                }
             </ul>
         )
     }
