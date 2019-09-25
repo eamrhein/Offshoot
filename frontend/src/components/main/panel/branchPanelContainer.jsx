@@ -1,14 +1,15 @@
-import { connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import PanelForm from './panelForm';
-const mapStateToProps = state => ({
-  formType: 'branch'
 
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PanelForm from './panelForm';
+import { createPanel,fetchPanel } from '../../../actions/panel_actions';
+const mapStateToProps = state => ({
+  formType: 'branch',
+  currentUser: state.session.user
 });
 
 const mapDispatchToProps = dispatch => ({
-  //NEED THE CREATE PANEL
-  // action: panel => dispatch(createPanel(panel))
+  action: panel => dispatch(createPanel(panel)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PanelForm));
