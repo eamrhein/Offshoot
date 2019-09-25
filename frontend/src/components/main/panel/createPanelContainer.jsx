@@ -2,7 +2,7 @@
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PanelForm from './panelForm';
-import {createPanel, fetchPanel} from '../../../actions/panel_actions';
+import {createPanel} from '../../../actions/panel_actions';
 const mapStateToProps = state => ({
   formType: 'create',
   currentUser: state.session.user

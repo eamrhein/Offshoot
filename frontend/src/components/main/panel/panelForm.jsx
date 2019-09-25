@@ -22,11 +22,14 @@ class PanelForm extends React.Component {
     // if (this.props.formType = 'branch') this.setState({panel: {parentId: this.props.match}})
   }
   handleSubmit(e){
+    // debugger
     e.preventDefault();
     const panel = this.state.panel;
     panel.authorId = this.props.currentUser.id;
     this.props.action(panel)
-      // .then((panel)=> this.props.history.push(`/panels/${panel.id}`));
+      .then((panel)=> {
+        debugger
+        this.props.history.push(`/panels/${panel.data._id}`)});
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){

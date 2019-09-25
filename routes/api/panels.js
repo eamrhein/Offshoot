@@ -23,7 +23,6 @@ router
         res.json(panel);
     })
     .post('/', (req, res) => {
-        debugger
         const { errors, isValid } = validatePanel(req.body);
 
         if (!isValid){
@@ -41,7 +40,6 @@ router
 
             newPanel.save()
                 .then(panel => {
-                    debugger
                     res.json(panel)
                 })
                 .catch(err => console.log(err));
