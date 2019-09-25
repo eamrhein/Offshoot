@@ -14,7 +14,7 @@ const receivePanels = panels => ({
 
 export const createPanel = panel => dispatch => (
   PanelAPIutil.createPanel(panel)
-    .then(panel => dispatch(receivePanel(panel)))
+    .then(panel => dispatch(receivePanel(panel),(err) => console.log('hey here are errors', err)))
 );
 
 export const fetchPanel = id => dispatch => (

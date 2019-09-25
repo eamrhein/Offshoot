@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PanelForm from './panelForm';
 import {createPanel, fetchPanel} from '../../../actions/panel_actions';
 const mapStateToProps = state => ({
-  formType: 'create'
-
+  formType: 'create',
+  currentUser: state.session.user
 });
 
 const mapDispatchToProps = dispatch => ({

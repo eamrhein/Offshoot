@@ -18,14 +18,13 @@ class PanelForm extends React.Component {
   }
 
   componentDidMount(){
-    debugger;
     // if (this.props.formType = 'edit') this.setState({panel: this.props.currPanel })
     // if (this.props.formType = 'branch') this.setState({panel: {parentId: this.props.match}})
   }
   handleSubmit(e){
     e.preventDefault();
     const panel = this.state.panel;
-    console.log(this.state)
+    panel.authorId = this.props.currentUser.id;
     this.props.action(panel)
       // .then((panel)=> this.props.history.push(`/panels/${panel.id}`));
     //Need logic to handle how we want behavior after action. 
