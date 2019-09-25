@@ -25,14 +25,15 @@ router.patch('/follow_root/:id', (req, res) => {
     return res.status(400).json(errors);
   }
   const currentUser = User.findById(req.body.userId);
-  console.log(currentUser);
+
   if (!currentUser) {
     return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
   }
+  console.log(currentUser)
   if (currentUser.followedRoots[req.body.rootId]) {
     return res.status(400).json({ root: 'root is already being followed' });
   }
-  currentUser.followedRoots.push(req.body.rootId);
+
   currentUser.save()
     .then((user) => res.json(user))
     .catch((err) => console.log(err));
