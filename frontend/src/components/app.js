@@ -15,10 +15,10 @@ const App = () => (
     <NavBarContainer />
     <Switch>
 
-      <AuthRoute exact path='/register' component={Register} />
+      <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
       <AuthRoute exact path="/" component={MainPage} />
-      <Route exact path="/panels/new" component={createPanelContainer} />
+      <Route exact path="/roots/new" component={createPanelContainer} />
       <Route path="/panels/:panelId/branch" component={branchPanelContainer} />
       <Route path="/panels/:panelId/edit" component={editPanelContainer} />
       <Route path="/panels/:panelId" component={PanelShow} />

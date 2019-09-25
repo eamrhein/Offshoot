@@ -18,7 +18,6 @@ class PanelForm extends React.Component {
   }
 
   componentDidMount(){
-    debugger
     if (this.props.formType === 'edit') {
       this.props.fetchPanel(this.props.match.params.panelId)
         .then(() => {
