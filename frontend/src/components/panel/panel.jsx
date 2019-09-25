@@ -1,0 +1,77 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+
+export class Panel extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            shareDrawerOpen: false
+        }
+
+        this.handleLike = this.handleLike.bind(this);
+        this.handleShare = this.handleShare.bind(this);
+        this.copyLink = this.copyLink.bind(this);
+    }
+
+    handleLike() {
+        //toggle like
+    }
+
+    handleShare() {
+        this.setState({
+            shareDrawerOpen: !this.state.shareDrawerOpen
+        });
+        if (this.shareDrawerOpen) {
+            this.copyLink();
+        }
+    }
+
+    copyLink() {
+        let link = document.getElementById("panelLink");
+        link.select();
+        link.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+    }
+
+    render() {
+        return (
+            <div className="panel">
+                <div className="panel-proper">
+                    <h1>Panel Title</h1>
+                    <figure className="panel-figure">
+                        <img src="testpanel.png" className="panel-image" alt="the draw your squad monopoly exploitable"></img>
+                        <ul className="panel-action-buttons">
+                            <i className="material-icons like-button">favorite</i>
+                            <i className={ this.state.shareDrawerOpen ?
+                                "material-icons share-button active" :
+                                "material-icons share-button"
+                            } onClick={this.handleShare}>share</i>
+                        </ul>
+                    </figure>
+                    <figcaption><span>Your PRANKSTER'S GAMBIT plunges to an all time low. You cannot hope to defeat Egbert in a prank-off. He is simply the best there is.</span></figcaption>
+                </div>
+                <div className={ this.state.shareDrawerOpen ?
+                    "share-drawer open" :
+                    "share-drawer"
+                }>
+                    <span>Link copied to clipboard.</span>
+                    <input type="text" value={`${this.props.url}/panels/${this.props.panelId}`} id="panelLink"></input>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+
+const mapStateToProps = (state, ownProps) => ({
+    panel: state.entities.panels[ownProps.panelId]
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Panel);
