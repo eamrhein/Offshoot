@@ -12,12 +12,8 @@ const validatePanel = require('../../validation/panel');
 
 router
     .get('/:id', (req, res) => {
-<<<<<<< HEAD
         const panel = Panel.findById(req.params.id);
         const {errors, isValid} = validatePanel(panel);
-=======
-        const {errors, isValid} = validatePanel(req.body);
->>>>>>> 8284e0985c7668d70f0f88d583de50642f77acdc
 
         if (!isValid) res.status(422).json(errors);
 
@@ -43,7 +39,16 @@ router
 
             newPanel.save()
                 .then(panel => {
-                    res.json(panel)
+                    const { _id, authorId, title, panelText, parentId, rootId } = panel;
+                    const payload = {
+                        id: _id,
+                        authorId,
+                        title,
+                        panelText,
+                        parentId,
+                        rootId
+                    };
+                    res.json(payload);
                 })
                 .catch(err => console.log(err));
         }
