@@ -58,14 +58,14 @@ class NavBar extends React.Component {
                   )}
                 </div>
                 {this.props.isSignedIn ? (
-                  <div className="story-links">
+                  <div className="auth-links">
                     <div>
                       {/* <NavLink to={`/users/${this.currentUser.id}/shoots`}>My Shoots Link</NavLink> */}
                     </div>
                     <div>
                       {/* <NavLink to={`/roots/new`}>New Story Link</NavLink> */}
                     </div>
-                    <button onClick={this.props.logout}> Sign Out</button>
+                    <input type="link" onClick={this.props.logout} value="Sign Out" />
                   </div>
                 ) : (
                   ""
