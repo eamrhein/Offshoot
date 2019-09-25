@@ -29,7 +29,7 @@ class PanelForm extends React.Component {
     this.props.action(panel)
       .then((panel)=> {
         debugger
-        this.props.history.push(`/panels/${panel.data._id}`)});
+        this.props.history.push(`/panels/${panel.data.id}`)});
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){

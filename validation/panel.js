@@ -8,7 +8,6 @@ module.exports = function ValidatePost(data) {
     data.panelText = validText(data.panelText) ? data.panelText : '';
     data.photoUrl = validText(data.photoUrl) ? data.photoUrl : '';
 
-
     if (Validator.isEmpty(data.title)) {
         errors.title = "Title can't be empty";
     }
