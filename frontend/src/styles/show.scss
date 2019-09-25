@@ -1,0 +1,95 @@
+
+
+.panel-show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .panel-proper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .share-drawer {
+        visibility: hidden;
+        display: block;
+        margin-top: -25px;
+        margin-bottom: 10px;
+        transition-property: margin-top;
+        transition-duration: 0.5s;
+    }
+
+    .share-drawer.open {
+        visibility: visible;
+        margin-top: 0px;
+    }
+
+    figure {
+        width: 350px;
+        padding: 10px;
+        background-color: $primary;
+        position: relative;
+
+        img {
+            width: 350px;
+        }
+
+        .panel-action-buttons {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+
+            display: flex;
+            flex-direction: column;
+
+            color: rgba($color: $secondary, $alpha: 0.5);
+
+            .like-button:active {
+                color: $like-active-color;
+            }
+
+            .share-button.active {
+                color: $primary;
+            }
+
+        }
+    }
+
+    figcaption {
+        display: block;
+
+        width: 370px;
+        box-sizing: border-box;
+        margin: 10px 20px;
+        padding: 15px 20px;
+        z-index: 1;
+        
+        background-color: $primary;
+    }
+
+    h1 {
+        margin: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 350px) {
+    //small phone
+    .panel-show {
+        figure {
+
+            width: 300px;
+
+            img {
+                width: 300px;
+            }
+        }
+    }
+}
