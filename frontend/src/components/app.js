@@ -9,6 +9,8 @@ import Login from './session/login_form_container';
 import MainPage from './main/main_page';
 import PanelShow from './panel/show/panel_show';
 import createPanelContainer from './main/panel/createPanelContainer';
+import branchPanelContainer from './main/panel/branchPanelContainer';
+import editPanelContainer from './main/panel/editPanelContainer';
 
 const App = () => (
   <div>
@@ -19,6 +21,8 @@ const App = () => (
       <AuthRoute exact path='/login' component={Login} />
       <AuthRoute exact path="/" component={MainPage} />
       <Route exact path="/panels/new" component={createPanelContainer} />
+      <Route path="/panels/:panelId/branch" component={branchPanelContainer} />
+      <Route path="/panels/:panelid/edit" component={editPanelContainer} />
       <Route path="/panels/:panelId" component={PanelShow} />
     </Switch>
   </div>

@@ -18,8 +18,8 @@ class PanelForm extends React.Component {
   }
 
   componentDidMount(){
-    // if (this.props.formType = 'edit') this.setState({panel: this.props.currPanel })
-    // if (this.props.formType = 'branch') this.setState({panel: {parentId: this.props.match}})
+    if (this.props.formType = 'edit') this.setState({panel: this.props.currPanel })
+    if (this.props.formType = 'branch') this.setState({panel: {parentId: this.props.match}})
   }
   handleSubmit(e){
     // debugger
@@ -29,7 +29,7 @@ class PanelForm extends React.Component {
     this.props.action(panel)
       .then((panel)=> {
         debugger
-        this.props.history.push(`/panels/${panel.data._id}`)});
+        this.props.history.push(`/panels/${panel.panel.data._id}`)});
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){
