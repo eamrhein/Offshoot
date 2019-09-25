@@ -18,7 +18,7 @@ class NavBar extends React.Component {
     render() {
         return (
         <div className="nav-bar">
-            <Link to="/"><img className="logo" src="logo512.png"></img></Link>
+            <Link to="/"><img className="logo" src="logo512.png" alt="offshoot logo"></img></Link>
             <div className={this.props.currentModal === "nav-dropdown" ? "dropdown-container open" : "dropdown-container"}>
                 <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
                 <div className="dropdown">
@@ -27,7 +27,7 @@ class NavBar extends React.Component {
                             <div>
                                     <NavLink to={`/users/${this.currentUser.id}`}>
                                     <span className="username">
-                                        <img className="acorn-icon" src="acorn-icon-black.png"></img>
+                                        <img className="acorn-icon" src="acorn-icon-black.png" alt="acorn icon"></img>
                                         <span>{this.props.currentUser.username}</span>
                                     </span>
                                     </NavLink>
