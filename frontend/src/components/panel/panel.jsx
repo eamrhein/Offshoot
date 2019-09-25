@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { toggleModal } from '../../actions/ui_actions';
 
 export class Panel extends Component {
 
@@ -13,6 +13,7 @@ export class Panel extends Component {
         this.handleLike = this.handleLike.bind(this);
         this.handleShare = this.handleShare.bind(this);
         this.copyLink = this.copyLink.bind(this);
+        this.handleTouch = this.handleTouch.bind(this);
     }
 
     handleLike() {
@@ -35,13 +36,20 @@ export class Panel extends Component {
         document.execCommand("copy");
     }
 
+    handleTouch() {
+        this.props.toggleModal(`active-panel-${this.panelId}`);
+    }
+
     render() {
         return (
-            <div className="panel">
+            <div className={
+                this.props.currentModal === `active-panel-${this.panelId}` ?
+                "panel active" :
+                "panel"}>
                 <div className="panel-proper">
                     <h1>Panel Title</h1>
                     <figure className="panel-figure">
-                        <img src="testpanel.png" className="panel-image" alt="the draw your squad monopoly exploitable"></img>
+                        <img src="testpanel.png" className="panel-image" alt="the draw your squad monopoly exploitable" onClick={this.handleTouch}></img>
                         <ul className="panel-action-buttons">
                             <i className="material-icons like-button">favorite</i>
                             <i className={ this.state.shareDrawerOpen ?
@@ -67,11 +75,12 @@ export class Panel extends Component {
 
 
 const mapStateToProps = (state, ownProps) => ({
-    panel: state.entities.panels[ownProps.panelId]
+    panel: state.entities.panels[ownProps.panelId],
+    currentModal: state.ui.currentModal
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    
+    toggleModal: (modal) => dispatch(toggleModal(modal))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Panel);
