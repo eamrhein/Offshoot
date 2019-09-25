@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import panels from './panels_reducer';
+import PanelsReducer from './panels_reducer';
 
-const entitiesReducer = combineReducers({
-    panels
+const EntitiesReducer = combineReducers({
+  panels: PanelsReducer
 });
 
-export default entitiesReducer;
+
+export default EntitiesReducer;
