@@ -8,6 +8,7 @@ const passport = require('passport');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const valdiateFollowRoot = require('../../validation/followRoot');
 
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
@@ -15,7 +16,40 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     username: req.user.username,
     email: req.user.email
   });
-})
+});
+
+router.patch('/follow_root/:id', (req, res) => {
+  const { errors, isValid } = valdiateFollowRoot(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  const currentUser = User.findById(req.body.userId);
+  console.log(currentUser);
+  if (!currentUser) {
+    return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+  }
+  if (currentUser.followedRoots[req.body.rootId]) {
+    return res.status(400).json({ root: 'root is already being followed' });
+  }
+  currentUser.followedRoots.push(req.body.rootId);
+  currentUser.save()
+    .then((user) => res.json(user))
+    .catch((err) => console.log(err));
+});
+
+router.delete('/unfollow_root/:id', (req, res) => {
+  const { errors, isValid } = valdiateFollowRoot(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  const currentUser = User.findById(req.body.userId);
+  if (!currentUser) {
+    return res.status(400).json({ currentUser: "current user id isn't saved to the database " })
+  }
+  if (!currentUser.followedRoots[req.body.json]) {
+    return res.status(400).json({currentUser: 'current user is already unfollowed' });
+  }
+});
 
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
