@@ -39,7 +39,7 @@ class NavBar extends React.Component {
                                         <span>{this.props.currentUser.username}</span>
                                     </span>
                                     </NavLink>
-    
+
                             </div>
                             :
                             <div className="auth-links">
@@ -70,12 +70,35 @@ class NavBar extends React.Component {
                                     Sign Out
                                 </a>
                         </div>
-                    : 
+                    :
                     ""}
                 </div>
+                {this.props.isSignedIn ? (
+                  <div className="auth-links">
+                    <div>
+                      {/* <NavLink to={`/users/${this.currentUser.id}/shoots`}>My Shoots Link</NavLink> */}
+                    </div>
+                    <div>
+                      {/* <NavLink to={`/roots/new`}>New Story Link</NavLink> */}
+                    </div>
+                    <input type="link" onClick={this.props.logout} value="Sign Out" />
+                  </div>
+                ) : (
+                  ""
+                )}
+                {false ? (
+                  <div className="auth-links">
+                    <div>
+                      <button onClick={this.props.logout}> Sign Out</button>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
-        </div>
-        )
+          </div>
+        );
     }
 }
 
