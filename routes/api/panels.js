@@ -12,13 +12,12 @@ const validatePanel = require('../../validation/panel');
 
 router
     .get('/:id', (req, res) => {
-        const {errors, isValid} = validatePanel(req.body);
+        const panel = Panel.findById(req.params.id);
+        const {errors, isValid} = validatePanel(panel);
 
         if (!isValid) res.status(422).json(errors);
 
         const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
-
-        const panel = Panel.findById(req.params.id);
 
         res.json(panel);
     })
@@ -40,7 +39,16 @@ router
 
             newPanel.save()
                 .then(panel => {
-                    res.json(panel)
+                    const { _id, authorId, title, panelText, parentId, rootId } = panel;
+                    const payload = {
+                        id: _id,
+                        authorId,
+                        title,
+                        panelText,
+                        parentId,
+                        rootId
+                    };
+                    res.json(payload);
                 })
                 .catch(err => console.log(err));
         }

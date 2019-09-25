@@ -22,7 +22,7 @@ const App = () => (
       <AuthRoute exact path="/" component={MainPage} />
       <Route exact path="/panels/new" component={createPanelContainer} />
       <Route path="/panels/:panelId/branch" component={branchPanelContainer} />
-      <Route path="/panels/:panelid/edit" component={editPanelContainer} />
+      <Route path="/panels/:panelId/edit" component={editPanelContainer} />
       <Route path="/panels/:panelId" component={PanelShow} />
     </Switch>
   </div>
