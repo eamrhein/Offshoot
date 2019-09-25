@@ -20,7 +20,7 @@ router
 
         const panel = Panel.findById(req.params.id);
 
-        res.json(panel)
+        res.json(panel);
     })
     .post('/', (req, res) => {
         const { errors, isValid } = validatePanel;
