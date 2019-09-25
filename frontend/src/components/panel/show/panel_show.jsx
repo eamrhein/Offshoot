@@ -12,7 +12,6 @@ export class PanelShow extends Component {
                 <RouteIndex />
                 <div>comment index placeholder</div>
             </div>
-            
         )
     }
 }
