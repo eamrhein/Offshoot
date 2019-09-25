@@ -9,7 +9,8 @@ export class PanelShow extends Component {
         return (
             <div className="panel-show">
                 <Panel panelId={this.props.match.params.panelId}/>
-                <RouteIndex />
+                {/* ------- COMMENT IN ON INTEGRATION ------- */}
+                {/* <RouteIndex /> */}
                 <div>comment index placeholder</div>
             </div>
         )
