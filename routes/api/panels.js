@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const Panel = require('../../models/Panel');
@@ -12,7 +13,7 @@ const validatePanel = require('../../validation/panel');
 
 router
   .get('/:id', (req, res) => {
-    const { errors, isValid } = validatePanel;
+    const { errors, isValid } = validatePanel(req.body);
 
     if (!isValid) res.status(422).json(errors);
 
@@ -24,24 +25,28 @@ router
     res.json(panel);
   })
   .post('/', (req, res) => {
-    const { errors, isValid } = validatePanel;
+    const { errors, isValid } = validatePanel(req.body);
 
-    if (!isValid) res.status(422).json(errors);
+    if (!isValid) {
+      res.status(422).json(errors);
+    } else {
+      // eslint-disable-next-line no-unused-vars
+      const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
 
-    // eslint-disable-next-line no-unused-vars
-    const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+      const newPanel = new Panel({
+        authorId,
+        title,
+        panelText,
+        parentId,
+        rootId
+      });
 
-    const newPanel = new Panel({
-      authorId,
-      title,
-      panelText,
-      parentId,
-      rootId
-    });
-
-    newPanel.save()
-      .then(panel => res.json(panel))
-      .catch(err => console.log(err));
+      newPanel.save()
+        .then(panel => {
+          res.json(panel);
+        })
+        .catch(err => console.log(err));
+    }
 
     // const fileName = req.query['file-name'];
     // const fileType = req.query['file-type'];
