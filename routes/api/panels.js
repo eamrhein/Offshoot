@@ -12,18 +12,17 @@ const validatePanel = require('../../validation/panel');
 
 router
     .get('/:id', (req, res) => {
-        const {errors, isValid} = validatePanel;
+        const panel = Panel.findById(req.params.id);
+        const {errors, isValid} = validatePanel(panel);
 
         if (!isValid) res.status(422).json(errors);
 
         const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
 
-        const panel = Panel.findById(req.params.id);
-
         res.json(panel);
     })
     .post('/', (req, res) => {
-        const { errors, isValid } = validatePanel;
+        const { errors, isValid } = validatePanel(req.body);
 
         if (!isValid) res.status(422).json(errors);
 

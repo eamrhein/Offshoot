@@ -5,9 +5,8 @@ module.exports = function ValidatePost(data) {
     const errors = {};
 
     data.title = validText(data.title) ? data.title : '';
-    data.panelText = validText(data.text) ? data.panelText : '';
+    data.panelText = validText(data.panelText) ? data.panelText : '';
     data.photoUrl = validText(data.photoUrl) ? data.photoUrl : '';
-
 
     if (Validator.isEmpty(data.title)) {
         errors.title = "Title can't be empty";
