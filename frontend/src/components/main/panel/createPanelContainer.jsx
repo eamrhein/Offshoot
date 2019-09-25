@@ -1,6 +1,8 @@
 
+import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PanelForm from './panelForm';
+import {createPanel, fetchPanel} from '../../../actions/panel_actions';
 const mapStateToProps = state => ({
   formType: 'create'
 
@@ -8,8 +10,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   //NEED THE CREATE PANEL
-  action: (panel) => console.log('actionplaceholder here is the panel!', panel)
-  // action: panel => dispatch(createPanel(panel))
+  // action: (panel) => console.log('actionplaceholder here is the panel!', panel)
+  action: panel => dispatch(createPanel(panel))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PanelForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PanelForm));
