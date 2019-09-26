@@ -20,7 +20,7 @@ export class Panel extends Component {
     }
 
     componentDidMount() {
-
+        this.props.fetchPanel(this.props.panelId);
     }
 
     handleLike() {
