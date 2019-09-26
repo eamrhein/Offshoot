@@ -12,6 +12,7 @@ const validatePanel = require('../../validation/panel');
 
 router
     .get('/:id', (req, res) => {
+        debugger
         const panel = Panel.findById(req.params.id);
         const {errors, isValid} = validatePanel(panel);
 
