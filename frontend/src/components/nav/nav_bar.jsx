@@ -66,9 +66,9 @@ class NavBar extends React.Component {
                     "" }
                     {this.props.authStatus ?
                         <div className="auth-links">
-                                <a href="#" onClick={this.props.logout}>
+                                <button onClick={this.props.logout}>
                                     Sign Out
-                                </a>
+                                </button>
                         </div>
                     : 
                     ""}

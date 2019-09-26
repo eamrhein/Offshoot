@@ -46,7 +46,6 @@ router
                     res.json(payload);
                 })
                 .catch(err => console.log(err));
-        }
 
       const newPanel = new Panel({
         authorId,
@@ -61,7 +60,7 @@ router
           res.json(panel);
         })
         .catch(err => console.log(err));
-    }
+
 
     // const fileName = req.query['file-name'];
     // const fileType = req.query['file-type'];

@@ -1,0 +1,36 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 20px;
+
+    form {
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            margin: 10px;
+            font-size: 20px;
+            font-family: monospace;
+            border-radius: $small-radius;
+        }
+
+        input[type=text], input[type=password] {
+            height: 30px;
+            width: 250px;
+            padding: 5px;
+        }
+
+        input[type=submit] {
+            background-color: $primary;
+            border: none;
+            height: 30px;
+        }
+
+    }
+
+}
