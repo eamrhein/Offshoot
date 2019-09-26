@@ -6,7 +6,7 @@ class PanelForm extends React.Component {
     this.state = {
       panel:{
         authorId: '',
-        title: 'default state',
+        title: '',
         panelText: '',
         photoURL: '',
         childId: [],
@@ -48,7 +48,7 @@ class PanelForm extends React.Component {
   render(){
     return (
     <form className='create-panel-form' onSubmit={this.handleSubmit}>
-      <div className='panel-form-title'>{this.props.formType}</div>
+      <h1 className='panel-form-title'>{this.props.formType}</h1>
       <label >
         Title
         <input type="text" onChange={this.handleChange('title')} value={this.state.panel.title}/>
@@ -59,10 +59,9 @@ class PanelForm extends React.Component {
       </label>
       <input onChange={e => this.setState({})}/> */}
       <label >
-        Panel Text
+        Caption
         <textarea cols="30" rows="10" onChange={this.handleChange('panelText')} value={this.state.panel.panelText}></textarea>
       </label>
-
       <input type="submit" value={this.props.formType}/>
     </form>)
   }
