@@ -20,8 +20,13 @@ export const createPanel = panel => dispatch => (
 export const fetchPanel = id => dispatch => (
   PanelAPIutil.fetchPanel(id)
     .then(panel => dispatch(receivePanel(panel)))
-)
+);
 
 export const fetchPanels = () => dispatch => (
   console.log('Panels are being fetched')
-)
+);
+
+export const updatePanel = (panel) => dispatch => (
+  PanelAPIutil.updatePanel(panel)
+    .then(panel => dispatch(receivePanel(panel)))
+);
