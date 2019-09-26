@@ -13,14 +13,26 @@ const validatePanel = require('../../validation/panel');
 router
     .get('/:id', (req, res) => {
         debugger
-        const panel = Panel.findById(req.params.id);
-        const {errors, isValid} = validatePanel(panel);
+        Panel.findById(req.params.id).then((panel) => {
 
-        if (!isValid) res.status(422).json(errors);
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId } = panel;
 
-        const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+            res.json({
+                id: _id,
+                authorId,
+                title,
+                panelText,
+                photoURL,
+                parentId,
+                rootId
+            });
 
-        res.json(panel);
+        });
+        // const {errors, isValid} = validatePanel(panel);
+
+        // if (!isValid) res.status(422).json(errors);
+
+
     })
     .post('/', (req, res) => {
         const { errors, isValid } = validatePanel(req.body);
