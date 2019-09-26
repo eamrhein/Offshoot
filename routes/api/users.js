@@ -25,6 +25,7 @@ router.patch('/follow_root/:id', (req, res) => {
     return res.status(400).json(errors);
   }
   User.findById(req.body.userId).then((currentUser) => {
+    console.log(currentUser);
     if (!currentUser) {
       return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
     }
@@ -38,19 +39,33 @@ router.patch('/follow_root/:id', (req, res) => {
   });
 });
 
+router.patch('/author_panel/:id', (req, res) => {
+  const { errors, isValid } = valdiateFollowRoot(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  User.findById(req.body.userId).then((currentUser) => {
+    
+  })
+})
+
 router.delete('/unfollow_root/:id', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   }
   User.findById(req.body.userId).then((currentUser) => {
+    console.log(currentUser);
     if (!currentUser) {
       return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
     }
-    if (!currentUser.followedRoots[req.body.json]) {
-      return res.status(400).json({ currentUser: 'current user is already unfollowed' });
+    if (!currentUser.followedRoots.includes(req.body.rootId)) {
+      return res.status(400).json({ currentUser: 'current roots already unfollowed' });
     }
-    currentUser.followedRoots = currentUser.followedRoots.filter()
+    currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
+    currentUser.save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
   });
 
 });
