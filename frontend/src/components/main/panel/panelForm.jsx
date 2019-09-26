@@ -33,9 +33,21 @@ class PanelForm extends React.Component {
     const panel = this.state.panel;
     panel.authorId = this.props.currentUser.id;
     this.props.action(panel)
-      .then((panel)=> {
-        // CHECK THIS
-        this.props.history.push(`/panels/${panel.panel.data.id}`)});
+      .then((childPanel)=> {
+        debugger
+        if(childPanel.panel.data.parentId && this.props.formType === 'branch'){
+          debugger
+          this.props.fetchPanel(childPanel.panel.data.parentId)
+            .then(parentPanel => {
+              debugger
+              parentPanel.panel.data.childIds.push(childPanel.panel.data.id)
+              this.props.updatePanel(parentPanel.panel.data)
+                .then(() => (this.props.history.push(`/panels/${childPanel.panel.data.id}`)))
+            })
+        } else {
+          this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+        }
+        });
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){
