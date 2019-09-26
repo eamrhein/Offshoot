@@ -7,3 +7,7 @@ export const createPanel = panel => {
 export const fetchPanel = id => {
   return axios.get(`/api/panels/${id}`);
 };
+
+export const updatePanel = (panel) => {
+  return axios.patch(`/api/panels/${panel.id}`, panel)
+};

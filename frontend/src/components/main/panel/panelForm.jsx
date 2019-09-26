@@ -28,6 +28,7 @@ class PanelForm extends React.Component {
     }
   }
   handleSubmit(e){
+    console.log(this.state)
     e.preventDefault();
     const panel = this.state.panel;
     panel.authorId = this.props.currentUser.id;
