@@ -1,15 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import {connect} from 'react-redux';
-import {logout} from '../../actions/session_actions';
-const mapStateToProps = state => ({
-    currentUser: state.session.user,
-    authStatus: state.session.isAuthenticated
-});
 
-const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
-});
 class NavBar extends React.Component {
 
     constructor(props) {
@@ -39,7 +30,7 @@ class NavBar extends React.Component {
                                         <span>{this.props.currentUser.username}</span>
                                     </span>
                                     </NavLink>
-    
+
                             </div>
                             :
                             <div className="auth-links">
@@ -70,13 +61,13 @@ class NavBar extends React.Component {
                                     Sign Out
                                 </a>
                         </div>
-                    : 
+                    :
                     ""}
                 </div>
+              </div>
             </div>
-        </div>
-        )
+        );
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;
