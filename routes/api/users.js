@@ -2,14 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
-// const keys = require('../../config/keys');
-require('dotenv').config();
+const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
-const valdiateFollowRoot = require('../../validation/followRoot');
 
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
@@ -17,41 +15,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     username: req.user.username,
     email: req.user.email
   });
-});
-
-router.patch('/follow_root/:id', (req, res) => {
-  const { errors, isValid } = valdiateFollowRoot(req.body);
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-  const currentUser = User.findById(req.body.userId);
-
-  if (!currentUser) {
-    return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-  }
-  console.log(currentUser)
-  if (currentUser.followedRoots[req.body.rootId]) {
-    return res.status(400).json({ root: 'root is already being followed' });
-  }
-
-  currentUser.save()
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
-});
-
-router.delete('/unfollow_root/:id', (req, res) => {
-  const { errors, isValid } = valdiateFollowRoot(req.body);
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-  const currentUser = User.findById(req.body.userId);
-  if (!currentUser) {
-    return res.status(400).json({ currentUser: "current user id isn't saved to the database " })
-  }
-  if (!currentUser.followedRoots[req.body.json]) {
-    return res.status(400).json({currentUser: 'current user is already unfollowed' });
-  }
-});
+})
 
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -104,7 +68,7 @@ router.post('/login', (req, res) => {
               email: user.email
             };
             jwt.sign(payload,
-              process.env.SECRET_OR_KEY,
+              keys.secretOrKey,
               { expiresIn: 3600 },
               (_err, token) => {
                 res.json({
