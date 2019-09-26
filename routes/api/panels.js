@@ -8,11 +8,11 @@ const validatePanel = require('../../validation/panel');
 // const { aws_access_key_id, aws_secret_access_key, sw3_bucket } = aws;
 
 // configure aws
-//aws.config.region = 'us-west-2';
+// aws.config.region = 'us-west-2';
+
 
 router
     .get('/:id', (req, res) => {
-        debugger
         Panel.findById(req.params.id).then((panel) => {
 
             const { _id, authorId, title, panelText, photoURL, parentId, rootId } = panel;
@@ -91,6 +91,49 @@ router
         //     res.end();
         // });
 
-});
+    })
+    .patch('/:id', (req, res) => {
+        debugger
+        const { errors, isValid } = validatePanel(req.body);
 
+        if (!isValid) {
+            res.status(422).json(errors);
+        } else if (req.params.id === req.body.id) {
+
+            Panel.findById(req.params.id).then(() => {
+                const { id, authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+
+                const updatedPanel = new Panel({
+                    _id: id,
+                    authorId,
+                    title,
+                    panelText,
+                    parentId,
+                    rootId
+                });
+                updatedPanel.isNew = false;
+                updatedPanel.save()
+                    .then(panel => {
+                        const { _id, authorId, title, panelText, parentId, rootId } = panel;
+                        const payload = {
+                            id: _id,
+                            authorId,
+                            title,
+                            panelText,
+                            parentId,
+                            rootId
+                        };
+                        res.json(payload);
+                    })
+                    .catch(err => console.log(err));
+
+            });
+            // check if it already exists
+            // check if it already exists
+            // save it
+            // return it
+            
+            
+        }
+    })
 module.exports = router;
