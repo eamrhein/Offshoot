@@ -24,19 +24,18 @@ router.patch('/follow_root/:id', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const currentUser = User.findById(req.body.userId);
-
-  if (!currentUser) {
-    return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-  }
-  console.log(currentUser)
-  if (currentUser.followedRoots[req.body.rootId]) {
-    return res.status(400).json({ root: 'root is already being followed' });
-  }
-
-  currentUser.save()
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+  User.findById(req.body.userId).then((currentUser) => {
+    if (!currentUser) {
+      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+    }
+    if (currentUser.followedRoots.includes(req.body.rootId)) {
+      return res.status(400).json({ root: 'current root is already being followed' });
+    }
+    currentUser.followedRoots.push(req.body.rootId);
+    currentUser.save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
+  });
 });
 
 router.delete('/unfollow_root/:id', (req, res) => {
@@ -44,13 +43,16 @@ router.delete('/unfollow_root/:id', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const currentUser = User.findById(req.body.userId);
-  if (!currentUser) {
-    return res.status(400).json({ currentUser: "current user id isn't saved to the database " })
-  }
-  if (!currentUser.followedRoots[req.body.json]) {
-    return res.status(400).json({currentUser: 'current user is already unfollowed' });
-  }
+  User.findById(req.body.userId).then((currentUser) => {
+    if (!currentUser) {
+      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+    }
+    if (!currentUser.followedRoots[req.body.json]) {
+      return res.status(400).json({ currentUser: 'current user is already unfollowed' });
+    }
+    currentUser.followedRoots = currentUser.followedRoots.filter()
+  });
+
 });
 
 router.post('/register', (req, res) => {
@@ -101,7 +103,9 @@ router.post('/login', (req, res) => {
             const payload = {
               id: user.id,
               username: user.username,
-              email: user.email
+              email: user.email,
+              followedRoots: user.followedRoots,
+              authoredRoots: user.authoredRoots
             };
             jwt.sign(payload,
               process.env.SECRET_OR_KEY,

@@ -15,3 +15,11 @@ export const signup = (userData) => {
 export const login = (userData) => {
   return axios.post('/api/users/login', userData);
 };
+
+export const followRoot = (userAndpanelIds) => {
+  return axios.patch('/api/users/follow_root/1', userAndpanelIds)
+}
+
+export const unfollowRoot = (userAndpanelIds) => {
+  return axios.delete('/api/users/unfollow_root/1', userAndpanelIds)
+}
