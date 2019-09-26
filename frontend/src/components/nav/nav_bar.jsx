@@ -1,15 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import {connect} from 'react-redux';
-import {logout} from '../../actions/session_actions';
-const mapStateToProps = state => ({
-    currentUser: state.session.user,
-    authStatus: state.session.isAuthenticated
-});
 
-const mapDistpatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
-});
 class NavBar extends React.Component {
 
     constructor(props) {
@@ -73,33 +64,10 @@ class NavBar extends React.Component {
                     :
                     ""}
                 </div>
-                {this.props.isSignedIn ? (
-                  <div className="auth-links">
-                    <div>
-                      {/* <NavLink to={`/users/${this.currentUser.id}/shoots`}>My Shoots Link</NavLink> */}
-                    </div>
-                    <div>
-                      {/* <NavLink to={`/roots/new`}>New Story Link</NavLink> */}
-                    </div>
-                    <input type="link" onClick={this.props.logout} value="Sign Out" />
-                  </div>
-                ) : (
-                  ""
-                )}
-                {false ? (
-                  <div className="auth-links">
-                    <div>
-                      <button onClick={this.props.logout}> Sign Out</button>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
               </div>
             </div>
-          </div>
         );
     }
 }
 
-export default connect(mapStateToProps, mapDistpatchToProps)(NavBar);
+export default NavBar;
