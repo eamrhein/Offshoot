@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     },
     //     comments: {
     //       1: {
-    //         pandelId: 1,
+    //         panelId: 1,
     //         authorId: 35,
     //         comment: 'Not the cookies!'
     //       }

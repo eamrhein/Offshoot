@@ -1,0 +1,133 @@
+.panel-index {
+
+    .panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: $small-radius;
+        background-color: $primary;
+        width: 350px;
+        margin: 20px 0px;
+
+        height: 250px;
+        transition-property: height;
+        transition-duration: .5s;
+    }
+    
+    .panel-proper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
+    }
+
+    .share-drawer {
+
+        visibility: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: -60px;
+        margin-bottom: 10px;
+        border-radius: $small-radius;
+
+        background-color: $primary;
+        padding: 10px;
+        z-index: 1;
+
+        transition-property: margin-top, visibility;
+        transition-duration: 0.5s;
+    }
+
+    .share-drawer.open {
+        visibility: visible;
+        margin-top: 0px;
+        transition-property: margin-top, visibility;
+        transition-duration: 0.5s;
+    }
+
+    figure {
+        width: 350px;
+        position: relative;
+        padding: 10px;
+        border-radius: 10px;
+        top: -45px;
+        transition-property: top;
+        transition-duration: 0.5s;
+        z-index: 2;
+
+        img {
+            width: 350px;
+            border-radius: 10px;
+        }
+
+        .panel-action-buttons {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+
+            display: flex;
+            flex-direction: column;
+
+            color: rgba($color: $secondary, $alpha: 0.0);
+
+            transition-property: color;
+            transition-duration: 0.5s;
+
+            .like-button:active {
+                color: $like-active-color;
+            }
+
+            .share-button.active {
+                color: $primary;
+            }
+
+        }
+    }
+
+    figcaption {
+        display: block;
+        position: relative;
+
+        bottom: 200px;
+        width: 350px;
+        height: 100px;
+        box-sizing: border-box;
+        margin: 10px 20px;
+        padding: 15px 20px;
+        z-index: 1;
+        overflow: hidden;
+        border-radius: 5px;
+        text-align: center;
+        
+        background-color: $primary;
+
+        transition-property: bottom;
+        transition-duration: 0.5s;
+
+        span {
+            text-overflow: ellipsis;
+        }
+    }
+
+    h1 {
+        margin: 10px;
+    }
+
+    .panel.active {
+        height: 400px;
+
+        .panel-action-buttons {
+            color: rgba($color: $secondary, $alpha: 0.5);
+        }
+
+        figure {
+            top: 0px;
+        }
+
+        figcaption {
+            bottom: 0px;
+        }
+    }
+
+}
