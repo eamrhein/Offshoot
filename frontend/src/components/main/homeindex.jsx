@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import Panel from '../panel/panel';
+
  // incorporate infinite scrolling
 // Fetch only roots 
 // display the root cards 
@@ -28,7 +30,10 @@ class HomeIndex extends React.Component {
   constructor(props){
     super(props)
     this.handleScroll = this.handleScroll.bind(this);
-    this.state = {panels : []}
+
+    this.state = {
+      panels : []
+    }
   }
 
   componentDidMount(){
@@ -76,8 +81,10 @@ class HomeIndex extends React.Component {
 
 
   render(){
+
     return (
       <div className='panel-index'>
+        <Panel />
         {this.state.panels}
       </div>
     )

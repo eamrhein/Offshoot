@@ -35,7 +35,8 @@
         width: 250px;
         box-sizing: border-box;
 
-        top: 50px;
+        top: 48px;
+        // right: -250px;
         right: 0px;
 
         // padding: 5px;
@@ -45,9 +46,10 @@
 
         background-color: $light-secondary;
 
+        // transition-property: right, visibility;
+        // transition-duration: .3s;
+
         > div {
-
-
             div {
                 // padding: 10px;
             }
@@ -66,14 +68,26 @@
         }
     }
 
-    a {
+    a, button, .guestname {
         color: black;
         background-color: $lighter-secondary;
+        font-family: $font-family;
         text-decoration: none;
         display: block;
         padding: 10px;
-        margin: 5px;
+        margin: 10px;
+        box-sizing: border-box;
+        border: none;
         border-radius: $small-radius;
+    }
+
+    .guestname {
+        background-color: transparent;
+    }
+
+    button {
+        width: 240px;
+
     }
 
     a:active {
@@ -86,7 +100,8 @@
 .dropdown-container.open {
 
     .dropdown {
-        visibility: visible
+        visibility: visible;
+        // right: 0px;
     }
 
     .dropdown-button {
@@ -98,10 +113,12 @@
 
 .acorn-icon {
     height: 16px;
+    margin: 5px;
 }
 
-.username {
-    display: block;
-    margin: 10px;
+.username, .guestname {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     font-weight: bold;
 }
