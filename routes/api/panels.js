@@ -34,15 +34,23 @@ router
 
 
     })
-    .post('/', (req, res) => {
-        const { errors, isValid } = validatePanel(req.body);
 
-    const panel = Panel.findById(req.params.id);
 
-    res.json(panel);
-  })
   .post('/', (req, res) => {
     const { errors, isValid } = validatePanel(req.body);
+
+        if (!isValid) {
+            res.status(422).json(errors);
+        } else {
+        const { authorId, title, panelText, photoURL, parentId, rootId } = req.body;
+
+        const newPanel = new Panel({
+            authorId,
+            title,
+            panelText,
+            parentId,
+            rootId
+          });
 
             newPanel.save()
                 .then(panel => {
@@ -84,7 +92,7 @@ router
         //     res.write(JSON.stringify(returnData));
         //     res.end();
         // });
-
+            }
     })
     .patch('/:id', (req, res) => {
         const { errors, isValid } = validatePanel(req.body);

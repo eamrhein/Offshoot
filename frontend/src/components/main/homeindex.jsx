@@ -84,6 +84,7 @@ class HomeIndex extends React.Component {
 
     return (
       <div className='panel-index'>
+        <Panel />
         {this.state.panels}
       </div>
     )

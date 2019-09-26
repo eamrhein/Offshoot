@@ -49,6 +49,7 @@ class PanelForm extends React.Component {
   render(){
     return (
     <form className='create-panel-form' onSubmit={this.handleSubmit}>
+  
       <h1 className='panel-form-title'>{this.props.formType}</h1>
       <label >
         Title

@@ -1,7 +1,4 @@
 .panel-index {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     .panel {
         display: flex;
@@ -21,20 +18,32 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 2;
     }
 
     .share-drawer {
+
         visibility: hidden;
-        display: block;
-        margin-top: -25px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: -60px;
         margin-bottom: 10px;
-        transition-property: margin-top;
+        border-radius: $small-radius;
+
+        background-color: $primary;
+        padding: 10px;
+        z-index: 1;
+
+        transition-property: margin-top, visibility;
         transition-duration: 0.5s;
     }
 
     .share-drawer.open {
         visibility: visible;
         margin-top: 0px;
+        transition-property: margin-top, visibility;
+        transition-duration: 0.5s;
     }
 
     figure {
@@ -89,6 +98,7 @@
         z-index: 1;
         overflow: hidden;
         border-radius: 5px;
+        text-align: center;
         
         background-color: $primary;
 
