@@ -93,7 +93,6 @@ router
 
     })
     .patch('/:id', (req, res) => {
-        debugger
         const { errors, isValid } = validatePanel(req.body);
 
         if (!isValid) {
