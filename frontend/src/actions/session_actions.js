@@ -6,7 +6,6 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION ERRORS";
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER"
 export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN"
 
-
 export const receiveCurrentUser = currentUser => ({
   type: RECEIVE_CURRENT_USER,
   currentUser
@@ -45,6 +44,7 @@ export const login = user => dispatch => (
       dispatch(receiveErrors(err.response.data));
     })
 )
+
 
 export const logout = () => dispatch => {
   localStorage.removeItem('jwtToken')
