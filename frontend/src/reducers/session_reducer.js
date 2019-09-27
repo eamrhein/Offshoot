@@ -3,7 +3,7 @@ import {
   RECEIVE_USER_LOGOUT,
   RECEIVE_USER_SIGN_IN
 } from '../actions/session_actions';
-
+import {USER_AUTHORED_UPDATE} from '../actions/user_actions';
 const initialState = {
   isAuthenticated: false,
   user: {}
@@ -26,6 +26,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isSignedIn: true
+      }
+    case USER_AUTHORED_UPDATE:
+      return {
+        ...state,
+        isAuthenticated: !!action.currentUser,
+        user: action.currentUser.data
       }
     default:
       return state;

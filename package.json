@@ -27,6 +27,7 @@
     "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "uuid": "^3.3.3",
     "validator": "^11.1.0"
   },
   "devDependencies": {

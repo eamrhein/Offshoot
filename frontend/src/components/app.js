@@ -11,6 +11,7 @@ import branchPanelContainer from './main/panel/branchPanelContainer';
 import editPanelContainer from './main/panel/editPanelContainer';
 import LikedIndexContainer from './main/index/liked_index_container';
 import MainIndexContainer from './main/index/main_Index_container';
+import AuthoredIndexContainer from './main/index/authored_index_container';
 
 const App = () => (
   <div>
@@ -21,10 +22,11 @@ const App = () => (
       <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
       <ProtectedRoute exact path='/panels/liked' component={LikedIndexContainer} />
+      <ProtectedRoute exact path='/panels/authored' component={AuthoredIndexContainer} />
       <Route exact path="/" component={MainIndexContainer} />
-      <Route exact path="/roots/new" component={createPanelContainer} />
-      <Route path="/panels/:panelId/branch" component={branchPanelContainer} />
-      <Route path="/panels/:panelId/edit" component={editPanelContainer} />
+      <ProtectedRoute exact path="/roots/new" component={createPanelContainer} />
+      <ProtectedRoute path="/panels/:panelId/branch" component={branchPanelContainer} />
+      <ProtectedRoute path="/panels/:panelId/edit" component={editPanelContainer} />
       <Route path="/panels/:panelId" component={PanelShow} />
     </Switch>
   </div>
