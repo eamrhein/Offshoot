@@ -6,7 +6,7 @@ const PanelsReducer = (state = {}, action) => {
     case RECEIVE_PANEL:
       return Object.assign({}, state, {[action.panel.data.id] : action.panel.data })
     case RECEIVE_PANELS:
-      return Object.assign({}, state, action.panels)
+      return Object.assign({}, state, action.panels.data)
     default: 
       return state;
   }

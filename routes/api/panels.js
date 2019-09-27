@@ -146,24 +146,41 @@ router
     })
     .get('/', (req, res) => {
         debugger
-        if (req.body.hasOwnProperty('authoredRoots')){
-            Panel.find({id: {$in: req.body.authoredRoots}}, (err, authoredPanels) => {
-
-            })
-        } else if (req.body.hasOwnProperty('followedRoots')){
-
-        }else {
-            Panel.find({}, (err, panelsArray) => {
+        if (req.query.hasOwnProperty('panelsArray')){
+            Panel.find({_id: {$in: req.query.panelsArray}}, (err, panelsArray) => {
                 const panelsToReturnPojo = {};
                 panelsArray.forEach(panel => {
-                    const { _id, authorId, title, panelText, parentId, rootId } = panel;
+                    const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
                     const RestructuredPanel = {
                         id: _id,
                         authorId,
                         title,
                         panelText,
                         parentId,
-                        rootId
+                        rootId,
+                        photoURL,
+                        childIds
+                    };
+                    panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+                });
+                res.send(panelsToReturnPojo);
+            })
+
+
+        }else {
+            Panel.find({}, (err, panelsArray) => {
+                const panelsToReturnPojo = {};
+                panelsArray.forEach(panel => {
+                    const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+                    const RestructuredPanel = {
+                        id: _id,
+                        authorId,
+                        title,
+                        panelText,
+                        parentId,
+                        rootId,
+                        photoURL,
+                        childIds
                     };
                     panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
                 });
