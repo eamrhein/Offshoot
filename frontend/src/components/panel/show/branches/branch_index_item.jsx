@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 export class BranchIndexItem extends Component {
     render() {
         return (
-            <li>
-                <Link to={`/panels/${this.props.panelId}`}>{this.props.panel.title}</Link>
+            <li className="branch-index-item">
+                <Link to={`/panels/${this.props.panelId}`}>
+                    <img className="panel-thumb" src={this.props.panel.photoUrl}></img>
+                    {this.props.panel.title}
+                </Link>
             </li>
         )
     }
