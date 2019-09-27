@@ -24,7 +24,7 @@ const styles = {width: '200px', height: '100px', border: '1px solid black', padd
 const dummyDiv1 = <div style={styles} >this is a dummydiv1{Math.random() * 1000}</div>
 const dummyDiv2 = <div style={styles} >this is a dummydiv2{Math.random() * 1000}</div>
 const dummyDiv3 = <div style={styles} >this is a dummydiv3{Math.random() * 1000}</div>
-const startingList = [dummyDiv1, dummyDiv2, dummyDiv3, dummyDiv1, dummyDiv2]
+const startingList = [dummyDiv1, dummyDiv2, dummyDiv3, dummyDiv1, dummyDiv2];
 
 class HomeIndex extends React.Component {
   constructor(props){
