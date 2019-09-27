@@ -22,7 +22,7 @@ export class Panel extends Component {
     }
 
     componentDidMount() {
-    //    this.props.fetchPanel(this.props.panelId);
+       this.props.fetchPanel(this.props.panelId);
     }
 
 
@@ -91,7 +91,9 @@ export class Panel extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 
-    let panel = state.entities.panels[ownProps.match.params.panelId];
+    let panelId = ownProps.panel.id || ownProps.match.params.panelId;
+
+    let panel = ownProps.panel || state.entities.panels[ownProps.match.params.panelId];
     
     return {
         panel: Object.assign({
@@ -104,7 +106,7 @@ const mapStateToProps = (state, ownProps) => {
             photoUrl: "panel_not_found.png"
         }, panel),
         // ----- ^^^^^ fix this
-        panelId: ownProps.match.params.panelId,
+        panelId,
         // author: state.entities.users[panel.authorId],
         currentModal: state.ui.currentModal,
     };
