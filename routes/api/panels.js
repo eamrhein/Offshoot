@@ -13,6 +13,7 @@ const validatePanel = require('../../validation/panel');
 
 router
     .get('/:id', (req, res) => {
+        debugger
         Panel.findById(req.params.id).then((panel) => {
 
             const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
@@ -139,31 +140,32 @@ router
             
         }
     })
-    // .get('/', (req, res) => {
-    //     debugger
-    //     if(req.body[authoredRoots]){
+    .get('/', (req, res) => {
+        debugger
+        if (req.body.hasOwnProperty('authoredRoots')){
+            Panel.find({id: {$in: req.body.authoredRoots}}, (err, authoredPanels) => {
 
-    //     }else if (req.body[followedRoots]){
+            })
+        } else if (req.body.hasOwnProperty('followedRoots')){
 
-    //     }else {
-    //         Panel.find({}, (err, panelsArray) => {
-    //             debugger;
-    //             const panelsToReturnPojo = {};
-    //             panelsArray.forEach(panel => {
-    //                 const { _id, authorId, title, panelText, parentId, rootId } = panel;
-    //                 const RestructuredPanel = {
-    //                     id: _id,
-    //                     authorId,
-    //                     title,
-    //                     panelText,
-    //                     parentId,
-    //                     rootId
-    //                 };
-    //                 panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
-    //             });
-    //             res.send(panelsToReturnPojo);
-    //         })
-    //     }
+        }else {
+            Panel.find({}, (err, panelsArray) => {
+                const panelsToReturnPojo = {};
+                panelsArray.forEach(panel => {
+                    const { _id, authorId, title, panelText, parentId, rootId } = panel;
+                    const RestructuredPanel = {
+                        id: _id,
+                        authorId,
+                        title,
+                        panelText,
+                        parentId,
+                        rootId
+                    };
+                    panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+                });
+                res.send(panelsToReturnPojo);
+            })
+        }
         
-    // })
+    })
 module.exports = router;
