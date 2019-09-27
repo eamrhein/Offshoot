@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    z-index: 5;
+    z-index: 10;
     box-sizing: border-box;
     height: 50px;
 
@@ -23,21 +23,26 @@
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
     
     .dropdown-button {
         color: $light-primary;
         padding: 5px;
-        margin: 5px;
         border-radius: $small-radius;
     }
 
     .dropdown {
         visibility: hidden;
         position: absolute;
+
         width: 250px;
         box-sizing: border-box;
 
-        top: 48px;
+        // top: -500px;
+        top: 50px;
+
         // right: -250px;
         right: 0px;
 
@@ -48,7 +53,7 @@
 
         background-color: $light-secondary;
 
-        // transition-property: right, visibility;
+        // transition-property: top, visibility;
         // transition-duration: .3s;
 
         > div {
@@ -88,7 +93,7 @@
     }
 
     button {
-        width: 240px;
+        width: 230px;
 
     }
 
@@ -104,6 +109,7 @@
     .dropdown {
         visibility: visible;
         // right: 0px;
+        // top: 50px;
     }
 
     .dropdown-button {

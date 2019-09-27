@@ -15,15 +15,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100vw;
     }
 
     .share-drawer {
+        font-family: $font-family;
         visibility: hidden;
         display: block;
         margin-top: -25px;
         margin-bottom: 10px;
         transition-property: margin-top;
         transition-duration: 0.5s;
+
+        input {
+            font-family: $font-family;
+        }
     }
 
     .share-drawer.open {
@@ -104,7 +110,7 @@
 
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 380px) {
     //small phone
     .panel-show {
         figure {
@@ -114,6 +120,9 @@
             img {
                 width: 300px;
             }
+        }
+        figcaption {
+            width: 320px;
         }
     }
 }

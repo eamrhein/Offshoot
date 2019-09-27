@@ -17,6 +17,8 @@ export class Panel extends Component {
         this.handleShare = this.handleShare.bind(this);
         this.copyLink = this.copyLink.bind(this);
         this.handleTouch = this.handleTouch.bind(this);
+
+        console.log(this.props);
     }
 
     componentDidMount() {
@@ -88,9 +90,6 @@ export class Panel extends Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-
-    console.log(state);
-    console.log(ownProps);
 
     let panel = state.entities.panels[ownProps.match.params.panelId];
     

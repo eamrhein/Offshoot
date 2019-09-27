@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
-export class RouteIndexItem extends Component {
+export class BranchIndexItem extends Component {
     render() {
         return (
             <li>
@@ -20,4 +20,4 @@ const mapDispatchToProps = {
     
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouteIndexItem)
+export default connect(mapStateToProps, mapDispatchToProps)(BranchIndexItem)
