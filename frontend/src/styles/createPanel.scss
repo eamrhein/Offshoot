@@ -54,6 +54,34 @@
         height: 40px;
     }
 
+    input[type=file] {
+        position: absolute;
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+    .image-input {
+        width: 300px;
+        border: 2px solid $primary;
+        height: 200px;
+        background-color: rgba($color: $primary, $alpha: 0.5);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .image-input-label {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .image-preview {
+        width: 300px;
+    }
+
 }
 
 
