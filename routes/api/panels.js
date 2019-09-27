@@ -14,7 +14,7 @@ const validateComment = require('../../validation/comment');
 router
   .get('/:id', (req, res) => {
     Panel.findById(req.params.id).then((panel) => {
-      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
 
       res.json({
         id: _id,
@@ -24,8 +24,7 @@ router
         photoURL,
         parentId,
         rootId,
-        childIds,
-        comments
+        childIds
       });
     });
   })
@@ -96,7 +95,7 @@ router
       res.status(422).json(errors);
     } else if (req.params.id === req.body.id) {
       Panel.findById(req.params.id).then(() => {
-        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = req.body;
+        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = req.body;
 
         const updatedPanel = new Panel({
           _id: id,
@@ -106,13 +105,12 @@ router
           parentId,
           rootId,
           photoURL,
-          childIds,
-          comments
+          childIds
         });
         updatedPanel.isNew = false;
         updatedPanel.save()
           .then(panel => {
-            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
             const payload = {
               id: _id,
               authorId,
@@ -121,8 +119,7 @@ router
               parentId,
               rootId,
               photoURL,
-              childIds,
-              comments
+              childIds
             };
             res.json(payload);
           })
@@ -133,7 +130,49 @@ router
       // save it
       // return it
     }
+  })
+  .get('/', (req, res) => {
+    if (req.query.panelsArray) {
+      Panel.find({ _id: { $in: req.query.panelsArray } }, (_err, panelsArray) => {
+        const panelsToReturnPojo = {};
+        panelsArray.forEach(panel => {
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+          const RestructuredPanel = {
+            id: _id,
+            authorId,
+            title,
+            panelText,
+            parentId,
+            rootId,
+            photoURL,
+            childIds
+          };
+          panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+        });
+        res.send(panelsToReturnPojo);
+      });
+    } else {
+      Panel.find({}, (_err, panelsArray) => {
+        const panelsToReturnPojo = {};
+        panelsArray.forEach(panel => {
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+          const RestructuredPanel = {
+            id: _id,
+            authorId,
+            title,
+            panelText,
+            parentId,
+            rootId,
+            photoURL,
+            childIds
+          };
+          panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+        });
+        res.send(panelsToReturnPojo);
+      });
+    }
   });
+
 //! create a comment
 
 router.patch('/create-comment/:id', (req, res) => {
@@ -144,38 +183,10 @@ router.patch('/create-comment/:id', (req, res) => {
   Panel.findById(req.params.id)
     .then((panel) => {
       panel.comments.push(req.body);
-      panel.save()
+      panel.save();
     })
     .catch((err) => {
       console.log(err);
     });
 });
-// .get('/', (req, res) => {
-//     debugger
-//     if(req.body[authoredRoots]){
-
-//     }else if (req.body[followedRoots]){
-
-//     }else {
-//         Panel.find({}, (err, panelsArray) => {
-//             debugger;
-//             const panelsToReturnPojo = {};
-//             panelsArray.forEach(panel => {
-//                 const { _id, authorId, title, panelText, parentId, rootId } = panel;
-//                 const RestructuredPanel = {
-//                     id: _id,
-//                     authorId,
-//                     title,
-//                     panelText,
-//                     parentId,
-//                     rootId
-//                 };
-//                 panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
-//             });
-//             res.send(panelsToReturnPojo);
-//         })
-//     }
-
-// })
-
 module.exports = router;
