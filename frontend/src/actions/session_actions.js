@@ -19,6 +19,7 @@ export const receiveErrors = errors => ({
   type: RECEIVE_SESSION_ERRORS,
   errors
 });
+
 export const logoutUser = () => ({
   type: RECEIVE_USER_LOGOUT
 });
