@@ -22,7 +22,9 @@ export class Panel extends Component {
     }
 
     componentDidMount() {
+        if (!this.props.panel) {
        this.props.fetchPanel(this.props.panelId);
+        }
     }
 
 
@@ -79,7 +81,7 @@ export class Panel extends Component {
                     "share-drawer"
                 }>
                     <span>Link copied to clipboard.</span>
-                    <input type="text" value={`${this.props.url}/panels/${this.props.panelId}`} id="panelLink"></input>
+                    <input type="text" value={`${window.location.href}panels/${this.props.panelId}`} id="panelLink" readOnly></input>
                 </div>
             </div>
         )
@@ -92,7 +94,6 @@ export class Panel extends Component {
 const mapStateToProps = (state, ownProps) => {
 
     let panelId = ownProps.panel.id || ownProps.match.params.panelId;
-
     let panel = ownProps.panel || state.entities.panels[ownProps.match.params.panelId];
     
     return {
