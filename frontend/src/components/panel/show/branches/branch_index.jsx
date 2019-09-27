@@ -15,9 +15,12 @@ export class BranchIndex extends Component {
                 }) :
                     ""
                 }
-                <li><Link to={`${this.props.match.url}/branch`}>
-                    <i className="material-icons">playlist_add</i>
-                    <span>Add Branch</span></Link></li>
+                <li>
+                    <Link to={`${this.props.match.url}/branch`}>
+                        <i className="material-icons">playlist_add</i>
+                        <span>Add Branch</span>
+                    </Link>
+                </li>
             </ul>
         )
     }

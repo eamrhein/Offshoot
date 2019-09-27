@@ -130,8 +130,11 @@ class PanelForm extends React.Component {
         <input type="text" onChange={this.handleChange('title')} value={this.state.panel.title}/>
       </label>
       {/* UNFINISHED FOR AWS */}
+      <label className="image-input">
       <input id="file-input" type="file" onChange={this.photoReader} />
+      <div className="image-input-label">upload an image</div>
       {this.state.photoURL ? (<img src={this.state.photoURL} className="image-preview" />) : ""}
+      </label>
       {/* <label>
         Photo
       </label>

@@ -54,7 +54,7 @@ export class Panel extends Component {
     }
 
     render() {
-        console.log(this.props);
+
         return (
             <div className={
                 this.props.currentModal === `active-panel-${this.props.panelId}` ?

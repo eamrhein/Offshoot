@@ -10,7 +10,7 @@ export class PanelShow extends Component {
         return (
             <div className="panel-show">
                 <Panel panelId={this.props.match.params.panelId}/>            
-                {/* <BranchIndex panelId={this.props.match.params.panelId}/> */}
+                <BranchIndex panelId={this.props.match.params.panelId}/>
                 <div>comment index placeholder</div>
             </div>
         )
