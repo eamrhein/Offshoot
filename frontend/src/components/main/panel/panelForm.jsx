@@ -6,7 +6,7 @@ class PanelForm extends React.Component {
     this.state = {
       panel:{
         authorId: '',
-        title: 'default state',
+        title: '',
         panelText: '',
         photoURL: '',
         childId: [],
@@ -30,14 +30,27 @@ class PanelForm extends React.Component {
     }
   }
   handleSubmit(e){
+    console.log(this.state)
     e.preventDefault();
     const panel = this.state.panel;
     panel.authorId = this.props.currentUser.id;
     this.getSignedPhotoRequest(this.state.photoFile);
     this.props.action(panel)
-      .then((panel)=> {
-        // CHECK THIS
-        this.props.history.push(`/panels/${panel.panel.data.id}`)});
+      .then((childPanel)=> {
+        debugger
+        if(childPanel.panel.data.parentId && this.props.formType === 'branch'){
+          debugger
+          this.props.fetchPanel(childPanel.panel.data.parentId)
+            .then(parentPanel => {
+              debugger
+              parentPanel.panel.data.childIds.push(childPanel.panel.data.id)
+              this.props.updatePanel(parentPanel.panel.data)
+                .then(() => (this.props.history.push(`/panels/${childPanel.panel.data.id}`)))
+            })
+        } else {
+          this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+        }
+        });
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){
@@ -108,7 +121,8 @@ class PanelForm extends React.Component {
   render(){
     return (
     <form className='create-panel-form' onSubmit={this.handleSubmit}>
-      <div className='panel-form-title'>{this.props.formType}</div>
+  
+      <h1 className='panel-form-title'>{this.props.formType}</h1>
       <label >
         Title
         <input type="text" onChange={this.handleChange('title')} value={this.state.panel.title}/>
@@ -121,10 +135,9 @@ class PanelForm extends React.Component {
       </label>
       <input onChange={e => this.setState({})}/> */}
       <label >
-        Panel Text
+        Caption
         <textarea cols="30" rows="10" onChange={this.handleChange('panelText')} value={this.state.panel.panelText}></textarea>
       </label>
-
       <input type="submit" value={this.props.formType}/>
     </form>)
   }

@@ -13,11 +13,12 @@ import editPanelContainer from './main/panel/editPanelContainer';
 const App = () => (
   <div>
     <NavBarContainer />
+    <img className="backdrop" src="backdrop.png"/>
     <Switch>
 
       <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
-      <AuthRoute exact path="/" component={MainPage} />
+      <Route exact path="/" component={MainPage} />
       <Route exact path="/roots/new" component={createPanelContainer} />
       <Route path="/panels/:panelId/branch" component={branchPanelContainer} />
       <Route path="/panels/:panelId/edit" component={editPanelContainer} />

@@ -6,14 +6,14 @@ export class RouteIndexItem extends Component {
     render() {
         return (
             <li>
-                <Link to={`/panels/${this.props.panelId}`} />
+                <Link to={`/panels/${this.props.panelId}`}>{this.props.panel.title}</Link>
             </li>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-    
+const mapStateToProps = (state, ownProps) => ({
+    panel: state.entities.panels[ownProps.panelId]
 })
 
 const mapDispatchToProps = {
