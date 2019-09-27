@@ -37,18 +37,20 @@ class PanelForm extends React.Component {
     this.getSignedPhotoRequest(this.state.photoFile);
     this.props.action(panel)
       .then((childPanel)=> {
-        debugger
         if(childPanel.panel.data.parentId && this.props.formType === 'branch'){
-          debugger
           this.props.fetchPanel(childPanel.panel.data.parentId)
             .then(parentPanel => {
-              debugger
               parentPanel.panel.data.childIds.push(childPanel.panel.data.id)
+              
               this.props.updatePanel(parentPanel.panel.data)
                 .then(() => (this.props.history.push(`/panels/${childPanel.panel.data.id}`)))
             })
         } else {
-          this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+          this.props.authorRoot({ userId: this.props.currentUser.id, rootId: childPanel.panel.data.id})
+            .then(() => {
+              this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+
+            })
         }
         });
     //Need logic to handle how we want behavior after action. 

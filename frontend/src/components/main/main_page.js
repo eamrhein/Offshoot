@@ -1,13 +1,15 @@
 // Temporary File To show react is working
 import React from 'react';
-import HomeIndex from './homeindex';
+import MainIndexContainer from './index/main_Index_container';
+
+
 
 class MainPage extends React.Component {
 
   render() {
     return (
       <div>
-        <HomeIndex />
+        <MainIndexContainer />
         <footer>
           
           Copyright &copy; 2019
