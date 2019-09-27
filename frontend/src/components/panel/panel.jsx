@@ -22,9 +22,7 @@ export class Panel extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.panel) {
        this.props.fetchPanel(this.props.panelId);
-        }
     }
 
 
@@ -93,8 +91,22 @@ export class Panel extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 
-    let panelId = ownProps.panel.id || ownProps.match.params.panelId;
-    let panel = ownProps.panel || state.entities.panels[ownProps.match.params.panelId];
+    let panelId; 
+    let panel;
+    console.log(ownProps);
+
+    if (ownProps.panel !== undefined) {
+        panelId = ownProps.panel.id;
+        panel = ownProps.panel;
+    } else if (ownProps.panelId !== undefined) {
+        panelId = ownProps.panelId;
+        panel = state.entities.panels[ownProps.panelId];
+    } else { 
+        panelId = ownProps.match.params.panelId;
+        panel = state.entities.panels[ownProps.match.params.panelId];
+    };
+
+    console.log(panel);
     
     return {
         panel: Object.assign({
