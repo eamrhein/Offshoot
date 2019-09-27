@@ -13,7 +13,6 @@ const validatePanel = require('../../validation/panel');
 
 router
     .get('/:id', (req, res) => {
-        debugger
         Panel.findById(req.params.id).then((panel) => {
 
             const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
@@ -145,8 +144,9 @@ router
         }
     })
     .get('/', (req, res) => {
-        debugger
-        if (req.query.hasOwnProperty('panelsArray')){
+ 
+        if (req.query.panelsArray){
+           
             Panel.find({_id: {$in: req.query.panelsArray}}, (err, panelsArray) => {
                 const panelsToReturnPojo = {};
                 panelsArray.forEach(panel => {
