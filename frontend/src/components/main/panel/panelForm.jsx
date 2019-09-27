@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 class PanelForm extends React.Component {
   constructor(props){
     super(props)
@@ -12,9 +12,11 @@ class PanelForm extends React.Component {
         childId: [],
         parentId: null, 
         likes: 0
-      }
+      },
+      photoFile: null
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.photoReader = this.photoReader.bind(this);
   }
 
   componentDidMount(){
@@ -32,6 +34,7 @@ class PanelForm extends React.Component {
     e.preventDefault();
     const panel = this.state.panel;
     panel.authorId = this.props.currentUser.id;
+    this.getSignedPhotoRequest(this.state.photoFile);
     this.props.action(panel)
       .then((childPanel)=> {
         debugger
@@ -58,6 +61,63 @@ class PanelForm extends React.Component {
     }
   }
 
+  photoReader(e) {
+    const reader = new FileReader();
+    const file = e.currentTarget.files[0];
+    reader.onloadend = () => this.setState({ photoURL: reader.result, photoFile: file });
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({ panel: {photoURL: ""}, photoFile: null });
+    }
+  }
+
+  getSignedPhotoRequest(photo) {
+
+    const res = axios.get(`/api/images?file-name=${photo.name}&file-type=${photo.type}`)
+      .then( res => {
+          console.log(res);
+          const { signedRequest, url } = res.data;
+          this.uploadFile(photo, signedRequest, url)
+        },
+        err => console.log(err)
+      );
+    // const xhr = new XMLHttpRequest();
+    // //xhr.open('GET', `/images?file-name=${photo.name}&file-type=${photo.type}`);
+    // xhr.open('GET', `/images`)
+    // xhr.onreadystatechange = () => {
+    //   debugger
+    //   if (xhr.readyState === 4) {
+    //     if (xhr.status === 200) {
+    //       const response = JSON.parse(xhr.responseText);
+    //       this.uploadFile(photo, response.signedRequest, response.url);
+    //     }
+    //     else {
+    //       alert('Could not get signed URL.');
+    //     }
+    //   }
+    // };
+    // xhr.send();
+    console.log(res);
+  }
+
+  uploadFile(file, signedRequest, url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', signedRequest);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log('honk');
+        }
+        else {
+          alert('Could not upload file.');
+        }
+      }
+    };
+    xhr.send(file);
+  }
+
   render(){
     return (
     <form className='create-panel-form' onSubmit={this.handleSubmit}>
@@ -68,6 +128,8 @@ class PanelForm extends React.Component {
         <input type="text" onChange={this.handleChange('title')} value={this.state.panel.title}/>
       </label>
       {/* UNFINISHED FOR AWS */}
+      <input id="file-input" type="file" onChange={this.photoReader} />
+      {this.state.photoURL ? (<img src={this.state.photoURL} className="image-preview" />) : ""}
       {/* <label>
         Photo
       </label>
