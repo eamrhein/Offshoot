@@ -144,7 +144,6 @@ router
             
         }
     })
-<<<<<<< HEAD
     .get('/', (req, res) => {
         debugger
         if (req.body.hasOwnProperty('authoredRoots')){
@@ -173,35 +172,4 @@ router
         }
         
     })
-=======
-
-    // .get('/', (req, res) => {
-    //     debugger
-    //     if(req.body[authoredRoots]){
-
-    //     }else if (req.body[followedRoots]){
-
-    //     }else {
-    //         Panel.find({}, (err, panelsArray) => {
-    //             debugger;
-    //             const panelsToReturnPojo = {};
-    //             panelsArray.forEach(panel => {
-    //                 const { _id, authorId, title, panelText, parentId, rootId } = panel;
-    //                 const RestructuredPanel = {
-    //                     id: _id,
-    //                     authorId,
-    //                     title,
-    //                     panelText,
-    //                     parentId,
-    //                     rootId
-    //                 };
-    //                 panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
-    //             });
-    //             res.send(panelsToReturnPojo);
-    //         })
-    //     }
-        
-    // })
-
->>>>>>> master
 module.exports = router;
