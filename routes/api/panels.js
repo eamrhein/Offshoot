@@ -144,7 +144,6 @@ router
         }
     })
     .get('/', (req, res) => {
- 
         if (req.query.panelsArray){
            
             Panel.find({_id: {$in: req.query.panelsArray}}, (err, panelsArray) => {

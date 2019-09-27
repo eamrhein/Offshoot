@@ -1,6 +1,7 @@
 import * as PanelAPIutil from '../util/panel_util';
 export const RECEIVE_PANEL = 'RECEIVE_PANEL';
 export const RECEIVE_PANELS = 'RECEIVE_PANELS';
+export const REMOVE_PANELS = 'REMOVE_PANELS';
 
 const receivePanel = panel => ({
   type: RECEIVE_PANEL,
@@ -11,6 +12,14 @@ const receivePanels = panels => ({
   type: RECEIVE_PANELS,
   panels
 });
+
+const removePanels = () => ({
+  type: REMOVE_PANELS
+})
+
+export const clearPanelState = () => dispatch => (
+  dispatch(removePanels())
+)
 
 export const createPanel = panel => dispatch => (
   PanelAPIutil.createPanel(panel)
