@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { fetchPanel } from '../../actions/panel_actions';
 import { toggleModal } from '../../actions/ui_actions';
@@ -9,12 +9,12 @@ export class Panel extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            shareDrawerOpen: false
-        }
+        // this.state = {
+        //     shareDrawerOpen: false
+        // }
 
         this.handleLike = this.handleLike.bind(this);
-        this.handleShare = this.handleShare.bind(this);
+        // this.handleShare = this.handleShare.bind(this);
         this.copyLink = this.copyLink.bind(this);
         this.handleTouch = this.handleTouch.bind(this);
 
@@ -30,14 +30,14 @@ export class Panel extends Component {
         //toggle like
     }
 
-    handleShare() {
-        this.setState({
-            shareDrawerOpen: !this.state.shareDrawerOpen
-        });
-        if (this.shareDrawerOpen) {
-            this.copyLink();
-        }
-    }
+    // handleShare() {
+    //     this.setState({
+    //         shareDrawerOpen: !this.state.shareDrawerOpen
+    //     });
+    //     if (this.shareDrawerOpen) {
+    //         this.copyLink();
+    //     }
+    // }
 
     copyLink() {
         let link = document.getElementById("panelLink");
@@ -66,21 +66,22 @@ export class Panel extends Component {
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch}></img>
                         <ul className="panel-action-buttons">
                             <i className="material-icons like-button">favorite</i>
-                            <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
+                            {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                                 "material-icons share-button active" :
                                 "material-icons share-button"
-                            } onClick={this.handleShare}>share</i>
+                            } onClick={this.handleShare}>share</i> */}
+                            <Link to={`/panels/${this.props.panelId}`}><i className="material-icons share-button">share</i></Link>
                         </ul>
                     </figure>
                     <figcaption><span>{this.props.panel.panelText}</span></figcaption>
                 </div>
-                <div className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
+                {/* <div className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                     "share-drawer open" :
                     "share-drawer"
                 }>
                     <span>Link copied to clipboard.</span>
                     <input type="text" value={`${window.location.href}panels/${this.props.panelId}`} id="panelLink" readOnly></input>
-                </div>
+                </div> */}
             </div>
         )
     }
