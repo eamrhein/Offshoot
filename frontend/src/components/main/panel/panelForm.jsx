@@ -17,6 +17,7 @@ class PanelForm extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.photoReader = this.photoReader.bind(this);
+    this.sendPanel = this.sendPanel.bind(this);
   }
 
   componentDidMount(){
@@ -30,29 +31,8 @@ class PanelForm extends React.Component {
     }
   }
   handleSubmit(e){
-    console.log(this.state)
     e.preventDefault();
-    const panel = this.state.panel;
-    panel.authorId = this.props.currentUser.id;
     this.getSignedPhotoRequest(this.state.photoFile);
-    this.props.action(panel)
-      .then((childPanel)=> {
-        if(childPanel.panel.data.parentId && this.props.formType === 'branch'){
-          this.props.fetchPanel(childPanel.panel.data.parentId)
-            .then(parentPanel => {
-              parentPanel.panel.data.childIds.push(childPanel.panel.data.id)
-              
-              this.props.updatePanel(parentPanel.panel.data)
-                .then(() => (this.props.history.push(`/panels/${childPanel.panel.data.id}`)))
-            })
-        } else {
-          this.props.authorRoot({ userId: this.props.currentUser.id, rootId: childPanel.panel.data.id})
-            .then(() => {
-              this.props.history.push(`/panels/${childPanel.panel.data.id}`)
-
-            })
-        }
-        });
     //Need logic to handle how we want behavior after action. 
   }
   handleChange(form){
@@ -61,6 +41,32 @@ class PanelForm extends React.Component {
       pannelTochange[form] = e.target.value;
       this.setState({panel: pannelTochange});
     }
+  }
+
+  sendPanel() {
+    const panel = this.state.panel;
+    console.log(panel);
+    panel.authorId = this.props.currentUser.id;
+    this.props.action(panel)
+
+      .then((childPanel) => {
+        if (childPanel.panel.data.parentId && this.props.formType === 'branch') {
+
+          this.props.fetchPanel(childPanel.panel.data.parentId)
+            .then(parentPanel => {
+              parentPanel.panel.data.childIds.push(childPanel.panel.data.id)
+              
+              this.props.updatePanel(parentPanel.panel.data)
+                .then(() => (this.props.history.push(`/panels/${childPanel.panel.data.id}`)))
+            }, err => console.log(err));
+        } else {
+          this.props.authorRoot({ userId: this.props.currentUser.id, rootId: childPanel.panel.data.id})
+            .then(() => {
+              this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+
+            })
+        }
+      }, err => console.log(err));
   }
 
   photoReader(e) {
@@ -85,22 +91,6 @@ class PanelForm extends React.Component {
         },
         err => console.log(err)
       );
-    // const xhr = new XMLHttpRequest();
-    // //xhr.open('GET', `/images?file-name=${photo.name}&file-type=${photo.type}`);
-    // xhr.open('GET', `/images`)
-    // xhr.onreadystatechange = () => {
-    //   debugger
-    //   if (xhr.readyState === 4) {
-    //     if (xhr.status === 200) {
-    //       const response = JSON.parse(xhr.responseText);
-    //       this.uploadFile(photo, response.signedRequest, response.url);
-    //     }
-    //     else {
-    //       alert('Could not get signed URL.');
-    //     }
-    //   }
-    // };
-    // xhr.send();
     console.log(res);
   }
 
@@ -110,7 +100,12 @@ class PanelForm extends React.Component {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          console.log('honk');
+          const {title, authorId, panelText, childId, parentId, likes} = this.state.panel;
+          console.log(url);
+          //const newURL = /com\/.+(\.jpg|\.png|\.gif|\.bmp|\.tiff|\.jpeg).+/.exec(url); newURL[0].slice(4)
+          this.setState({ panel: {photoURL: url, title: title, authorId: authorId, panelText: panelText, 
+          childId: childId, parentId: parentId, likes: likes}});
+          this.sendPanel();
         }
         else {
           alert('Could not upload file.');
@@ -127,7 +122,7 @@ class PanelForm extends React.Component {
       <h1 className='panel-form-title'>{this.props.formType}</h1>
       <label >
         Title
-        <input type="text" onChange={this.handleChange('title')} value={this.state.panel.title}/>
+        <input type="text" onChange={this.handleChange('title')} />
       </label>
       {/* UNFINISHED FOR AWS */}
       <label className="image-input">
