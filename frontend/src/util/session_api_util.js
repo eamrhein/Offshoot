@@ -21,5 +21,14 @@ export const followRoot = (userAndpanelIds) => {
 }
 
 export const unfollowRoot = (userAndpanelIds) => {
-  return axios.delete('/api/users/unfollow_root/1', userAndpanelIds)
+  console.log(userAndpanelIds)
+  return axios.delete('/api/users/unfollow_root/', {data: userAndpanelIds})
+}
+
+export const authorRoot = (userAndpanelIds) => {
+  return axios.patch('/api/users/author_root/1', userAndpanelIds)
+}
+
+export const unauthorRoot = (userAndpanelIds) => {
+  return axios.patch('/api/users/unauthor_root/1', {data: userAndpanelIds})
 }

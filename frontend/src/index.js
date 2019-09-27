@@ -9,7 +9,7 @@ import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
-
+import { followRoot, unfollowRoot, authorRoot, unauthorRoot } from './actions/user_actions'
 document.addEventListener('DOMContentLoaded', () => {
   let store;
   const devState = {
@@ -79,6 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore(devState);
   }
   window.store = store;
+  window.getState = store.getState;
+  window.dispatch = store.dispatch;
+  window.followRoot = followRoot;
+  window.unfollowRoot = unfollowRoot;
+  window.authorRoot = authorRoot;
+  window.unauthorRoot = unauthorRoot;
   // Render our root component and pass in the store as a prop
 
   const root = document.getElementById('root');
