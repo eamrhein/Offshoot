@@ -48,7 +48,10 @@ class NavBar extends React.Component {
                     {this.props.authStatus ?
                     <div className="story-links">
                         <div>
-                            <NavLink to={`/users/${this.props.currentUser.id}/shoots`}>My Shoots Link</NavLink>
+                            <NavLink to={`/panels/authored`}>My Shoots Link</NavLink>
+                        </div>
+                        <div>
+                            <NavLink to={`/panels/liked`}>Liked Roots</NavLink>
                         </div>
                         <div>
                             <NavLink to={`/roots/new`}>New Story Link</NavLink>

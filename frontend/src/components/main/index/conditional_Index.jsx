@@ -12,11 +12,10 @@ class ConditionalIndex extends React.Component {
   }
 
   componentDidMount(){
-
     this.loadedPanels = [];
     //fetch panels
     // add them to state
-    const {panelIdsToFetch, indexType} = this.props;
+    const { panelIdsToFetch, indexType} = this.props;
     if (panelIdsToFetch.length > 1 || indexType === 'Main'){
 
       this.props.fetchPanels(panelIdsToFetch)
@@ -32,16 +31,24 @@ class ConditionalIndex extends React.Component {
     window.addEventListener('scroll', this.handleScroll)
   }
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('scroll', this.handleScroll);
+    // could make this a conditional 
+    // check if the panels exist in the state, if they do add them to the state,
+    // if they don't fetch them
+    // currently clearing state to prevent overlab between the authored and liked panels
+    this.props.clearPanelState();
   }
 
   handleScroll(){
-    let lastPanel = document.querySelector('.panel-index').lastChild;
-    let lastPanelOffset = lastPanel.offsetTop + lastPanel.clientHeight
-    let containerOffset = window.innerHeight + window.pageYOffset;
+    if (this.state.panels.length > 1){
+      let lastPanel = document.querySelector('.panel-index').lastChild;
+      let lastPanelOffset = lastPanel.offsetTop + lastPanel.clientHeight
+      let containerOffset = window.innerHeight + window.pageYOffset;
 
-    if (containerOffset > lastPanelOffset) {
-     this.setState({panels: this.state.panels.concat(this.loadedPanels.shift())})
+      if (containerOffset > lastPanelOffset) {
+        this.setState({ panels: this.state.panels.concat(this.loadedPanels.shift()) })
+    }
+
 
     // Could be refactored to remove panels off the top as needed 
     // this.fetchPanels().then(() => {
