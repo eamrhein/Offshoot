@@ -95,8 +95,8 @@ class PanelForm extends React.Component {
         if (xhr.status === 200) {
           const {title, authorId, panelText, childId, parentId, likes} = this.state.panel;
           console.log(url);
-          const newURL = /com\/.+(\.jpg|\.png|\.gif|\.bmp|\.tiff|\.jpeg).+/.exec(url);
-          this.setState({ panel: {photoURL: newURL[0].slice(4), title: title, authorId: authorId, panelText: panelText, 
+          //const newURL = /com\/.+(\.jpg|\.png|\.gif|\.bmp|\.tiff|\.jpeg).+/.exec(url); newURL[0].slice(4)
+          this.setState({ panel: {photoURL: url, title: title, authorId: authorId, panelText: panelText, 
           childId: childId, parentId: parentId, likes: likes}});
           this.sendPanel();
         }

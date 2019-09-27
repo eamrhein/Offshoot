@@ -17,6 +17,8 @@ router
 
             const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
 
+            
+
             res.json({
                 id: _id,
                 authorId,
@@ -69,31 +71,6 @@ router
                 })
                 .catch(err => console.log(err));
 
-
-        
-
-        // const fileName = req.query['file-name'];
-        // const fileType = req.query['file-type'];
-        // const s3Params = {
-        //     Bucket: sw3_bucket,
-        //     Key: fileName,
-        //     Expires: 60,
-        //     ContenType: fileType,
-        //     ACL: 'pubic-read'
-        // };
-
-        // s3Params.getSignedUrl('putObject', s3Params, (err, data) => {
-        //     if (err) {
-        //         console.log(err);
-        //         return res.end();
-        //     }
-        //     const returnData = {
-        //         signedRequest: data,
-        //         url: `https://${sw3_bucket}.s3.amazonaws.com/${fileName}`
-        //     };
-        //     res.write(JSON.stringify(returnData));
-        //     res.end();
-        // });
             }
     })
     .patch('/:id', (req, res) => {

@@ -57,7 +57,7 @@ export class Panel extends Component {
                 <div className="panel-proper">
                     <h1>{`> ${this.props.panel.title}`}</h1>
                     <figure className="panel-figure">
-                        <img src={this.props.panel.photoUrl} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch}></img>
+                        <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch}></img>
                         <ul className="panel-action-buttons">
                             <i className="material-icons like-button">favorite</i>
                             <i className={ this.state.shareDrawerOpen ?
