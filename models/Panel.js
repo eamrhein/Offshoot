@@ -1,38 +1,40 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const CommentSchema = require('./Comment');
 
 const PanelSchema = new Schema({
-    
-    authorId: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
-    },
 
-    parentId: {
-        type: Schema.Types.ObjectId,
-        ref: 'panels'
-    },
+  authorId: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
+  },
 
-    childIds: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'panels'
-        }
-    ],
+  parentId: {
+    type: Schema.Types.ObjectId,
+    ref: 'panels'
+  },
 
-    title: {
-        type: String,
-        required: true
-    },
-
-    panelText: {
-        type: String
-    },
-
-    photoURL: {
-        type: String
+  childIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'panels'
     }
+  ],
+
+  title: {
+    type: String,
+    required: true
+  },
+
+  panelText: {
+    type: String
+  },
+
+  photoURL: {
+    type: String
+  },
+  comments: [CommentSchema]
 
 });
 
