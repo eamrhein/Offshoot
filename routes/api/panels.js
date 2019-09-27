@@ -144,7 +144,7 @@ router
         }
     })
     .get('/', (req, res) => {
- 
+        debugger;
         if (req.query.panelsArray){
            
             Panel.find({_id: {$in: req.query.panelsArray}}, (err, panelsArray) => {

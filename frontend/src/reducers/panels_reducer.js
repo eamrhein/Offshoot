@@ -1,4 +1,4 @@
-import {RECEIVE_PANEL, RECEIVE_PANELS} from '../actions/panel_actions';
+import {RECEIVE_PANEL, RECEIVE_PANELS, REMOVE_PANELS} from '../actions/panel_actions';
 
 const PanelsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -7,6 +7,8 @@ const PanelsReducer = (state = {}, action) => {
       return Object.assign({}, state, {[action.panel.data.id] : action.panel.data })
     case RECEIVE_PANELS:
       return Object.assign({}, state, action.panels.data)
+    case REMOVE_PANELS: 
+      return Object.assign({});
     default: 
       return state;
   }
