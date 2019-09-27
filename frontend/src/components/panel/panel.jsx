@@ -114,10 +114,10 @@ const mapStateToProps = (state, ownProps) => {
             id: null,
             authorId: null,
             parentId: null,
-            childIds: null,
+            childIds: [],
             title: "...",
             panelText: "text not found",
-            photoUrl: "panel_not_found.png"
+            photoURL: "panel_not_found.png"
         }, panel),
         // ----- ^^^^^ fix this
         panelId,
