@@ -2,15 +2,13 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
-// const keys = require('../../config/keys');
-require('dotenv').config();
+const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 const valdiateFollowRoot = require('../../validation/followRoot');
-
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id,
@@ -151,7 +149,7 @@ router.post('/login', (req, res) => {
               authoredRoots: user.authoredRoots
             };
             jwt.sign(payload,
-              process.env.SECRET_OR_KEY,
+              keys.secretOrKey,
               { expiresIn: 3600 },
               (_err, token) => {
                 res.json({
