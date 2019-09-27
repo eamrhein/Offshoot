@@ -22,8 +22,9 @@ export const fetchPanel = id => dispatch => (
     .then(panel => dispatch(receivePanel(panel)))
 );
 
-export const fetchPanels = () => dispatch => (
-  console.log('Panels are being fetched')
+export const fetchPanels = (optionalArg) => dispatch => (
+  PanelAPIutil.fetchPanels(optionalArg)
+    .then(panels => dispatch(receivePanels(panels)))
 );
 
 export const updatePanel = (panel) => dispatch => (

@@ -9,7 +9,7 @@ import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
-
+import {fetchPanels} from './actions/panel_actions'
 document.addEventListener('DOMContentLoaded', () => {
   let store;
   const devState = {
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore(devState);
   }
   window.store = store;
+  window.fetchPanels = fetchPanels;
   // Render our root component and pass in the store as a prop
 
   const root = document.getElementById('root');

@@ -9,13 +9,14 @@
     "server:debug": "nodemon --inspect app.js",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "proxy": "http://localhost:5000",
   "author": "Eric Amrhein",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.534.0",
+    "aws-sdk": "^2.536.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.2",

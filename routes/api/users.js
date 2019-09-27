@@ -2,15 +2,13 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
-// const keys = require('../../config/keys');
-require('dotenv').config();
+const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 const valdiateFollowRoot = require('../../validation/followRoot');
-
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id,
@@ -24,33 +22,78 @@ router.patch('/follow_root/:id', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const currentUser = User.findById(req.body.userId);
-
-  if (!currentUser) {
-    return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-  }
-  console.log(currentUser)
-  if (currentUser.followedRoots[req.body.rootId]) {
-    return res.status(400).json({ root: 'root is already being followed' });
-  }
-
-  currentUser.save()
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+  User.findById(req.body.userId).then((currentUser) => {
+    if (!currentUser) {
+      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+    }
+    if (currentUser.followedRoots.includes(req.body.rootId)) {
+      return res.status(400).json({ root: 'current root is already being followed' });
+    }
+    currentUser.followedRoots.push(req.body.rootId);
+    currentUser.save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
+  });
 });
 
-router.delete('/unfollow_root/:id', (req, res) => {
+router.patch('/author_root/:id', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const currentUser = User.findById(req.body.userId);
-  if (!currentUser) {
-    return res.status(400).json({ currentUser: "current user id isn't saved to the database " })
+  User.findById(req.body.userId).then((currentUser) => {
+    if (!currentUser) {
+      return res.status(400).json({ currentUser: "user id isn't saved in the database"})
+    }
+    if (currentUser.authoredRoots.includes(req.body.rootId)) {
+      return res.status(400).json({ root: 'authored root already saved to user'})
+    }
+    currentUser.authoredRoots.push(req.body.rootId);
+    currentUser.save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
+  });
+});
+
+router.delete('/unauthor_root/:id', (req, res) => {
+  const { errors, isValid } = valdiateFollowRoot(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
   }
-  if (!currentUser.followedRoots[req.body.json]) {
-    return res.status(400).json({currentUser: 'current user is already unfollowed' });
+  User.findById(req.body.userId).then((currentUser) => {
+    if (!currentUser) {
+      return res.status(400).json({ currentUser: "user id isn't saved in the database" });
+    }
+    if (currentUser.authoredRoots.includes(req.body.rootId)) {
+      return res.status(400).json({ root: 'authored root already saved to user' });
+    }
+    currentUser.authoredRoots = currentUser.followedRoots.filter((id) => id === req.body.rootId);
+    currentUser.save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
+  });
+});
+
+router.delete('/unfollow_root/', (req, res) => {
+  const { errors, isValid } = valdiateFollowRoot(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
   }
+  User.findById(req.body.userId).then((currentUser) => {
+    console.log(currentUser);
+    if (!currentUser) {
+      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+    }
+    if (!currentUser.followedRoots.includes(req.body.rootId)) {
+      return res.status(400).json({ currentUser: 'current roots already unfollowed' });
+    }
+    currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
+    currentUser.save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
+  });
+
 });
 
 router.post('/register', (req, res) => {
@@ -101,10 +144,12 @@ router.post('/login', (req, res) => {
             const payload = {
               id: user.id,
               username: user.username,
-              email: user.email
+              email: user.email,
+              followedRoots: user.followedRoots,
+              authoredRoots: user.authoredRoots
             };
             jwt.sign(payload,
-              process.env.SECRET_OR_KEY,
+              keys.secretOrKey,
               { expiresIn: 3600 },
               (_err, token) => {
                 res.json({
