@@ -13,6 +13,7 @@ import editPanelContainer from './main/panel/editPanelContainer';
 const App = () => (
   <div>
     <NavBarContainer />
+    <img className="backdrop" src="backdrop.png"/>
     <Switch>
 
       <AuthRoute exact path='/signup' component={Register} />

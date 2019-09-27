@@ -35,7 +35,7 @@ class NavBar extends React.Component {
                             :
                             <div className="auth-links">
 
-                                <span className="username">Browsing as guest.</span>
+                                <span className="guestname">Browsing as guest.</span>
                                 <div>
                                     <NavLink to="/login">Sign In</NavLink>
                                 </div>
@@ -57,9 +57,9 @@ class NavBar extends React.Component {
                     "" }
                     {this.props.authStatus ?
                         <div className="auth-links">
-                                <a href="#" onClick={this.props.logout}>
+                                <button onClick={this.props.logout}>
                                     Sign Out
-                                </a>
+                                </button>
                         </div>
                     :
                     ""}
