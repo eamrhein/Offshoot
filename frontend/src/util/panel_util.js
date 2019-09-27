@@ -13,5 +13,5 @@ export const updatePanel = (panel) => {
 };
 
 export const fetchPanels = (optionalArg) => {
-  return axios.get('/', optionalArg);
+  return axios.get(`/api/panels/`, {params: {panelsArray: optionalArg}});
 }

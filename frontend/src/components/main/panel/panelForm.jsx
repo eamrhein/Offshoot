@@ -48,16 +48,23 @@ class PanelForm extends React.Component {
     console.log(panel);
     panel.authorId = this.props.currentUser.id;
     this.props.action(panel)
+
       .then((childPanel) => {
         if (childPanel.panel.data.parentId && this.props.formType === 'branch') {
+
           this.props.fetchPanel(childPanel.panel.data.parentId)
             .then(parentPanel => {
               parentPanel.panel.data.childIds.push(childPanel.panel.data.id)
+              
               this.props.updatePanel(parentPanel.panel.data)
                 .then(() => (this.props.history.push(`/panels/${childPanel.panel.data.id}`)))
             }, err => console.log(err));
         } else {
-          this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+          this.props.authorRoot({ userId: this.props.currentUser.id, rootId: childPanel.panel.data.id})
+            .then(() => {
+              this.props.history.push(`/panels/${childPanel.panel.data.id}`)
+
+            })
         }
       }, err => console.log(err));
   }
