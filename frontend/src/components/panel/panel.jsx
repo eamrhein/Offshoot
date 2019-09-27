@@ -17,11 +17,14 @@ export class Panel extends Component {
         this.handleShare = this.handleShare.bind(this);
         this.copyLink = this.copyLink.bind(this);
         this.handleTouch = this.handleTouch.bind(this);
+
+        console.log(this.props);
     }
 
     componentDidMount() {
-    //    this.props.fetchPanel(this.props.panelId);
+       this.props.fetchPanel(this.props.panelId);
     }
+
 
     handleLike() {
         //toggle like
@@ -44,11 +47,14 @@ export class Panel extends Component {
     }
 
     handleTouch() {
+        this.setState({
+            shareDrawerOpen: false
+        })
         this.props.toggleModal(`active-panel-${this.props.panelId}`);
     }
 
     render() {
-        console.log(this.props);
+
         return (
             <div className={
                 this.props.currentModal === `active-panel-${this.props.panelId}` ?
@@ -60,7 +66,7 @@ export class Panel extends Component {
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch}></img>
                         <ul className="panel-action-buttons">
                             <i className="material-icons like-button">favorite</i>
-                            <i className={ this.state.shareDrawerOpen ?
+                            <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                                 "material-icons share-button active" :
                                 "material-icons share-button"
                             } onClick={this.handleShare}>share</i>
@@ -68,12 +74,12 @@ export class Panel extends Component {
                     </figure>
                     <figcaption><span>{this.props.panel.panelText}</span></figcaption>
                 </div>
-                <div className={ this.state.shareDrawerOpen ?
+                <div className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                     "share-drawer open" :
                     "share-drawer"
                 }>
                     <span>Link copied to clipboard.</span>
-                    <input type="text" value={`${this.props.url}/panels/${this.props.panelId}`} id="panelLink"></input>
+                    <input type="text" value={`${window.location.href}panels/${this.props.panelId}`} id="panelLink" readOnly></input>
                 </div>
             </div>
         )
@@ -85,10 +91,22 @@ export class Panel extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 
-    console.log(state);
+    let panelId; 
+    let panel;
     console.log(ownProps);
 
-    let panel = state.entities.panels[ownProps.match.params.panelId];
+    if (ownProps.panel !== undefined) {
+        panelId = ownProps.panel.id;
+        panel = ownProps.panel;
+    } else if (ownProps.panelId !== undefined) {
+        panelId = ownProps.panelId;
+        panel = state.entities.panels[ownProps.panelId];
+    } else { 
+        panelId = ownProps.match.params.panelId;
+        panel = state.entities.panels[ownProps.match.params.panelId];
+    };
+
+    console.log(panel);
     
     return {
         panel: Object.assign({
@@ -101,7 +119,7 @@ const mapStateToProps = (state, ownProps) => {
             photoUrl: "panel_not_found.png"
         }, panel),
         // ----- ^^^^^ fix this
-        panelId: ownProps.match.params.panelId,
+        panelId,
         // author: state.entities.users[panel.authorId],
         currentModal: state.ui.currentModal,
     };
