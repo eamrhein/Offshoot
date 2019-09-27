@@ -4,14 +4,8 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Panel = require('../../models/Panel');
 const CommentSchema = require('../../models/Comment');
-// const AWS = require('aws-sdk');
-// const { aws } = require('../../config/keys');
 const validatePanel = require('../../validation/panel');
 const validateComment = require('../../validation/comment');
-// const { aws_access_key_id, aws_secret_access_key, sw3_bucket } = aws;
-
-// configure aws
-// aws.config.region = 'us-west-2';
 
 router
   .get('/:id', (req, res) => {
@@ -68,29 +62,6 @@ router
           res.json(payload);
         })
         .catch(err => console.log(err));
-
-      // const fileName = req.query['file-name'];
-      // const fileType = req.query['file-type'];
-      // const s3Params = {
-      //     Bucket: sw3_bucket,
-      //     Key: fileName,
-      //     Expires: 60,
-      //     ContenType: fileType,
-      //     ACL: 'pubic-read'
-      // };
-
-      // s3Params.getSignedUrl('putObject', s3Params, (err, data) => {
-      //     if (err) {
-      //         console.log(err);
-      //         return res.end();
-      //     }
-      //     const returnData = {
-      //         signedRequest: data,
-      //         url: `https://${sw3_bucket}.s3.amazonaws.com/${fileName}`
-      //     };
-      //     res.write(JSON.stringify(returnData));
-      //     res.end();
-      // });
     }
   })
   .patch('/:id', (req, res) => {
@@ -199,6 +170,21 @@ router.patch('/create-comment/:id', (req, res) => {
   Panel.findById(req.params.id)
     .then((panel) => {
       panel.comments.push(comment);
+      panel.save();
+      res.json(panel);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(422).json({ comment: "panel can't be found to add comment " });
+    });
+});
+
+//! delete comments
+
+router.delete('/delete-comment/:id', (req, res) => {
+  Panel.findById(req.params.id)
+    .then((panel) => {
+      panel.comments = panel.comments.filter((comment) => comment.id === req.body.id);
       panel.save();
       res.json(panel);
     })
