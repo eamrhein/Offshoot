@@ -1,7 +1,9 @@
 
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Panel = require('../../models/Panel');
+const CommentSchema = require('../../models/Comment');
 // const AWS = require('aws-sdk');
 // const { aws } = require('../../config/keys');
 const validatePanel = require('../../validation/panel');
@@ -14,7 +16,7 @@ const validateComment = require('../../validation/comment');
 router
   .get('/:id', (req, res) => {
     Panel.findById(req.params.id).then((panel) => {
-      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
 
       res.json({
         id: _id,
@@ -24,7 +26,8 @@ router
         photoURL,
         parentId,
         rootId,
-        childIds
+        childIds,
+        comments
       });
     });
   })
@@ -35,7 +38,7 @@ router
     if (!isValid) {
       res.status(422).json(errors);
     } else {
-      const { authorId, title, panelText, photoURL, parentId, rootId, childIds } = req.body;
+      const { authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = req.body;
 
       const newPanel = new Panel({
         authorId,
@@ -44,12 +47,13 @@ router
         parentId,
         rootId,
         photoURL,
-        childIds
+        childIds,
+        comments
       });
 
       newPanel.save()
         .then(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
           const payload = {
             id: _id,
             authorId,
@@ -58,7 +62,8 @@ router
             parentId,
             rootId,
             photoURL,
-            childIds
+            childIds,
+            comments
           };
           res.json(payload);
         })
@@ -95,7 +100,7 @@ router
       res.status(422).json(errors);
     } else if (req.params.id === req.body.id) {
       Panel.findById(req.params.id).then(() => {
-        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = req.body;
+        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = req.body;
 
         const updatedPanel = new Panel({
           _id: id,
@@ -105,7 +110,8 @@ router
           parentId,
           rootId,
           photoURL,
-          childIds
+          childIds,
+          comments
         });
         updatedPanel.isNew = false;
         updatedPanel.save()
@@ -119,7 +125,8 @@ router
               parentId,
               rootId,
               photoURL,
-              childIds
+              childIds,
+              comments
             };
             res.json(payload);
           })
@@ -136,7 +143,7 @@ router
       Panel.find({ _id: { $in: req.query.panelsArray } }, (_err, panelsArray) => {
         const panelsToReturnPojo = {};
         panelsArray.forEach(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
           const RestructuredPanel = {
             id: _id,
             authorId,
@@ -145,7 +152,8 @@ router
             parentId,
             rootId,
             photoURL,
-            childIds
+            childIds,
+            comments
           };
           panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
         });
@@ -155,7 +163,7 @@ router
       Panel.find({}, (_err, panelsArray) => {
         const panelsToReturnPojo = {};
         panelsArray.forEach(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
           const RestructuredPanel = {
             id: _id,
             authorId,
@@ -164,7 +172,8 @@ router
             parentId,
             rootId,
             photoURL,
-            childIds
+            childIds,
+            comments
           };
           panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
         });
@@ -180,10 +189,18 @@ router.patch('/create-comment/:id', (req, res) => {
   if (!isValid) {
     res.status(422).json(errors);
   }
+  const { content, authorId, username } = req.body;
+  const Comment = mongoose.model('comments', CommentSchema);
+  const comment = new Comment({
+    content,
+    authorId,
+    username
+  });
   Panel.findById(req.params.id)
     .then((panel) => {
-      panel.comments.push(req.body);
+      panel.comments.push(comment);
       panel.save();
+      res.json(panel);
     })
     .catch((err) => {
       console.log(err);

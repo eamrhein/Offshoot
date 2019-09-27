@@ -22,4 +22,4 @@ const CommentSchema = new Schema({
   }
 });
 
-module.expors = CommentSchema;
+module.exports = CommentSchema;
