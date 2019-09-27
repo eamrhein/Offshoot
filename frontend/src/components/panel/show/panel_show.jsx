@@ -6,7 +6,7 @@ import RouteIndex from './routes/route_index';
 
 export class PanelShow extends Component {
     render() {
-        
+        console.log("the props are: ", this.props);
         return (
             <div className="panel-show">
                 <Panel panelId={this.props.match.params.panelId}/>            
