@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchUserProfile} from '../../../actions/profile_actions';
-import { followRoot } from '../../../actions/user_actions';
-import IndexContainer from '../index/liked_index_container';
+import ProfileAuthoredIndexContainer from '../index/profile_authored_index_container';
 const mapStateToProps = state => ({
   userProfiles: state.entities.userProfiles
 })
@@ -32,8 +31,14 @@ class ProfileShow extends React.Component {
   render() {
     return(
       <div className='profile-page'>
-        {`${this.state.username}'s Profile Page`}
-      <IndexContainer ProfilePanels={this.state.authoredRoots} />
+        <div className='profile-info'>
+          {`${this.state.username}'s Profile Page`}
+          <div>
+            Authore'd Roots
+          </div>
+        </div>
+        
+      <ProfileAuthoredIndexContainer ProfilePanels={this.state.authoredRoots} />
       </div>
     )
   }
