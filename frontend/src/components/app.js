@@ -11,6 +11,7 @@ import editPanelContainer from './main/panel/editPanelContainer';
 import LikedIndexContainer from './main/index/liked_index_container';
 import MainIndexContainer from './main/index/main_Index_container';
 import AuthoredIndexContainer from './main/index/authored_index_container';
+import UserProfile from './main/profile/user_profile';
 
 const App = () => (
   <div>
@@ -22,6 +23,7 @@ const App = () => (
       <ProtectedRoute exact path='/panels/liked' component={LikedIndexContainer} />
       <ProtectedRoute exact path='/panels/authored' component={AuthoredIndexContainer} />
       <Route exact path="/" component={MainIndexContainer} />
+      <Route exact path='/users/:userId' component={UserProfile} />
       <ProtectedRoute exact path="/roots/new" component={createPanelContainer} />
       <ProtectedRoute path="/panels/:panelId/branch" component={branchPanelContainer} />
       <ProtectedRoute path="/panels/:panelId/edit" component={editPanelContainer} />
