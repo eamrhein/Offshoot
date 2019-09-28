@@ -21,6 +21,7 @@ class NavBar extends React.Component {
             <div className={this.props.currentModal === "nav-dropdown" ? "dropdown-container open" : "dropdown-container"}>
                 <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
                 <div className="dropdown">
+                    <div className="dropdown-backdrop" onClick={this.handleHamburger}></div>
                     <div className="user-links">
                             {this.props.authStatus ?
                             <div>
