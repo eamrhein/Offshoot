@@ -125,16 +125,19 @@
             li {
 
                 display: flex;
-                
-                box-sizing: border-box;
-                width: 370px;
-                height: 70px;
 
-                padding: 10px;
+                margin: 5px;
 
-                background-color: $primary;
+                .thumb-holder {
+                    width: 50px;
+                    height: 50px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 10px;
+                }
 
-                border-radius: $small-radius;
                 
                 a {
 
@@ -145,7 +148,7 @@
 
                         width: 50px;
                         height: 50px;
-                        margin-right: 10px;
+                        margin: 10px;
 
                         font-size: 30px;
                     }
@@ -154,7 +157,18 @@
                     flex-direction: row;
                     align-items: center;
                     text-decoration: none;
+
+                    width: 370px;
+                    height: 70px;
+
+                    background-color: $primary;
+                    border-radius: $small-radius;
                 }
+
+                a:active {
+                    background-color: $light-primary;
+                }
+
             }
         }
 
