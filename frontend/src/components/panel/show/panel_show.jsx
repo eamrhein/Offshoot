@@ -28,7 +28,7 @@ export class PanelShow extends Component {
 
         if (this.props.panel) {
             return (
-            <Swipeable onSwiped={this.handleSwipe} className="panel-show">
+            <Swipeable onSwipedRight={this.handleSwipe} className="panel-show">
                     <Panel panelId={this.props.match.params.panelId}/>            
                     <BranchIndex panelId={this.props.match.params.panelId}/>
                     <div>comment index placeholder</div>
