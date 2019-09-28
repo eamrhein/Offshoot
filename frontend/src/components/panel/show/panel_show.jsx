@@ -18,6 +18,7 @@ export class PanelShow extends Component {
         this.props.fetchPanel(this.props.match.params.panelId);
     }
 
+
     handleSwipe() {
         if (this.props.panel.parentId) {
             this.props.fetchPanel(this.props.panel.parentId);

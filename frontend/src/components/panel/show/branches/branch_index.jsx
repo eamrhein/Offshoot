@@ -12,6 +12,12 @@ export class BranchIndex extends Component {
         this.props.fetchPanels(this.props.panel.childIds)
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.panelId !== prevProps.panelId) {
+            this.props.fetchPanels(this.props.panel.childIds)
+        }
+    }
+
     render() {
 
         return (
