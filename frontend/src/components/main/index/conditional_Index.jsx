@@ -12,13 +12,20 @@ class ConditionalIndex extends React.Component {
   }
 
   componentDidMount(){
+    const { panelIdsToFetch, indexType } = this.props;
     this.loadedPanels = [];
+    let panelIds; 
+    if (this.props.ProfilePanels !== undefined){
+      panelIds = this.props.ProfilePannels
+    } else {
+      panelIds = panelIdsToFetch
+    }
     //fetch panels
     // add them to state
-    const { panelIdsToFetch, indexType} = this.props;
+  
     if (panelIdsToFetch.length > 1 || indexType === 'Main'){
 
-      this.props.fetchPanels(panelIdsToFetch)
+      this.props.fetchPanels(panelIds)
         .then(() => {
  
           this.loadedPanels = Object.keys(this.props.panels)

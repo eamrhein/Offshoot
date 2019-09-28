@@ -164,4 +164,18 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+  User.findById(req.params.id).then((user) => {
+
+    const { _id, username, followedRoots, authoredRoots } = user;
+
+    res.json({
+      id: _id,
+      username,
+      followedRoots,
+      authoredRoots
+    });
+  });
+});
+
 module.exports = router;
