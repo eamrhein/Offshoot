@@ -4,7 +4,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border-radius: $small-radius;
+        border-radius: 10px;
         background-color: $primary;
         width: 330px;
         margin: 20px 0px;
@@ -55,10 +55,10 @@
         height: 220px;
         width: 330px;
         overflow: hidden;
-        position: relative;
+        position: absolute;
         padding: 10px 0px;
         border-radius: 10px;
-        top: -45px;
+        top: 0px;
         transition-property: top;
         transition-duration: 0.5s;
         z-index: 2;
@@ -96,21 +96,22 @@
 
     figcaption {
         display: block;
-        position: relative;
+        position: absolute;
+        visibility: hidden;
 
-        bottom: 200px;
+        top: 150px;
         width: 330px;
-        height: 100px;
+        height: 90px;
         box-sizing: border-box;
         padding: 15px 20px;
         z-index: 1;
         overflow: hidden;
-        border-radius: 5px;
+        border-radius: 10px;
         text-align: center;
         
         background-color: $primary;
 
-        transition-property: bottom;
+        transition-property: top, visibility;
         transition-duration: 0.5s;
 
         span {
@@ -120,6 +121,11 @@
 
     h1 {
         margin: 10px;
+        width: 310px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        
     }
 
     .panel.active {
@@ -130,11 +136,12 @@
         }
 
         figure {
-            top: 0px;
+            top: 40px;
         }
 
         figcaption {
-            bottom: 0px;
+            top: 280px;
+            visibility: visible;
         }
     }
 
