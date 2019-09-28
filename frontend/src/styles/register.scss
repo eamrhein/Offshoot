@@ -1,0 +1,59 @@
+.login-form-container {
+  margin-top: 50px;
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  font-family: $font-family;
+  h1 {
+    font-weight: 500;
+  }
+  form {
+    height: 80vh;
+  }
+}
+
+.login-form {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 80%;
+    max-width: 350px;
+    border-radius: 6px;
+    padding: 8px;
+    box-sizing: border-box;
+    font-family: $font-family;
+    margin: 10px;
+  }
+  input[type="text"], input[type="password"] {
+    border: 1.5px solid $secondary;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="submit"] {
+    outline: none;
+    border: 1.5px solid $primary;
+  }
+  input[type='Submit'] {
+    border: 1px solid $primary;
+    background-color: $primary;
+    font-weight: bold;
+    padding: 10px
+  }
+}
+
+.register-errors {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+  padding: 1%;
+  // height: 0px;
+  li {
+    color: $like-color;
+    font-weight: bold;
+    margin: 2%;
+  }
+}

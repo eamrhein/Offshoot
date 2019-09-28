@@ -1,7 +1,7 @@
 {
-  "name": "mern_twitter",
+  "name": "Offshoot",
   "version": "1.0.0",
-  "description": "A twitter clone to practice mern stack",
+  "description": "A Mobile First Storytelling App",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -9,19 +9,25 @@
     "server:debug": "nodemon --inspect app.js",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
+  "proxy": "http://localhost:5000",
   "author": "Eric Amrhein",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.536.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.2",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.1",
+    "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "uuid": "^3.3.3",
     "validator": "^11.1.0"
   },
   "devDependencies": {

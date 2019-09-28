@@ -1,0 +1,95 @@
+
+// .create-panel-form {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center; 
+//   justify-content: center;
+//   height: 100vh;
+  
+//   div, label, input{
+//     padding: 10px;
+//        border: 1px solid;
+
+//   }
+// }
+
+.create-panel-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+
+    // div {
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    // }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+    }
+
+    input, textarea {
+        margin: 10px;
+        font-family: monospace;
+        border-radius: $small-radius;
+        width: 300px;
+        padding: 10px;
+        box-sizing: border-box
+    }
+
+    input[type=text] {
+        height: 40px;
+    }
+
+    input[type=submit] {
+        background-color: $primary;
+        border: none;
+        height: 40px;
+    }
+
+    input[type=file] {
+        position: absolute;
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+    .image-input {
+        width: 300px;
+        border: 2px solid $primary;
+        height: 200px;
+        background-color: rgba($color: $primary, $alpha: 0.5);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .image-input-label {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .image-preview {
+        width: 300px;
+    }
+
+}
+
+
+@media only screen and (max-width: 350px) {
+    //small phone
+    .create-panel-form {
+        input, textarea {
+            width: 250px;
+        }
+    }
+}

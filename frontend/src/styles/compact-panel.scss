@@ -1,0 +1,162 @@
+.panel-index {
+
+    .panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 10px;
+        background-color: $primary;
+        width: 330px;
+        margin: 20px 0px;
+        position: relative;
+        z-index: 2;
+
+        height: 260px;
+        transition-property: height;
+        transition-duration: .5s;
+    }
+    
+    .panel-proper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        top: 0px;
+        position: relative;
+        z-index: 2;
+    }
+
+    // .share-drawer {
+
+    //     visibility: hidden;
+    //     display: flex;
+    //     flex-direction: row;
+    //     align-items: center;
+    //     top: 200px;
+    //     margin-bottom: 10px;
+    //     border-radius: $small-radius;
+    //     position: absolute;
+    //     z-index: 0;
+
+    //     background-color: $primary;
+    //     padding: 10px;
+
+    //     transition-property: top, visibility;
+    //     transition-duration: 0.5s;
+
+    // }
+
+    // .share-drawer.open {
+    //     visibility: visible;
+    //     top: 390px;
+    //     transition-duration: 0.5s;
+    // }
+
+    figure {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 220px;
+        width: 330px;
+        overflow: hidden;
+        position: absolute;
+        padding: 10px 0px;
+        border-radius: 10px;
+        top: 10px;
+        transition-property: top;
+        transition-duration: 0.5s;
+        z-index: 2;
+        background-color: $primary;
+
+        img {
+            position: relative;
+            width: 330px;
+            border-radius: 10px;
+        }
+
+        .panel-action-buttons {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+
+            display: flex;
+            flex-direction: column;
+
+            color: rgba($color: $secondary, $alpha: 0.0);
+
+            transition-property: color;
+            transition-duration: 0.5s;
+
+            .like-button:active {
+                color: $like-active-color;
+            }
+
+            .share-button.active {
+                color: $primary;
+            }
+
+        }
+    }
+
+    figcaption {
+        display: block;
+        position: absolute;
+        visibility: hidden;
+
+        top: 150px;
+        width: 330px;
+        height: 90px;
+        box-sizing: border-box;
+        padding: 15px 20px;
+        z-index: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 10px;
+        text-align: center;
+        
+        background-color: $primary;
+
+        transition-property: top, visibility;
+        transition-duration: 0.5s;
+
+        span {
+
+            display: -webkit-box;
+            height: 65px;
+            width: 290px;
+
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    h1 {
+        margin: 10px;
+        width: 310px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        
+    }
+
+    .panel.active {
+        height: 360px;
+
+        .panel-action-buttons {
+            color: rgba($color: $secondary, $alpha: 0.5);
+        }
+
+        figure {
+            top: 40px;
+        }
+
+        figcaption {
+            top: 280px;
+            visibility: visible;
+        }
+    }
+
+}

@@ -1,0 +1,47 @@
+@import './reset.scss';
+
+@import './variables.scss';
+
+@import './register.scss';
+@import './nav.scss';
+@import './show.scss';
+@import './compact-panel.scss';
+@import './authpages.scss';
+
+@import './createPanel.scss';
+
+html {
+    height: 100vh;
+}
+
+body {
+    font-family: $font-family;
+    background-color: $light-primary;
+    color: $darkest-primary;
+    overscroll-behavior: none;
+}
+
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.backdrop {
+    width: 100vw;
+    z-index: -1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    opacity: 0.7;
+}
+
+
+///////
+
+.panel-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
