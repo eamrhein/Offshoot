@@ -146,7 +146,9 @@ router
             childIds,
             comments
           };
-          panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+          if (RestructuredPanel.parentId === null) {
+            panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+          }
         });
         res.send(panelsToReturnPojo);
       });
