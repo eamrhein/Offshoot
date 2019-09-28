@@ -43,10 +43,10 @@ router.patch('/author_root/:id', (req, res) => {
   }
   User.findById(req.body.userId).then((currentUser) => {
     if (!currentUser) {
-      return res.status(400).json({ currentUser: "user id isn't saved in the database"})
+      return res.status(400).json({ currentUser: "user id isn't saved in the database" });
     }
     if (currentUser.authoredRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ root: 'authored root already saved to user'})
+      return res.status(400).json({ root: 'authored root already saved to user' });
     }
     currentUser.authoredRoots.push(req.body.rootId);
     currentUser.save()
@@ -93,7 +93,6 @@ router.delete('/unfollow_root/', (req, res) => {
       .then((user) => res.json(user))
       .catch((err) => console.log(err));
   });
-
 });
 
 router.post('/register', (req, res) => {

@@ -1,11 +1,14 @@
 .login-form-container {
-  margin-top: 15%;
-  height: calc(100vh - 55px);
+  margin-top: 50px;
+  height: calc(100vh - 100px);
   display: flex;
   justify-content: center;
   font-family: $font-family;
   h1 {
     font-weight: 500;
+  }
+  form {
+    height: 80vh;
   }
 }
 

@@ -15,15 +15,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100vw;
     }
 
     .share-drawer {
+        font-family: $font-family;
         visibility: hidden;
         display: block;
         margin-top: -25px;
         margin-bottom: 10px;
         transition-property: margin-top;
         transition-duration: 0.5s;
+
+        input {
+            font-family: $font-family;
+        }
     }
 
     .share-drawer.open {
@@ -36,6 +42,7 @@
         padding: 10px;
         background-color: $primary;
         position: relative;
+        border-radius: $small-radius;
 
         img {
             width: 350px;
@@ -94,6 +101,8 @@
         margin: 10px 20px;
         padding: 15px 20px;
         z-index: 1;
+
+        border-radius: $small-radius;
         
         background-color: $primary;
     }
@@ -104,7 +113,67 @@
 
 }
 
-@media only screen and (max-width: 350px) {
+.branch-index {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100vw;
+    
+
+            li {
+
+                display: flex;
+
+                margin: 5px;
+
+                .thumb-holder {
+                    width: 50px;
+                    height: 50px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 10px;
+                }
+
+                
+                a {
+
+                    i {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        width: 50px;
+                        height: 50px;
+                        margin: 10px;
+
+                        font-size: 30px;
+                    }
+
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    text-decoration: none;
+
+                    width: 370px;
+                    height: 70px;
+
+                    background-color: $primary;
+                    border-radius: $small-radius;
+                }
+
+                a:active {
+                    background-color: $light-primary;
+                }
+
+            }
+        }
+
+
+@media only screen and (max-width: 380px) {
     //small phone
     .panel-show {
         figure {
@@ -114,6 +183,9 @@
             img {
                 width: 300px;
             }
+        }
+        figcaption {
+            width: 320px;
         }
     }
 }
