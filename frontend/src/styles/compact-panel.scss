@@ -11,7 +11,7 @@
         position: relative;
         z-index: 2;
 
-        height: 250px;
+        height: 260px;
         transition-property: height;
         transition-duration: .5s;
     }
@@ -52,13 +52,17 @@
     // }
 
     figure {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
         height: 220px;
         width: 330px;
         overflow: hidden;
         position: absolute;
         padding: 10px 0px;
         border-radius: 10px;
-        top: 0px;
+        top: 10px;
         transition-property: top;
         transition-duration: 0.5s;
         z-index: 2;
@@ -106,6 +110,7 @@
         padding: 15px 20px;
         z-index: 1;
         overflow: hidden;
+        text-overflow: ellipsis;
         border-radius: 10px;
         text-align: center;
         
@@ -115,6 +120,15 @@
         transition-duration: 0.5s;
 
         span {
+
+            display: -webkit-box;
+            height: 65px;
+            width: 290px;
+
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
             text-overflow: ellipsis;
         }
     }
