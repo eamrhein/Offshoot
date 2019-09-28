@@ -12,24 +12,37 @@ class ConditionalIndex extends React.Component {
   }
 
   componentDidMount(){
-    this.loadedPanels = [];
-    //fetch panels
-    // add them to state
-    const { panelIdsToFetch, indexType} = this.props;
-    if (panelIdsToFetch.length > 1 || indexType === 'Main'){
-
-      this.props.fetchPanels(panelIdsToFetch)
-        .then(() => {
- 
-          this.loadedPanels = Object.keys(this.props.panels)
-            //panel object threaded to panel component
-            .map(id => <Panel panel={this.props.panels[id]} key={id} />)
-          this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
-        });
-    }
    
+    this.loadedPanels = [];
+    if (this.props.ProfilePanels === undefined){
+      const { panelIdsToFetch, indexType } = this.props;
+      if (panelIdsToFetch.length > 1 || indexType === 'Main') {
+        this.fetchAndLoadPannels(panelIdsToFetch);
+      }
+    }
+    
     window.addEventListener('scroll', this.handleScroll)
   }
+
+
+  fetchAndLoadPannels(idsArr){
+    this.props.fetchPanels(idsArr)
+      .then(() => {
+
+        this.loadedPanels = Object.keys(this.props.panels)
+          //panel object threaded to panel component
+          .map(id => <Panel panel={this.props.panels[id]} key={id} />)
+        this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
+      });
+  }
+
+
+  componentDidUpdate(prevProps){
+    if(prevProps.ProfilePanels !== this.props.ProfilePanels){
+      this.fetchAndLoadPannels(this.props.ProfilePanels)
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
     // could make this a conditional 

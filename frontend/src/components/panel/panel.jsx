@@ -47,9 +47,10 @@ export class Panel extends Component {
     }
 
     handleTouch() {
-        this.setState({
-            shareDrawerOpen: false
-        })
+        // this.setState({
+        //     shareDrawerOpen: false
+        // })
+        
         this.props.toggleModal(`active-panel-${this.props.panelId}`);
     }
 
@@ -63,7 +64,12 @@ export class Panel extends Component {
                 <div className="panel-proper">
                     <h1>{`> ${this.props.panel.title}`}</h1>
                     <figure className="panel-figure">
-                        <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch}></img>
+                        {this.props.currentModal === `active-panel-${this.props.panelId}` ? 
+                        <Link to={`/panels/${this.props.panelId}`}>
+                            <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} />
+                        </Link>
+                        :
+                        <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
                         <ul className="panel-action-buttons">
                             <i className="material-icons like-button">favorite</i>
                             {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
