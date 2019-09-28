@@ -20,6 +20,7 @@ export class PanelShow extends Component {
 
     handleSwipe() {
         if (this.props.panel.parentId) {
+            this.props.fetchPanel(this.props.panel.parentId);
             this.props.history.push(`/panels/${this.props.panel.parentId}`);
         }
     }
