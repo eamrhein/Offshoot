@@ -6,13 +6,13 @@ module.exports = function ValidatePost(data) {
 
     data.title = validText(data.title) ? data.title : '';
     data.panelText = validText(data.panelText) ? data.panelText : '';
-    data.photoUrl = validText(data.photoUrl) ? data.photoUrl : '';
+    data.photoURL = validText(data.photoURL) ? data.photoURL : '';
 
     if (Validator.isEmpty(data.title)) {
         errors.title = "Title can't be empty";
     }
 
-    if (Validator.isEmpty(data.panelText) && Validator.isEmpty(data.photoUrl)) {
+    if (Validator.isEmpty(data.panelText) && Validator.isEmpty(data.photoURL)) {
         errors.input = "Must have image or text";
     }
 
