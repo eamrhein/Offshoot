@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchPanel } from '../../../actions/panel_actions';
+import { fetchPanel, clearPanelState } from '../../../actions/panel_actions';
 import { useSwipeable, Swipeable } from 'react-swipeable';
 
 import Panel from '../panel';
@@ -23,6 +23,9 @@ export class PanelShow extends Component {
             this.props.fetchPanel(this.props.panel.parentId);
             this.props.history.push(`/panels/${this.props.panel.parentId}`);
         }
+    }
+    componentWillUnmount(){
+        this.props.clearPanelState();
     }
 
     render() {
@@ -49,7 +52,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchPanel: (panelId) => dispatch(fetchPanel(panelId))
+    fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
+    clearPanelState: () => dispatch(clearPanelState())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow);
