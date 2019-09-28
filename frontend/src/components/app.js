@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import NavBarContainer from './nav/nav_bar_container';
 import Register from './session/signup_form_container';
 import Login from './session/login_form_container';
-import MainPage from './main/main_page';
 import PanelShow from './panel/show/panel_show';
 import createPanelContainer from './main/panel/createPanelContainer';
 import branchPanelContainer from './main/panel/branchPanelContainer';
@@ -18,7 +17,6 @@ const App = () => (
     <NavBarContainer />
     <img className="backdrop" src="backdrop.png"/>
     <Switch>
-
       <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
       <ProtectedRoute exact path='/panels/liked' component={LikedIndexContainer} />
