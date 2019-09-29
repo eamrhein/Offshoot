@@ -7,11 +7,17 @@ export class BranchIndexItem extends Component {
         console.log(this.props)
         return (
             <li className="branch-index-item">
-                {this.props.panel ? 
+                {this.props.panel ?
                 <Link to={`/panels/${this.props.panelId}`}>
-                    <div className="thumb-holder"><img className="panel-thumb" src={this.props.panel.photoURL}></img></div>
+                    <div className="thumb-holder">
+                        <img
+                         className="panel-thumb"
+                         src={this.props.panel.photoURL}
+                         alt={this.props.panel.title}
+                    />
+                    </div>
                     {this.props.panel.title}
-                </Link> 
+                </Link>
                 :
                 "" }
             </li>
@@ -24,7 +30,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-    
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BranchIndexItem)
