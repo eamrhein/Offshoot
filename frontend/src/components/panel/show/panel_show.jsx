@@ -17,6 +17,9 @@ export class PanelShow extends Component {
     componentDidMount() {
         this.props.fetchPanel(this.props.match.params.panelId);
     }
+    componentWillUnmount(){
+        this.props.clearPanelState();
+    }
 
 
     handleSwipe() {
@@ -52,7 +55,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchPanel: (panelId) => dispatch(fetchPanel(panelId))
+    fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
+    clearPanelState: () => dispatch(clearPanelState())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow);
