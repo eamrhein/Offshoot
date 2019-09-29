@@ -11,7 +11,8 @@ export class BranchIndexItem extends Component {
                 <Link to={`/panels/${this.props.panelId}`}>
                     <div className="thumb-holder"><img className="panel-thumb" src={this.props.panel.photoURL}></img></div>
                     {this.props.panel.title}
-                </Link> :
+                </Link> 
+                :
                 "" }
             </li>
         )
