@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import CommentsIndex from '../comments/comments_index';
 import { fetchPanel } from '../../../actions/panel_actions';
 import { useSwipeable, Swipeable } from 'react-swipeable';
 
@@ -31,9 +31,11 @@ export class PanelShow extends Component {
         if (this.props.panel) {
             return (
             <Swipeable onSwipedRight={this.handleSwipe} className="panel-show">
-                    <Panel panelId={this.props.match.params.panelId}/>            
+                    <Panel panelId={this.props.match.params.panelId}/>
                     <BranchIndex panelId={this.props.match.params.panelId}/>
-                    <div>comment index placeholder</div>
+                    <div>
+                        <CommentsIndex />
+                    </div>
             </Swipeable>
             )
         } else {
