@@ -105,6 +105,17 @@
         border-radius: $small-radius;
         
         background-color: $primary;
+        a {
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            background-color: $darkest-primary;
+            color: $primary;
+            border-radius: $small-radius;
+            text-align: center;
+            padding: 0 5px;
+        }
     }
 
     h1 {
