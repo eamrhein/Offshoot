@@ -50,7 +50,7 @@ export class Panel extends Component {
         // this.setState({
         //     shareDrawerOpen: false
         // })
-        
+
         this.props.toggleModal(`active-panel-${this.props.panelId}`);
     }
 
@@ -64,7 +64,7 @@ export class Panel extends Component {
                 <div className="panel-proper">
                     <h1>{`> ${this.props.panel.title}`}</h1>
                     <figure className="panel-figure">
-                        {this.props.currentModal === `active-panel-${this.props.panelId}` ? 
+                        {this.props.currentModal === `active-panel-${this.props.panelId}` ?
                         <Link to={`/panels/${this.props.panelId}`}>
                             <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} />
                         </Link>
@@ -98,9 +98,9 @@ export class Panel extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 
-    let panelId; 
+    let panelId;
     let panel;
-    console.log(ownProps);
+
 
     if (ownProps.panel !== undefined) {
         panelId = ownProps.panel.id;
@@ -108,13 +108,12 @@ const mapStateToProps = (state, ownProps) => {
     } else if (ownProps.panelId !== undefined) {
         panelId = ownProps.panelId;
         panel = state.entities.panels[ownProps.panelId];
-    } else { 
+    } else {
         panelId = ownProps.match.params.panelId;
         panel = state.entities.panels[ownProps.match.params.panelId];
     };
 
-    console.log(panel);
-    
+
     return {
         panel: Object.assign({
             id: null,

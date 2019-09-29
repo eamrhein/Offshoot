@@ -16,7 +16,7 @@ import UserProfile from './main/profile/user_profile';
 const App = () => (
   <div>
     <NavBarContainer />
-    <img className="backdrop" src="backdrop.png"/>
+    <img className="backdrop" alt="backdrop" src="backdrop.png"/>
     <Switch>
       <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
