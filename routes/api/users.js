@@ -31,7 +31,17 @@ router.patch('/follow_root/:id', (req, res) => {
     }
     currentUser.followedRoots.push(req.body.rootId);
     currentUser.save()
-      .then((user) => res.json(user))
+      .then((user) => {
+        const { _id, username, email, followedRoots, authoredRoots } = user
+        const payload = {
+          id: _id,
+          username,
+          email,
+          followedRoots,
+          authoredRoots
+        };
+        res.json(payload);
+      })
       .catch((err) => console.log(err));
   });
 });
@@ -50,7 +60,17 @@ router.patch('/author_root/:id', (req, res) => {
     }
     currentUser.authoredRoots.push(req.body.rootId);
     currentUser.save()
-      .then((user) => res.json(user))
+      .then((user) => {
+        const { _id, username, email, followedRoots, authoredRoots } = user
+        const payload = {
+          id: _id,
+          username,
+          email,
+          followedRoots,
+          authoredRoots
+        };
+        res.json(payload);
+      })
       .catch((err) => console.log(err));
   });
 });
@@ -69,7 +89,17 @@ router.delete('/unauthor_root/:id', (req, res) => {
     }
     currentUser.authoredRoots = currentUser.followedRoots.filter((id) => id === req.body.rootId);
     currentUser.save()
-      .then((user) => res.json(user))
+      .then((user) => {
+        const { _id, username, email, followedRoots, authoredRoots } = user
+        const payload = {
+          id: _id,
+          username,
+          email,
+          followedRoots,
+          authoredRoots
+        };
+        res.json(payload);
+      })
       .catch((err) => console.log(err));
   });
 });
@@ -90,7 +120,17 @@ router.delete('/unfollow_root/', (req, res) => {
     }
     currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
     currentUser.save()
-      .then((user) => res.json(user))
+      .then((user) => {
+        const { _id, username, email, followedRoots, authoredRoots } = user
+        const payload = {
+          id: _id,
+          username,
+          email,
+          followedRoots,
+          authoredRoots
+        };
+        res.json(payload);
+      })
       .catch((err) => console.log(err));
   });
 });
@@ -166,7 +206,7 @@ router.post('/login', (req, res) => {
 router.get('/:id', (req, res) => {
   User.findById(req.params.id).then((user) => {
 
-    const { _id, username, followedRoots, authoredRoots } = user;
+    const { _id, username, followedRoots, authoredRoots, email } = user;
 
     res.json({
       id: _id,

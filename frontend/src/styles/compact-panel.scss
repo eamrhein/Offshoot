@@ -90,6 +90,10 @@
             .like-button:active {
                 color: $like-active-color;
             }
+            .liked {
+                color: $like-active-color;
+                opacity: 0.6;
+            }
 
             .share-button.active {
                 color: $primary;

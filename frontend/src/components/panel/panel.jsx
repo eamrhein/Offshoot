@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import { fetchPanel } from '../../actions/panel_actions';
 import { toggleModal } from '../../actions/ui_actions';
-
+import {followRoot, unfollowRoot} from '../../actions/user_actions'
 export class Panel extends Component {
 
     constructor(props) {
@@ -17,7 +17,7 @@ export class Panel extends Component {
         // this.handleShare = this.handleShare.bind(this);
         this.copyLink = this.copyLink.bind(this);
         this.handleTouch = this.handleTouch.bind(this);
-
+        this.renderLikeOnLoad = this.renderLikeOnLoad.bind(this);
         console.log(this.props);
     }
 
@@ -26,10 +26,28 @@ export class Panel extends Component {
     }
 
 
-    handleLike() {
+    handleLike(e) {
         //toggle like
-    }
+        e.preventDefault();
+        if(this.props.session.isAuthenticated){
+            const { likePanel, unlikePanel, panelId } = this.props;
+            let likeElement = e.target
+            if (!e.target.classList.contains('liked')) {
+                likePanel({ userId: this.props.currentUser.id, rootId: this.props.panelId })
+                    .then(() => likeElement.classList.add('liked'))
+            } else {
+                unlikePanel({ userId: this.props.currentUser.id, rootId: this.props.panelId })
+                    .then(() => likeElement.classList.remove('liked'))
+            }
+        }
 
+
+    }
+    renderLikeOnLoad(){
+        if (this.props.session.isAuthenticated){
+            if (this.props.currentUser.followedRoots.includes(this.props.panel.id)) return 'liked'
+        }
+    }
     // handleShare() {
     //     this.setState({
     //         shareDrawerOpen: !this.state.shareDrawerOpen
@@ -71,7 +89,7 @@ export class Panel extends Component {
                         :
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
                         <ul className="panel-action-buttons">
-                            <i className="material-icons like-button">favorite</i>
+                            <i className={`material-icons like-button ${this.renderLikeOnLoad()}`} onClick={this.handleLike} >favorite</i>
                             {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                                 "material-icons share-button active" :
                                 "material-icons share-button"
@@ -100,7 +118,7 @@ const mapStateToProps = (state, ownProps) => {
 
     let panelId; 
     let panel;
-    console.log(ownProps);
+    // console.log(ownProps);
 
     if (ownProps.panel !== undefined) {
         panelId = ownProps.panel.id;
@@ -113,7 +131,7 @@ const mapStateToProps = (state, ownProps) => {
         panel = state.entities.panels[ownProps.match.params.panelId];
     };
 
-    console.log(panel);
+    // console.log(panel);
     
     return {
         panel: Object.assign({
@@ -129,12 +147,16 @@ const mapStateToProps = (state, ownProps) => {
         panelId,
         // author: state.entities.users[panel.authorId],
         currentModal: state.ui.currentModal,
+        currentUser: state.session.user,
+        session: state.session
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
     toggleModal: (modal) => dispatch(toggleModal(modal)),
-    fetchPanel: (panelId) => dispatch(fetchPanel(panelId))
+    fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
+    likePanel: (userAndPanelIds) => dispatch(followRoot(userAndPanelIds)),
+    unlikePanel: (userAndPanelIds) => dispatch(unfollowRoot(userAndPanelIds))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Panel));
