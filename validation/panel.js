@@ -3,8 +3,6 @@ const validText = require('./valid-text');
 
 module.exports = function ValidatePost (data) {
   const errors = {};
-
-
   data.title = validText(data.title) ? data.title : '';
   data.panelText = validText(data.panelText) ? data.panelText : '';
   data.photoUrl = validText(data.photoUrl) ? data.photoUrl : '';
@@ -16,7 +14,6 @@ module.exports = function ValidatePost (data) {
   if (Validator.isEmpty(data.panelText) && Validator.isEmpty(data.photoUrl)) {
     errors.input = 'Must have image or text';
   }
-
 
   return {
     errors,

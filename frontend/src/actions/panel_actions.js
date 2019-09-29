@@ -3,7 +3,7 @@ export const RECEIVE_PANEL = 'RECEIVE_PANEL';
 export const RECEIVE_PANELS = 'RECEIVE_PANELS';
 export const REMOVE_PANELS = 'REMOVE_PANELS';
 
-const receivePanel = panel => ({
+export const receivePanel = panel => ({
   type: RECEIVE_PANEL,
   panel
 });

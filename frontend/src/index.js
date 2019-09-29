@@ -10,6 +10,8 @@ import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 import {fetchPanels} from './actions/panel_actions'
+import { createComment, deleteComment } from './actions/comment_actions';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
   const devState = {
@@ -80,6 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.store = store;
   window.fetchPanels = fetchPanels;
+  window.createComment = createComment;
+  window.deleteComment = deleteComment;
   // Render our root component and pass in the store as a prop
 
   const root = document.getElementById('root');
