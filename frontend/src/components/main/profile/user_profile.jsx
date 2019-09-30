@@ -24,7 +24,7 @@ class ProfileShow extends React.Component {
 
   componentDidMount(){
     this.props.fetchUserProfile(this.props.match.params.userId).then((res) => {
-      this.setState(res.userProfile.data)
+      this.setState(res.userProfile.data, ()=> console.log('userprofiel',this.state))
     })
   }
 
