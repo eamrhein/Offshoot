@@ -43,5 +43,4 @@ module.exports = function validateRegisterInput (data) {
     errors,
     isValid: Object.keys(errors).length === 0
   };
-  
 };

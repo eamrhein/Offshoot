@@ -2,7 +2,6 @@ const Validator = require('validator');
 
 module.exports = function ValidateFollowUser (data) {
   const errors = {};
-  console.log(data)
   if (Validator.isEmpty(data.userId)) {
     errors.userId = "userId can't be empty";
   }
