@@ -16,7 +16,7 @@ const CommentsIndex = (props) => {
   comments = comments.map((comment) => (
     <div key={comment.id}>
       <div>
-        Posted by {comment.username} {timeSince(comment.timestamp)}  Ago
+        Posted by {comment.username}  {timeSince(comment.timestamp)}  Ago
       </div>
       {comment.content}
     </div>
