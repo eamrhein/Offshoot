@@ -12,7 +12,6 @@ class ConditionalIndex extends React.Component {
   }
 
   componentDidMount(){
-   
     this.loadedPanels = [];
     if (this.props.ProfilePanels === undefined){
       const { panelIdsToFetch, indexType } = this.props;
@@ -39,7 +38,7 @@ class ConditionalIndex extends React.Component {
 
   componentDidUpdate(prevProps){
     if(prevProps.ProfilePanels !== this.props.ProfilePanels){
-      this.fetchAndLoadPannels(this.props.ProfilePanels)
+      if(this.props.ProfilePanels.length > 0)this.fetchAndLoadPannels(this.props.ProfilePanels)
     }
   }
 

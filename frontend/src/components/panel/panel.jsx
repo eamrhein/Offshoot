@@ -22,7 +22,7 @@ export class Panel extends Component {
     }
 
     componentDidMount() {
-       this.props.fetchPanel(this.props.panelId);
+       this.props.fetchPanel(this.props.panelId).then(() => console.log(this.props.panel));
     }
 
 
@@ -97,7 +97,11 @@ export class Panel extends Component {
                             <Link to={`/panels/${this.props.panelId}`}><i className="material-icons share-button">share</i></Link>
                         </ul>
                     </figure>
-                    <figcaption><span>{this.props.panel.panelText}</span></figcaption>
+                    
+                    <figcaption>
+                        <Link to={`/users/${this.props.panel.authorId}`}>{`${this.props.panel.authorUsername}`}</Link>
+                        <span>{this.props.panel.panelText}</span>
+                    </figcaption>
                 </div>
                 {/* <div className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                     "share-drawer open" :
