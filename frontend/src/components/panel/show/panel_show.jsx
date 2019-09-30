@@ -17,10 +17,6 @@ export class PanelShow extends Component {
     componentDidMount() {
         this.props.fetchPanel(this.props.match.params.panelId);
     }
-    componentWillUnmount(){
-        this.props.clearPanelState();
-    }
-
 
     handleSwipe() {
         if (this.props.panel.parentId) {
@@ -37,8 +33,7 @@ export class PanelShow extends Component {
                     <Panel panelId={this.props.match.params.panelId}/>
                     <BranchIndex panelId={this.props.match.params.panelId}/>
                     <div>
-                        <CommentsIndex />
-                    </div>
+                        <CommentsIndex /></div>
             </Swipeable>
             )
         } else {
@@ -55,8 +50,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
-    clearPanelState: () => dispatch(clearPanelState())
+    fetchPanel: (panelId) => dispatch(fetchPanel(panelId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow);

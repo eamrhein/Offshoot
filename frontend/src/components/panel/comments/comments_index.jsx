@@ -1,28 +1,35 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
+import { timeSince } from './timeSince';
+import CreateComment from './create_comment';
+
+
+const mSTP = (state, ownProps) => ({
+  panel: state.entities.panels[ownProps.match.params.panelId]
+})
+
 
 const CommentsIndex = (props) => {
-  let { comments } = props;
+  let { comments } = props.panel;
+  let { authorId } = props.panel;
   comments = comments.map((comment) => (
     <div key={comment.id}>
-      {comment.body}
+      <div>
+        Posted by {comment.username} {timeSince(comment.timestamp)}  Ago
+      </div>
+      {comment.content}
     </div>
   ));
   return (
     <div>
-      {comments}
+        {comments}
+      <CreateComment
+        authorId={authorId}
+      />
     </div>
   )
 
 }
 
-const mDTP = (dispatch) => ({
-
-})
-
-const mSTP = (state, ownProps) => ({
-  comments: state.entities.panels[ownProps.match.params.panelId]
-})
-
-export default withRouter(connect(mSTP, mDTP)(CommentIndex))
+export default withRouter(connect(mSTP)(CommentsIndex))

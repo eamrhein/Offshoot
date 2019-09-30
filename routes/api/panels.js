@@ -163,6 +163,7 @@ router.patch('/create-comment/:id', (req, res) => {
     res.status(422).json(errors);
   }
   const { content, authorId, username } = req.body;
+  console.log(req.body);
   const Comment = mongoose.model('comments', CommentSchema);
   const comment = new Comment({
     content,
@@ -173,7 +174,19 @@ router.patch('/create-comment/:id', (req, res) => {
     .then((panel) => {
       panel.comments.push(comment);
       panel.save();
-      res.json(panel);
+      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+      const payload = {
+        id: _id,
+        authorId,
+        title,
+        panelText,
+        photoURL,
+        parentId,
+        rootId,
+        childIds,
+        comments
+      };
+      res.json(payload);
     })
     .catch((err) => {
       console.log(err);
