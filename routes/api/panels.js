@@ -9,12 +9,12 @@ const validateComment = require('../../validation/comment');
 
 router
   .get('/:id', (req, res) => {
-    Panel.findById(req.params.id).then((panel) => {
+    Panel.findById(req.params.id).populate('authorId').then((panel) => {
       const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-
       res.json({
         id: _id,
-        authorId,
+        authorId: authorId._id,
+        authorUsername: authorId.username,
         title,
         panelText,
         photoURL,
@@ -23,7 +23,7 @@ router
         childIds,
         comments
       });
-    });
+    }).catch(err => console.log(err));
   })
 
   .post('/', (req, res) => {
@@ -45,26 +45,31 @@ router
         comments
       });
 
-      newPanel.save()
-        .then(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-          const payload = {
-            id: _id,
-            authorId,
-            title,
-            panelText,
-            parentId,
-            rootId,
-            photoURL,
-            childIds,
-            comments
-          };
-          res.json(payload);
-        })
-        .catch(err => console.log(err));
+      newPanel.save((err, panel) => {
+        if (err) console.log(err);
+        Panel.findById(panel._id)
+          .populate('authorId')
+          .then(panel => {
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const RestructuredPanel = {
+              id: _id,
+              authorId: authorId._id,
+              authorUsername: authorId.username,
+              title,
+              panelText,
+              parentId,
+              rootId,
+              photoURL,
+              childIds,
+              comments
+            };
+            res.json(RestructuredPanel);
+          });
+      });
     }
   })
   .patch('/:id', (req, res) => {
+
     const { errors, isValid } = validatePanel(req.body);
 
     if (!isValid) {
@@ -85,23 +90,28 @@ router
           comments
         });
         updatedPanel.isNew = false;
-        updatedPanel.save()
-          .then(panel => {
-            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds } = panel;
-            const payload = {
-              id: _id,
-              authorId,
-              title,
-              panelText,
-              parentId,
-              rootId,
-              photoURL,
-              childIds,
-              comments
-            };
-            res.json(payload);
-          })
-          .catch(err => console.log(err));
+        updatedPanel
+          .save((err, panel) => {
+            if (err) console.log(err);
+            Panel.findById(panel._id)
+              .populate('authorId')
+              .then(panel => {
+                const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+                const RestructuredPanel = {
+                  id: _id,
+                  authorId: authorId._id,
+                  authorUsername: authorId.username,
+                  title,
+                  panelText,
+                  parentId,
+                  rootId,
+                  photoURL,
+                  childIds,
+                  comments
+                };
+                res.json(RestructuredPanel);
+              });
+          });
       });
       // check if it already exists
       // check if it already exists
@@ -111,13 +121,14 @@ router
   })
   .get('/', (req, res) => {
     if (req.query.panelsArray) {
-      Panel.find({ _id: { $in: req.query.panelsArray } }, (_err, panelsArray) => {
+      Panel.find({ _id: { $in: req.query.panelsArray } }).populate('authorId').then(panelsArray => {
         const panelsToReturnPojo = {};
         panelsArray.forEach(panel => {
           const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
           const RestructuredPanel = {
             id: _id,
-            authorId,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
             title,
             panelText,
             parentId,
@@ -131,13 +142,14 @@ router
         res.send(panelsToReturnPojo);
       });
     } else {
-      Panel.find({}, (_err, panelsArray) => {
+      Panel.find({}).populate('authorId').then(panelsArray => {
         const panelsToReturnPojo = {};
         panelsArray.forEach(panel => {
           const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
           const RestructuredPanel = {
             id: _id,
-            authorId,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
             title,
             panelText,
             parentId,
@@ -151,7 +163,8 @@ router
           }
         });
         res.send(panelsToReturnPojo);
-      });
+      })
+        .catch(err => console.log(err));
     }
   });
 
@@ -172,8 +185,25 @@ router.patch('/create-comment/:id', (req, res) => {
   Panel.findById(req.params.id)
     .then((panel) => {
       panel.comments.push(comment);
-      panel.save();
-      res.json(panel);
+      panel.save((err, panel) => {
+          if (err) console.log(err);
+          Panel.findById(panel._id).populate(panel => {
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const RestructuredPanel = {
+              id: _id,
+              authorId: authorId._id,
+              authorUsername: authorId.username,
+              title,
+              panelText,
+              parentId,
+              rootId,
+              photoURL,
+              childIds,
+              comments
+            };
+            res.json(RestructuredPanel);
+          });
+        });
     })
     .catch((err) => {
       console.log(err);
@@ -187,8 +217,25 @@ router.delete('/delete-comment/:id', (req, res) => {
   Panel.findById(req.params.id)
     .then((panel) => {
       panel.comments = panel.comments.filter((comment) => comment.id === req.body.id);
-      panel.save();
-      res.json(panel);
+      panel.save((err, panel) => {
+        if (err) console.log(err);
+        Panel.findById(panel._id).populate(panel => {
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+          const RestructuredPanel = {
+            id: _id,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
+            title,
+            panelText,
+            parentId,
+            rootId,
+            photoURL,
+            childIds,
+            comments
+          };
+          res.json(RestructuredPanel);
+        });
+      });
     })
     .catch((err) => {
       console.log(err);
