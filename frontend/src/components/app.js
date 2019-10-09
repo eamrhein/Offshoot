@@ -19,12 +19,12 @@ const App = () => (
     <NavBarContainer />
     <img className="backdrop" alt="backdrop" src="backdrop.png"/>
     <Switch>
-      <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
+      <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/splash' component={SplashContainer} />
       <ProtectedRoute exact path='/panels/liked' component={LikedIndexContainer} />
       <ProtectedRoute exact path='/panels/authored' component={AuthoredIndexContainer} />
-      <Route exact path="/" component={MainIndexContainer} />
+      <ProtectedRoute exact path="/" component={MainIndexContainer} />
       <Route exact path='/users/:userId' component={UserProfile} />
       <ProtectedRoute exact path="/roots/new" component={createPanelContainer} />
       <ProtectedRoute path="/panels/:panelId/branch" component={branchPanelContainer} />

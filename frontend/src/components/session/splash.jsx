@@ -27,8 +27,8 @@ class Splash extends React.Component {
                 <h1>Stories with Infinite Possibilites</h1>
 
                 <div className="Splash Buttons">
-                    <Link to="/signup">honk</Link>
-                    <Link to="/login">bonk?</Link>
+                    <Link to="/signup">Sign Up</Link>
+                    <Link to="/login">Log In</Link>
                     <button onClick={this.logInDemoUser}>Demo App</button>
                 </div>
                 <div className="blurbs">
