@@ -206,6 +206,10 @@
     .username {
         margin-right: 5px;
     }
+
+    .timestamp {
+        color: $secondary;
+    }
 }
 
 .comment-form-container {
@@ -219,6 +223,7 @@
     textarea {
         width: 215px;
     }
+
 
     button {
         width: 80px;
