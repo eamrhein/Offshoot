@@ -22,7 +22,7 @@ const Protected = ({ component: Component, loggedIn, ...rest }) => (
         <Component {...props} />
       ) : (
           // Redirect to the login page if the user isn't is already authenticated
-          <Redirect to="/login" />
+          <Redirect to="/splash" />
         )
     }
   />
