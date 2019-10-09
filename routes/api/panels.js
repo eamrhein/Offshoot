@@ -176,6 +176,7 @@ router.patch('/create-comment/:id', (req, res) => {
     res.status(422).json(errors);
   }
   const { content, authorId, username } = req.body;
+  console.log(req.body);
   const Comment = mongoose.model('comments', CommentSchema);
   const comment = new Comment({
     content,
@@ -186,24 +187,24 @@ router.patch('/create-comment/:id', (req, res) => {
     .then((panel) => {
       panel.comments.push(comment);
       panel.save((err, panel) => {
-          if (err) console.log(err);
-          Panel.findById(panel._id).populate(panel => {
-            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-            const RestructuredPanel = {
-              id: _id,
-              authorId: authorId._id,
-              authorUsername: authorId.username,
-              title,
-              panelText,
-              parentId,
-              rootId,
-              photoURL,
-              childIds,
-              comments
-            };
-            res.json(RestructuredPanel);
-          });
+        if (err) console.log(err);
+        Panel.findById(panel._id).populate(panel => {
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+          const RestructuredPanel = {
+            id: _id,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
+            title,
+            panelText,
+            parentId,
+            rootId,
+            photoURL,
+            childIds,
+            comments
+          };
+          res.json(RestructuredPanel);
         });
+      });
     })
     .catch((err) => {
       console.log(err);
