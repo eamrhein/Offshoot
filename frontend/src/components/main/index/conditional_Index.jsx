@@ -28,7 +28,7 @@ class ConditionalIndex extends React.Component {
     this.props.fetchPanels(idsArr)
       .then(() => {
 
-        this.loadedPanels = Object.keys(this.props.panels)
+        this.loadedPanels = Object.keys(this.props.panels).reverse()
           //panel object threaded to panel component
           .map(id => <Panel panel={this.props.panels[id]} key={id} />)
         this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
