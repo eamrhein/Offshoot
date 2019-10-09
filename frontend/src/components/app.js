@@ -12,6 +12,7 @@ import LikedIndexContainer from './main/index/liked_index_container';
 import MainIndexContainer from './main/index/main_Index_container';
 import AuthoredIndexContainer from './main/index/authored_index_container';
 import UserProfile from './main/profile/user_profile';
+import SplashContainer from './session/splash_container';
 
 const App = () => (
   <div>
@@ -20,6 +21,7 @@ const App = () => (
     <Switch>
       <AuthRoute exact path='/signup' component={Register} />
       <AuthRoute exact path='/login' component={Login} />
+      <AuthRoute exact path='/splash' component={SplashContainer} />
       <ProtectedRoute exact path='/panels/liked' component={LikedIndexContainer} />
       <ProtectedRoute exact path='/panels/authored' component={AuthoredIndexContainer} />
       <Route exact path="/" component={MainIndexContainer} />
