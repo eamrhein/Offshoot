@@ -20,7 +20,7 @@ Offshoot is a web application that easily allows user to create and navigate sto
 + #### Frontend State: [Redux](https://redux.js.org/)
 
 ## Features
-17
+
 + Secure user authentication Express and PassportJs. passwords are salted and hashed preventing password data from being compromised.
 
 + Infinite Scrolling Index Page
