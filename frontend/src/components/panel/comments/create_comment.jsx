@@ -51,7 +51,7 @@ class CreateComment extends React.Component{
 
   render(){
     return (
-      <div>
+      <div className="comment-form-container">
         <form onSubmit = {(e) =>this.handleSubmit(e)}>
           <textarea
               value={this.state.comment.content}

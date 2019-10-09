@@ -61,7 +61,7 @@
         overflow: hidden;
         position: absolute;
         padding: 10px 0px;
-        border-radius: 10px;
+        // border-radius: 10px;
         top: 10px;
         transition-property: top;
         transition-duration: 0.5s;
@@ -71,13 +71,12 @@
         img {
             position: relative;
             width: 330px;
-            border-radius: 10px;
         }
 
         .panel-action-buttons {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
+            bottom: 5px;
+            right: 5px;
 
             display: flex;
             flex-direction: column;
@@ -139,7 +138,9 @@
 
     h1 {
         margin: 10px;
-        width: 310px;
+        width: 330px;
+        display: block;
+        // background-color: $light-primary;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -150,7 +151,7 @@
         height: 360px;
 
         .panel-action-buttons {
-            color: rgba($color: $secondary, $alpha: 0.5);
+            color: rgba($color: $secondary, $alpha: 0.8);
         }
 
         figure {

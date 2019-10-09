@@ -1,13 +1,15 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { timeSince } from './timeSince';
 import CreateComment from './create_comment';
 
 
+
 const mSTP = (state, ownProps) => ({
   panel: state.entities.panels[ownProps.match.params.panelId],
   currentUser: state.session.user
+  loggedIn: state.session.isAuthenticated,
 })
 
 
@@ -24,22 +26,21 @@ const CommentsIndex = (props) => {
   }
 
   comments = comments.map((comment) => (
-    <div key={comment.id}>
-      {
-        createDelete(props.currentUser, authorId)
-      }
+    <div className="comment" key={comment.id}>
       <div>
-        Posted by {comment.username}  {timeSince(comment.timestamp)}  Ago
+        <span className="username">{comment.username}</span> <span className="comment-body">{comment.content}</span>
       </div>
-      {comment.content}
+      <span className="timestamp">{timeSince(comment.timestamp)} ago</span>
     </div>
   ));
   return (
-    <div>
+    <div className="comment-area">
         {comments}
+      {!!props.loggedIn ?
       <CreateComment
         authorId={authorId}
-      />
+      /> :
+      ""}
     </div>
   )
 
