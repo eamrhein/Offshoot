@@ -11,7 +11,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   //NEED THE CREATE PANEL
-  // action: (panel) => console.log('actionplaceholder here is the panel!', panel)
   action: panel => dispatch(createPanel(panel)),
   authorRoot: (userAndpanelIds) => dispatch(authorRoot(userAndpanelIds))
 });

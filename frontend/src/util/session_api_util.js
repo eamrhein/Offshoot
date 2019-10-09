@@ -21,7 +21,6 @@ export const followRoot = (userAndpanelIds) => {
 }
 
 export const unfollowRoot = (userAndpanelIds) => {
-  console.log(userAndpanelIds)
   return axios.delete('/api/users/unfollow_root/', {data: userAndpanelIds})
 }
 

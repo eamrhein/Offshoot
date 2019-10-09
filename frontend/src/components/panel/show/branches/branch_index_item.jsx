@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export class BranchIndexItem extends Component {
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <li className="branch-index-item">
                 {this.props.panel ?
