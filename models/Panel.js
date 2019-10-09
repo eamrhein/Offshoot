@@ -34,6 +34,11 @@ const PanelSchema = new Schema({
   photoURL: {
     type: String
   },
+
+  likes: {
+    type: Number
+  },
+  
   comments: [CommentSchema]
 
 });
