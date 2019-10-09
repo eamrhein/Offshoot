@@ -38,11 +38,12 @@
     }
 
     figure {
-        width: 350px;
+        width: 370px;
         padding: 10px;
         background-color: $primary;
         position: relative;
         border-radius: $small-radius;
+        box-sizing: border-box;
 
         img {
             width: 350px;
@@ -98,7 +99,7 @@
 
         width: 370px;
         box-sizing: border-box;
-        margin: 10px 20px;
+        margin: 10px;
         padding: 15px 20px;
         z-index: 1;
 
@@ -186,13 +187,52 @@
             }
         }
 
+.comment-area {
+    background-color: $light-secondary;
+    width: 370px;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px;
+    }
+
+    .username {
+        margin-right: 5px;
+    }
+}
+
+.comment-form-container {
+
+    form {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    textarea {
+        width: 215px;
+    }
+
+    button {
+        width: 80px;
+        text-align: center;
+        background-color: $secondary;
+    }
+}
 
 @media only screen and (max-width: 380px) {
     //small phone
     .panel-show {
         figure {
 
-            width: 300px;
+            width: 320px;
 
             img {
                 width: 300px;
@@ -200,7 +240,17 @@
         }
         figcaption {
             width: 320px;
+            margin: 10px 0px;
         }
     }
-}
 
+    .branch-index {
+        li a {
+            width: 320px;
+        }
+    }
+    .comment-area {
+        width: 320px;
+        margin: 20px 0px;
+    }
+}

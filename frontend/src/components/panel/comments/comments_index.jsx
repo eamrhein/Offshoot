@@ -1,8 +1,9 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { timeSince } from './timeSince';
 import CreateComment from './create_comment';
+
 
 
 const mSTP = (state, ownProps) => ({
@@ -17,13 +18,13 @@ const CommentsIndex = (props) => {
   comments = comments.map((comment) => (
     <div className="comment" key={comment.id}>
       <div>
-        <span className="username">{comment.username}</span> {comment.content}
+        <span className="username">{comment.username}</span> <span className="comment-body">{comment.content}</span>
       </div>
-      <span className="timestamp">Posted {timeSince(comment.timestamp)} Ago</span>
+      <span className="timestamp">{timeSince(comment.timestamp)} ago</span>
     </div>
   ));
   return (
-    <div>
+    <div className="comment-area">
         {comments}
       {!!props.loggedIn ? 
       <CreateComment
