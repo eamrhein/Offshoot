@@ -6,7 +6,8 @@ import CreateComment from './create_comment';
 
 
 const mSTP = (state, ownProps) => ({
-  panel: state.entities.panels[ownProps.match.params.panelId]
+  panel: state.entities.panels[ownProps.match.params.panelId],
+  loggedIn: state.session.isAuthenticated,
 })
 
 
@@ -14,19 +15,21 @@ const CommentsIndex = (props) => {
   let { comments } = props.panel;
   let { authorId } = props.panel;
   comments = comments.map((comment) => (
-    <div key={comment.id}>
+    <div className="comment" key={comment.id}>
       <div>
-        Posted by {comment.username}  {timeSince(comment.timestamp)}  Ago
+        <span className="username">{comment.username}</span> {comment.content}
       </div>
-      {comment.content}
+      <span className="timestamp">Posted {timeSince(comment.timestamp)} Ago</span>
     </div>
   ));
   return (
     <div>
         {comments}
+      {!!props.loggedIn ? 
       <CreateComment
         authorId={authorId}
-      />
+      /> :
+      ""}
     </div>
   )
 
