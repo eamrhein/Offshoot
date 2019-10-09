@@ -18,11 +18,12 @@ export class Panel extends Component {
         this.copyLink = this.copyLink.bind(this);
         this.handleTouch = this.handleTouch.bind(this);
         this.renderLikeOnLoad = this.renderLikeOnLoad.bind(this);
-        console.log(this.props);
+        // console.log(this.props);
     }
 
     componentDidMount() {
-       this.props.fetchPanel(this.props.panelId).then(() => console.log(this.props.panel));
+       this.props.fetchPanel(this.props.panelId)
+      //  .then(() => console.log(this.props.panel));
     }
 
 
@@ -97,7 +98,7 @@ export class Panel extends Component {
                             <Link to={`/panels/${this.props.panelId}`}><i className="material-icons share-button">share</i></Link>
                         </ul>
                     </figure>
-                    
+
                     <figcaption>
                         <Link to={`/users/${this.props.panel.authorId}`}>{`${this.props.panel.authorUsername}`}</Link>
                         <span>{this.props.panel.panelText}</span>
