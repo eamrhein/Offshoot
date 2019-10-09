@@ -45,7 +45,6 @@ class PanelForm extends React.Component {
 
   sendPanel() {
     const panel = this.state.panel;
-    console.log(panel);
     panel.authorId = this.props.currentUser.id;
     this.props.action(panel)
 
@@ -101,7 +100,7 @@ class PanelForm extends React.Component {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           const {title, authorId, panelText, childId, parentId, likes} = this.state.panel;
-          console.log(url);
+          // console.log(url);
           //const newURL = /com\/.+(\.jpg|\.png|\.gif|\.bmp|\.tiff|\.jpeg).+/.exec(url); newURL[0].slice(4)
           this.setState({ panel: {photoURL: url, title: title, authorId: authorId, panelText: panelText,
           childId: childId, parentId: parentId, likes: likes}});
