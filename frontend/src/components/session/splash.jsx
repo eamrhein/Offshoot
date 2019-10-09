@@ -16,17 +16,26 @@ class Splash extends React.Component {
             email: 'demo@demo.com',
             password: '123456'
         }
-        
+
         this.props.login(demoUser);
     }
 
     render() {
 
         return (
-            <div className="Splash Buttons">
-                <Link to="/signup">honk</Link>
-                <Link to="/login">bonk?</Link>
-                <button onClick={this.logInDemoUser}>Demo App</button>
+            <div className="splash-body">
+                <h1>Stories with Infinite Possibilites</h1>
+
+                <div className="Splash Buttons">
+                    <Link to="/signup">honk</Link>
+                    <Link to="/login">bonk?</Link>
+                    <button onClick={this.logInDemoUser}>Demo App</button>
+                </div>
+                <div className="blurbs">
+                    <h2>Start your own story or branch another</h2>
+                    <h2>Vote on your favorite branch</h2>
+                    <h2>Scroll through all the variants</h2>
+                </div>
             </div>
         );
     }
