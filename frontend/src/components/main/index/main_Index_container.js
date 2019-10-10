@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchPanels: () => dispatch(fetchPanels()),
   clearPanelState: () => dispatch(clearPanelState())
- 
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConditionalIndex)

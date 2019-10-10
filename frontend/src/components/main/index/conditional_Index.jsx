@@ -19,7 +19,7 @@ class ConditionalIndex extends React.Component {
         this.fetchAndLoadPannels(panelIdsToFetch);
       }
     }
-    
+
     window.addEventListener('scroll', this.handleScroll)
   }
 
@@ -28,7 +28,7 @@ class ConditionalIndex extends React.Component {
     this.props.fetchPanels(idsArr)
       .then(() => {
 
-        this.loadedPanels = Object.keys(this.props.panels)
+        this.loadedPanels = Object.keys(this.props.panels).reverse()
           //panel object threaded to panel component
           .map(id => <Panel panel={this.props.panels[id]} key={id} />)
         this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
@@ -44,7 +44,7 @@ class ConditionalIndex extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    // could make this a conditional 
+    // could make this a conditional
     // check if the panels exist in the state, if they do add them to the state,
     // if they don't fetch them
     // currently clearing state to prevent overlab between the authored and liked panels
@@ -62,7 +62,7 @@ class ConditionalIndex extends React.Component {
     }
 
 
-    // Could be refactored to remove panels off the top as needed 
+    // Could be refactored to remove panels off the top as needed
     // this.fetchPanels().then(() => {
     //   let panelsToAdd = this.props.panels
     //   this.state.panels.forEach(panel => {
@@ -71,10 +71,10 @@ class ConditionalIndex extends React.Component {
     //     }
     //   });
     //   this.setState({panels: this.state.panels.concat(panelsToAdd)})})
-     } 
+     }
 
     // Optional upwards scrolling to remove peices
-    //  slicing will in the initial if statement. 
+    //  slicing will in the initial if statement.
     // else {
     //   this.setState({ panels: [dummyDiv1, dummyDiv2].concat(this.state.panels.slice(0, this.state.panels.length - 2)) })
     // }
@@ -89,7 +89,7 @@ class ConditionalIndex extends React.Component {
         {/* {this.state.panels.length === 0 ? <div>{`${this.props.indexType} more panels!`}</div> : ''} */}
       </div>
     )
-  } 
+  }
 }
 
 export default ConditionalIndex;

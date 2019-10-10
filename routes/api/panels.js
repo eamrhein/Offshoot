@@ -213,11 +213,10 @@ router.patch('/create-comment/:id', (req, res) => {
 });
 
 //! delete comments
-
-router.delete('/delete-comment/:id', (req, res) => {
+router.patch('/delete-comment/:id', (req, res) => {
   Panel.findById(req.params.id)
     .then((panel) => {
-      panel.comments = panel.comments.filter((comment) => comment.id === req.body.id);
+      panel.comments = panel.comments.filter((comment) => comment.id === req.body);
       panel.save((err, panel) => {
         if (err) console.log(err);
         Panel.findById(panel._id)
