@@ -46,7 +46,7 @@ class Splash extends React.Component {
                     </div>
                 </div>
                 <div className="splash-index">
-                    <MainIndexContainer />
+                    {/* <MainIndexContainer /> */}
                 </div>
             </div>
         );
