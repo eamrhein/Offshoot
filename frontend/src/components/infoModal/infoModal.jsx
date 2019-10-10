@@ -4,7 +4,8 @@ import {withRouter} from 'react-router-dom'
 import {closeModals, toggleModal} from '../../actions/ui_actions'
 const mapStateToProps = state => ({
   currentModal: state.ui.currentModal,
-  currentUser: state.session.user
+  currentUser: state.session.user,
+  isAuthenticated: state.session.isAuthenticated
 })
 const mapDispatchtoProps = dispatch => ({
   toggleModal: modal => dispatch(toggleModal(modal)),
@@ -20,19 +21,25 @@ class InfoModal extends React.Component{
 
   componentDidMount(){
     // this.props.history.listen(location, )
+    console.log(this.props.location)
     this.listen = this.props.history.listen(location => {
       console.log(location, 'hey this is the location')
-      if (location.pathname === '/'){
-        
-        this.setState({text: this.IndexInfo.text, gif: this.IndexInfo.gif}, () => {
-          this.props.toggleModal('info-modal')
-        })
+      if (location.pathname === '/' && this.props.isAuthenticated === true){
+        if(this.props.currentUser.username === 'demo' || this.props.currentUser.authoredRoots.length === 0){
+          this.loadIndex();
+
+        }
       } 
     })
     if(this.props.currentUser.username === 'demo'){
-      this.setState({hidden: ''});
-      this.props.toggleModal('info-modal');
+      this.loadIndex();
     }
+  }
+
+  loadIndex(){
+    this.setState({ text: this.IndexInfo.text, gif: this.IndexInfo.gif }, () => {
+      this.props.toggleModal('info-modal')
+    })
   }
 
 
