@@ -11,7 +11,8 @@ class PanelForm extends React.Component {
         photoURL: '',
         childId: [],
         parentId: null,
-        likes: 0
+        likes: 0,
+        rootId: null
       },
       photoFile: null
     }
@@ -27,7 +28,14 @@ class PanelForm extends React.Component {
           this.setState({ panel: this.props.panels[this.props.match.params.panelId] })
         })
     } else if (this.props.formType === 'branch') {
-      this.setState({panel: {parentId: this.props.match.params.panelId}})
+      this.props.fetchPanel(this.props.match.params.panelId).then(panel => {
+        let panToCheck = panel.panel.data
+        if (panToCheck.rootId === null){
+          this.setState({ panel: { parentId: this.props.match.params.panelId, rootId: panToCheck.id } })
+        } else {
+          this.setState({ panel: { parentId: this.props.match.params.panelId, rootId: panToCheck.rootId } })
+        }
+      })
     }
   }
   handleSubmit(e){
@@ -99,11 +107,11 @@ class PanelForm extends React.Component {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          const {title, authorId, panelText, childId, parentId, likes} = this.state.panel;
+          const {title, authorId, panelText, childId, parentId, likes, rootId} = this.state.panel;
           // console.log(url);
           //const newURL = /com\/.+(\.jpg|\.png|\.gif|\.bmp|\.tiff|\.jpeg).+/.exec(url); newURL[0].slice(4)
           this.setState({ panel: {photoURL: url, title: title, authorId: authorId, panelText: panelText,
-          childId: childId, parentId: parentId, likes: likes}});
+          childId: childId, parentId: parentId, likes: likes, rootId: rootId}});
           this.sendPanel();
         }
         else {
