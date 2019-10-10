@@ -69,7 +69,6 @@ router
     }
   })
   .patch('/:id', (req, res) => {
-
     const { errors, isValid } = validatePanel(req.body);
 
     if (!isValid) {
@@ -176,7 +175,6 @@ router.patch('/create-comment/:id', (req, res) => {
     res.status(422).json(errors);
   }
   const { content, authorId, username } = req.body;
-  console.log(req.body);
   const Comment = mongoose.model('comments', CommentSchema);
   const comment = new Comment({
     content,
@@ -184,26 +182,28 @@ router.patch('/create-comment/:id', (req, res) => {
     username
   });
   Panel.findById(req.params.id)
-    .then((panel) => {
+    .then(panel => {
       panel.comments.push(comment);
       panel.save((err, panel) => {
         if (err) console.log(err);
-        Panel.findById(panel._id).populate(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-          const RestructuredPanel = {
-            id: _id,
-            authorId: authorId._id,
-            authorUsername: authorId.username,
-            title,
-            panelText,
-            parentId,
-            rootId,
-            photoURL,
-            childIds,
-            comments
-          };
-          res.json(RestructuredPanel);
-        });
+        Panel.findById(panel._id)
+          .populate('authorId')
+          .then(panel => {
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const RestructuredPanel = {
+              id: _id,
+              authorId: authorId._id,
+              authorUsername: authorId.username,
+              title,
+              panelText,
+              parentId,
+              rootId,
+              photoURL,
+              childIds,
+              comments
+            };
+            res.json(RestructuredPanel);
+          });
       });
     })
     .catch((err) => {
@@ -220,22 +220,24 @@ router.delete('/delete-comment/:id', (req, res) => {
       panel.comments = panel.comments.filter((comment) => comment.id === req.body.id);
       panel.save((err, panel) => {
         if (err) console.log(err);
-        Panel.findById(panel._id).populate(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-          const RestructuredPanel = {
-            id: _id,
-            authorId: authorId._id,
-            authorUsername: authorId.username,
-            title,
-            panelText,
-            parentId,
-            rootId,
-            photoURL,
-            childIds,
-            comments
-          };
-          res.json(RestructuredPanel);
-        });
+        Panel.findById(panel._id)
+          .populate('authorId')
+          .then(panel => {
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const RestructuredPanel = {
+              id: _id,
+              authorId: authorId._id,
+              authorUsername: authorId.username,
+              title,
+              panelText,
+              parentId,
+              rootId,
+              photoURL,
+              childIds,
+              comments
+            };
+            res.json(RestructuredPanel);
+          });
       });
     })
     .catch((err) => {

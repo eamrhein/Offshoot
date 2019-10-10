@@ -113,13 +113,13 @@
             }
         }
 
-        > div:after {
-            content: "";
-            height: 1px;
-            margin: 5px;
-            display: block;
-            background-color: $light-secondary;
-        }
+        // > div:after {
+        //     content: "";
+        //     height: 1px;
+        //     margin: 5px;
+        //     display: block;
+        //     background-color: $light-secondary;
+        // }
 
         > div:last-child:after {
             display: none;

@@ -15,16 +15,16 @@ const mapDispatchToProps = dispatch => ({
 class ProfileShow extends React.Component {
   constructor(props){
     super(props)
-    this.state = {      
+    this.state = {
           username: '',
           followedRoots: [],
-          authoredRoots: []  
+          authoredRoots: []
     }
   }
 
   componentDidMount(){
     this.props.fetchUserProfile(this.props.match.params.userId).then((res) => {
-      this.setState(res.userProfile.data, ()=> console.log('userprofiel',this.state))
+      this.setState(res.userProfile.data,);
     })
   }
 
@@ -32,12 +32,15 @@ class ProfileShow extends React.Component {
     return(
       <div className='profile-page'>
         <div className='profile-info'>
-          {`${this.state.username}'s Profile Page`}
-          <div>
-            Authore'd Roots
+          <div className="username">
+            <img src="acorn-icon-black.png" className="acorn-icon"></img>
+            <span>{`${this.state.username}`}</span>
           </div>
+          <h2>
+            Authored Roots
+          </h2>
         </div>
-        
+
       <ProfileAuthoredIndexContainer ProfilePanels={this.state.authoredRoots} />
       </div>
     )
