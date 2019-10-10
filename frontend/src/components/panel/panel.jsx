@@ -26,7 +26,6 @@ export class Panel extends Component {
       //  .then(() => console.log(this.props.panel));
     }
 
-
     handleLike(e) {
         //toggle like
         e.preventDefault();
@@ -41,9 +40,8 @@ export class Panel extends Component {
                     .then(() => likeElement.classList.remove('liked'))
             }
         }
-
-
     }
+    
     renderLikeOnLoad(){
         if (this.props.session.isAuthenticated){
             if (this.props.currentUser.followedRoots.includes(this.props.panel.id)) return 'liked'
@@ -161,6 +159,6 @@ const mapDispatchToProps = (dispatch) => ({
     fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
     likePanel: (userAndPanelIds) => dispatch(followRoot(userAndPanelIds)),
     unlikePanel: (userAndPanelIds) => dispatch(unfollowRoot(userAndPanelIds))
-})
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Panel));

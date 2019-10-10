@@ -7,12 +7,12 @@ export const USER_AUTHORED_UPDATE = 'USER_AUTHORED_UPDATE';
 export const receiveErrors = errors => ({
   type: RECEIVE_FOLLOW_ERRORS,
   errors
-})
+});
 
 const userAuthoredUpdate = (currentUser) => ({
   type: USER_AUTHORED_UPDATE,
   currentUser
-})
+});
 
 
 // These take in the users id and then id of the root panel id
