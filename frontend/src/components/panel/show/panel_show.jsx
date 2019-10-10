@@ -30,10 +30,23 @@ export class PanelShow extends Component {
         if (this.props.panel) {
             return (
             <Swipeable onSwipedRight={this.handleSwipe} className="panel-show">
-                    <Panel panelId={this.props.match.params.panelId}/>
-                    <BranchIndex panelId={this.props.match.params.panelId}/>
+                    <div className="story-area">
+                        <div className="panel-and-buttons">
+                        <Panel panelId={this.props.match.params.panelId}/>
+                            <div className="desktop-view-buttons">
+                                {this.props.panel.parentId ?
+                                <i className="material-icons back-button" onClick={this.handleSwipe}>fast_rewind</i>:
+                                ""}
+                                <i className="material-icons like-button">favorite</i>
+                                {this.props.currentUser.id === this.props.panel.authorId ? 
+                                <i className="material-icons edit-button">edit</i> : ""}
+                            </div>
+                        </div>
+                        <BranchIndex panelId={this.props.match.params.panelId}/>
+                    </div>
                     <div>
-                        <CommentsIndex /></div>
+                        <CommentsIndex />
+                    </div>
             </Swipeable>
             )
         } else {
@@ -46,7 +59,8 @@ export class PanelShow extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    panel: state.entities.panels[ownProps.match.params.panelId]
+    panel: state.entities.panels[ownProps.match.params.panelId],
+    currentUser: state.session.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
