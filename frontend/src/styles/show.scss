@@ -7,8 +7,8 @@
 
     .panel {
         display: flex;
-        flex-direction: column;
         align-items: center;
+        flex-direction: column;
     }
     
     .panel-proper {
@@ -51,47 +51,35 @@
         }
 
         .panel-action-buttons {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-
-            display: flex;
-            flex-direction: column;
-            z-index: 4;
-
-            color: rgba($color: $secondary, $alpha: 0.0);
-            transition-property: color;
-            transition-duration: 0.1s;
-            transition-timing-function: linear;
-
-            .like-button:active {
-                color: $like-active-color;
-            }
-
-            .share-button.active {
-                color: $primary;
-            }
-
+            display: none;
         }
+
+        // .panel-action-buttons {
+        //     position: absolute;
+        //     bottom: 15px;
+        //     right: 15px;
+
+        //     display: flex;
+        //     flex-direction: column;
+        //     z-index: 4;
+
+        //     color: rgba($color: $secondary, $alpha: 0.0);
+        //     transition-property: color;
+        //     transition-duration: 0.1s;
+        //     transition-timing-function: linear;
+
+        //     .like-button:active {
+        //         color: $like-active-color;
+        //     }
+
+        //     .share-button.active {
+        //         color: $primary;
+        //     }
+
+        // }
 
     }
 
-    .panel.active {
-
-            // .backdrop {
-            //     content: "";
-            //     position: absolute;
-            //     background-color: rgba($color: black, $alpha: 0.3);
-            //     top: 0px;
-            //     left: 0px;
-            //     width: 100vw;
-            //     height: 100vh;
-            // }
-
-            .panel-action-buttons {
-                color: rgba($color: $secondary, $alpha: 0.5);
-            }
-        }
 
 
     figcaption {
@@ -99,7 +87,7 @@
 
         width: 370px;
         box-sizing: border-box;
-        margin: 10px;
+        margin: 10px 0px;
         padding: 15px 20px;
         z-index: 1;
 
@@ -117,15 +105,54 @@
             text-align: center;
             padding: 0 5px;
         }
-        span{
+        span {
             margin-left: 10px;
         }
     }
 
     h1 {
-        margin: 10px;
+        margin: 10px 0px;
+        width: 370px;
     }
 
+    .desktop-view-buttons {
+        visibility: hidden;
+        width: 370px;
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            display: flex;
+        }
+
+        i {
+            display: block;
+            padding: 10px;
+            background-color: $darkest-primary;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .like-button {
+            color: rgba($color: #000000, $alpha: 0.5)
+        }
+
+        .like-button.liked {
+            color: $light-primary;
+        }
+
+    }
+
+    .panel-and-buttons {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .branch-index {
@@ -191,7 +218,7 @@
 .comment-area {
     background-color: $light-secondary;
     width: 370px;
-    margin: 10px;
+    margin-top: 10px;
     border-radius: 5px;
     padding: 5px;
     box-sizing: border-box;
@@ -214,6 +241,7 @@
 }
 
 .comment-form-container {
+
 
     form {
         display: flex;
@@ -251,6 +279,7 @@
     }
 
     .branch-index {
+
         li a {
             width: 320px;
         }
@@ -259,4 +288,39 @@
         width: 320px;
         margin: 20px 0px;
     }
+}
+
+
+
+@media only screen and (min-width: 800px) {
+    .story-area {
+        display: flex;
+        margin-top: 30px;
+    }
+    .panel-show {
+        .desktop-view-buttons {
+            visibility: visible;
+        }
+        .panel-proper {
+            align-items: left;
+            width: auto;
+            margin-right: 30px;
+        }
+    }
+
+    .comment-area {
+        width: 800px;
+    }
+
+    .comment-form-container {
+        textarea {
+            width: 690px;
+        }
+    }
+
+    .branch-index {
+        margin-top: 39px;
+        width: auto;
+    }
+    
 }
