@@ -17,6 +17,57 @@
     .logo {
         height: 50px;
     }
+
+    .info-modal-container {
+    // position: relative;
+    background-color: red;
+    align-self: flex-end;
+        .modalparent{
+            display: flex;
+            justify-content: center;
+        }
+        .info-background {
+            // display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: auto;
+            background-color: #000000;
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .info-modal{
+        position: fixed;
+        top: 20%;
+        left: 10%;
+        padding: 10px;
+        width: 80%;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .1);    
+        z-index: 2000;    
+        max-width: 300px;
+            .info-text{
+                padding: 5px;
+                font-size: 20px;
+                font-family: $font-family;
+            }
+            img {
+            border-radius: 5px;
+            // filter: grayscale(20%);
+            width: 100%;
+            }
+        }
+
+    }
+}
+.hidden {
+    visibility: hidden;
+    z-index: -1000;
+    top: -1000;
+    left: -1000;
 }
 
 .dropdown-container {
@@ -147,3 +198,5 @@
     align-items: center;
     font-weight: bold;
 }
+
+

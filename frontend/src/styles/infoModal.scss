@@ -1,0 +1,12 @@
+.info-modal-container {
+  position: relative;
+}
+.info-modal {
+  position: absolute;
+  background-color: white !important;
+  top: 200;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
