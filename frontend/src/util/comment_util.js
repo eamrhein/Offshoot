@@ -5,7 +5,5 @@ export const createComment = (id, comment) => {
 };
 
 export const deleteComment = (panelId, commentId) => {
-  return axios.patch(`/api/panels/${panelId}`, {data: {
-    id: commentId,
-  }})
+  return axios.patch(`/api/panels/delete-comment/${panelId}`, commentId)
 };
