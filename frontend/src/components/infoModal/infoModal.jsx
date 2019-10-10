@@ -15,26 +15,26 @@ class InfoModal extends React.Component{
   constructor(props){
     super(props)
     this.state = {text: '', gif:'', hidden: 'hidden'}
-    this.IndexInfo = { text: 'To scroll, go down', gif: 'frontend/public/browse.gif'}
+    this.IndexInfo = { text: 'To scroll, go down', gif: 'browse.gif'}
   }
 
   componentDidMount(){
     // this.props.history.listen(location, )
     this.listen = this.props.history.listen(location => {
       console.log(location, 'hey this is the location')
-      if (location.pathname === '/') this.props.toggleModal('info-modal')
+      if (location.pathname === '/'){
+        
+        this.setState({text: this.IndexInfo.text, gif: this.IndexInfo.gif}, () => {
+          this.props.toggleModal('info-modal')
+        })
+      } 
     })
     if(this.props.currentUser.username === 'demo'){
       this.setState({hidden: ''});
       this.props.toggleModal('info-modal');
     }
   }
-  // componentDidUpdate(prevProps){
-  //   console.log(this.props.match.path)
-  //   if (this.props.match.location === "/" && this.currentModal === 'info-modal'){
-  //     this.setState({text: this.IndexInfo.text, gif: this.IndexInfo.gif})
-  //   }
-  // }
+
 
   render(){
     return (
@@ -45,13 +45,11 @@ class InfoModal extends React.Component{
 
           <div className={`info-text ${this.props.currentModal === 'info-modal' ? '' : 'hidden'}`}>
             <span>{this.state.text}</span>
-            Click on a panel to view more. 
-            Click again to Navigate to the user show
             <span>
           </span>
           </div>
           <div className={`info-gif ${this.props.currentModal === 'info-modal' ? "" : "hidden"}`}>
-            <img src="browse.gif" alt="navigation gif" />
+            <img src={this.state.gif} alt="navigation gif" />
           </div>
 
 
