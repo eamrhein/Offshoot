@@ -138,7 +138,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
     toggleModal: (modal) => dispatch(toggleModal(modal)),
     fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
-
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Panel));

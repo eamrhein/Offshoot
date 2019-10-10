@@ -129,9 +129,21 @@
             width: 25px;
             height: 25px;
             border-radius: 5px;
-    }
+        }
 
-}
+        a {
+            text-decoration: none;
+        }
+
+        .like-button {
+            color: rgba($color: #000000, $alpha: 0.5)
+        }
+
+        .like-button.liked {
+            color: $light-primary;
+        }
+
+    }
 
     .panel-and-buttons {
         display: flex;

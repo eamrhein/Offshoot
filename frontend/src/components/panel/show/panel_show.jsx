@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 import Panel from '../panel';
 import BranchIndex from './branches/branch_index';
+import LikeButton from '../like_button';
 
 export class PanelShow extends Component {
 
@@ -39,7 +40,7 @@ export class PanelShow extends Component {
                                 {this.props.panel.parentId ?
                                 <i className="material-icons back-button" onClick={this.handleSwipe}>fast_rewind</i>:
                                 ""}
-                                <i className="material-icons like-button">favorite</i>
+                                <LikeButton panelId={this.props.panel.id} />
                                 {this.props.currentUser.id === this.props.panel.authorId ? 
                                 <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
                             </div>
