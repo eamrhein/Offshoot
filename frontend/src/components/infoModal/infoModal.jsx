@@ -15,10 +15,12 @@ const mapDispatchtoProps = dispatch => ({
 class InfoModal extends React.Component{ 
   constructor(props){
     super(props)
-    this.state = {text: '', gif:'', hidden: 'hidden'}
-    this.IndexInfo = { text: 'To scroll, go down', gif: 'browse.gif'}
+    this.state = { text: '', gif: '', hidden: 'hidden', indexCounter: 0}
+    this.IndexInfo = { text: ['Index Info', "second", 'IndexInfo'], gif: ['browse.gif', 'browse.gif', 'browse.gif']}
+    this.handleIndexCounter = this.handleIndexCounter.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
-
+  
   componentDidMount(){
     // this.props.history.listen(location, )
     console.log(this.props.location)
@@ -41,25 +43,40 @@ class InfoModal extends React.Component{
       this.props.toggleModal('info-modal')
     })
   }
+  handleIndexCounter(num){
+    return(()=>{
+      this.setState({ indexCounter: this.state.indexCounter + num })
 
+    })
+  }
+
+  handleClose(){
+    this.setState({text: '', gif: '', indexCounter: 0})
+    this.props.closeModals()
+  }
 
   render(){
     return (
       <div className={`info-modal-container ${this.props.currentModal === 'info-modal' ? '' : 'hidden'}`}>
-        <div onClick={this.props.closeModals} className={`info-background ${this.props.currentModal === 'info-modal' ? '' : 'hidden'}`}>
+        <div onClick={this.handleClose} className={`info-background ${this.props.currentModal === 'info-modal' ? '' : 'hidden'}`}>
         </div>
         <div className={`info-modal ${this.props.currentModal === 'info-modal' ? '' : 'hidden'}`}>
 
           <div className={`info-text ${this.props.currentModal === 'info-modal' ? '' : 'hidden'}`}>
-            <span>{this.state.text}</span>
+            <span>{this.state.text[this.state.indexCounter]}</span>
             <span>
           </span>
           </div>
+
           <div className={`info-gif ${this.props.currentModal === 'info-modal' ? "" : "hidden"}`}>
-            <img src={this.state.gif} alt="navigation gif" />
+            <img src={this.state.gif[this.state.indexCounter]} alt="navigation gif" />
           </div>
+          <div className={'info-modal-nav'}>
+            {this.state.indexCounter > 0 ? (<button onClick={this.handleIndexCounter(-1)}>{`<`}</button>) : (<button className={"nonFuncNav"}>{`<`}</button>)}
+            <button onClick={this.handleClose}>Close</button>
+            {this.state.indexCounter === this.state.text.length - 1 ? ((<button className={"nonFuncNav"}>{`>`}</button>)) : (<button onClick={this.handleIndexCounter(1)}>{`>`}</button>)}
 
-
+          </div>
         </div>
       </div>
       
