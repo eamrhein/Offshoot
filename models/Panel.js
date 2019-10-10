@@ -21,6 +21,10 @@ const PanelSchema = new Schema({
       ref: 'panels'
     }
   ],
+  rootId: {
+    type: Schema.Types.ObjectId,
+    ref: 'panels'
+  },
 
   title: {
     type: String,
