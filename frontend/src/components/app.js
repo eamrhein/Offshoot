@@ -16,7 +16,8 @@ import SplashContainer from './session/splash_container';
 
 const App = () => (
   <div>
-    <NavBarContainer />
+    {/* <NavBarContainer /> */}
+    <Route path="^(?!.*(/splash)).*$" component={NavBarContainer} />
     <img className="backdrop" alt="backdrop" src="backdrop.png"/>
     <Switch>
       <AuthRoute exact path='/login' component={Login} />
