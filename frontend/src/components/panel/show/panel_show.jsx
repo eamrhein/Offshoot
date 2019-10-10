@@ -4,6 +4,8 @@ import CommentsIndex from '../comments/comments_index';
 import { fetchPanel } from '../../../actions/panel_actions';
 import { useSwipeable, Swipeable } from 'react-swipeable';
 
+import { Link } from 'react-router-dom';
+
 import Panel from '../panel';
 import BranchIndex from './branches/branch_index';
 
@@ -39,7 +41,7 @@ export class PanelShow extends Component {
                                 ""}
                                 <i className="material-icons like-button">favorite</i>
                                 {this.props.currentUser.id === this.props.panel.authorId ? 
-                                <i className="material-icons edit-button">edit</i> : ""}
+                                <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
                             </div>
                         </div>
                         <BranchIndex panelId={this.props.match.params.panelId}/>
