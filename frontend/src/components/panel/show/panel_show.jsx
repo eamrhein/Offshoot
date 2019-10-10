@@ -37,17 +37,21 @@ export class PanelShow extends Component {
                         <div className="panel-and-buttons">
                         <Panel panelId={this.props.match.params.panelId}/>
                             <div className="desktop-view-buttons">
+                                <div>
                                 {this.props.panel.rootId ?
                                     <i className="material-icons back-button"><Link to={`/panels/${this.props.panel.rootId}`}>fast_rewind</Link></i> : ""
                                 }
                                 {this.props.panel.parentId ?
                                     <i className="material-icons back-button">
-                                    <Link to={`/panels/${this.props.panel.parentId}`}>fast_rewind</Link>
+                                    <Link to={`/panels/${this.props.panel.parentId}`}>skip_previous</Link>
                                     </i> :
                                 ""}
+                                </div>
+                                <div>
                                 <LikeButton panelId={this.props.panel.id} />
                                 {this.props.currentUser.id === this.props.panel.authorId ? 
                                 <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
+                                </div>
                             </div>
                         </div>
                         <BranchIndex panelId={this.props.match.params.panelId}/>

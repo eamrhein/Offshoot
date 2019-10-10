@@ -120,7 +120,10 @@
         width: 370px;
         display: flex;
         justify-content: space-between;
-        
+
+        div {
+            display: flex;
+        }
 
         i {
             display: block;
@@ -129,6 +132,7 @@
             width: 25px;
             height: 25px;
             border-radius: 5px;
+            margin: 5px;
         }
 
         a {
