@@ -18,7 +18,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   });
 });
 
-router.patch('/follow_root/:id', (req, res) => {
+router.patch('/like/:id', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -28,7 +28,7 @@ router.patch('/follow_root/:id', (req, res) => {
       return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
     }
     if (currentUser.followedRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ root: 'current root is already being followed' });
+      return res.status(400).json({ root: 'panel is already liked by user' });
     }
     // increment likes on post
     Panel.findById(req.body.rootId).then(likedPanel => {
@@ -124,19 +124,18 @@ router.delete('/unauthor_root/:id', (req, res) => {
   });
 });
 
-router.delete('/unfollow_root/', (req, res) => {
+router.delete('/unlike/', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
   User.findById(req.body.userId).then((currentUser) => {
-    console.log(currentUser);
     if (!currentUser) {
       return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
     }
     if (!currentUser.followedRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ currentUser: 'current roots already unfollowed' });
+      return res.status(400).json({ currentUser: 'current panel already unliked' });
     }
     // decrement panel likes
     Panel.findById(req.body.rootId).then(likedPanel => {

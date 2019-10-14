@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { followRoot, unfollowRoot } from '../../actions/user_actions'
+import { like, unlike } from '../../actions/user_actions'
 
 class LikeButton extends React.Component {
 
@@ -48,8 +48,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    likePanel: (userAndPanelIds) => dispatch(followRoot(userAndPanelIds)),
-    unlikePanel: (userAndPanelIds) => dispatch(unfollowRoot(userAndPanelIds))
+    likePanel: (userAndPanelIds) => dispatch(like(userAndPanelIds)),
+    unlikePanel: (userAndPanelIds) => dispatch(unlike(userAndPanelIds))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LikeButton));

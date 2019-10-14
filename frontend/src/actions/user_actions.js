@@ -17,14 +17,14 @@ const userAuthoredUpdate = (currentUser) => ({
 
 // These take in the users id and then id of the root panel id
 
-export const followRoot = userAndpanelIds => dispatch => (
-  APIUTIL.followRoot(userAndpanelIds)
+export const like = userAndpanelIds => dispatch => (
+  APIUTIL.like(userAndpanelIds)
     .then((user) => dispatch(userAuthoredUpdate(user)))
     .catch((err) => dispatch(receiveErrors(err)))
 )
 
-export const unfollowRoot = userAndpanelIds => dispatch => (
-  APIUTIL.unfollowRoot(userAndpanelIds)
+export const unlike = userAndpanelIds => dispatch => (
+  APIUTIL.unlike(userAndpanelIds)
     .then((user) => dispatch(userAuthoredUpdate(user)))
     .catch((err) => dispatch(receiveErrors(err)))
 )

@@ -16,12 +16,12 @@ export const login = (userData) => {
   return axios.post('/api/users/login', userData);
 };
 
-export const followRoot = (userAndpanelIds) => {
-  return axios.patch('/api/users/follow_root/1', userAndpanelIds)
+export const like = (userAndpanelIds) => {
+  return axios.patch('/api/users/like/1', userAndpanelIds)
 };
 
-export const unfollowRoot = (userAndpanelIds) => {
-  return axios.delete('/api/users/unfollow_root/', {data: userAndpanelIds})
+export const unlike = (userAndpanelIds) => {
+  return axios.delete('/api/users/unlike/', {data: userAndpanelIds})
 };
 
 export const authorRoot = (userAndpanelIds) => {
