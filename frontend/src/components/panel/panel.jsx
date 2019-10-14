@@ -52,7 +52,7 @@ export class Panel extends Component {
     }
 
     render() {
-
+        console.log(`likes: ${this.props.panel.likes}`);
         return (
             <div className={
                 this.props.currentModal === `active-panel-${this.props.panelId}` ?
@@ -69,7 +69,7 @@ export class Panel extends Component {
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
                         { this.props.currentUser !== undefined ? 
                         <ul className="panel-action-buttons">
-                            <LikeButton panelId={this.props.panelId} />
+                            <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
                             {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                                 "material-icons share-button active" :
                                 "material-icons share-button"
