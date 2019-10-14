@@ -44,7 +44,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        top: 20%;
+        top: 05%;
         left: 10%;
         padding: 10px;
         width: 80%;
@@ -53,6 +53,7 @@
         z-index: 2000;    
         max-width: 300px;
             .info-text{
+                height: 60px;
                 padding: 5px;
                 font-size: 20px;
                 font-family: $font-family;
@@ -63,7 +64,7 @@
                 img {
                     border-radius: 5px;
                     // filter: grayscale(20%);
-                    width: 95%;
+                    width: 90%;
                 }
             }          
             .info-modal-nav{

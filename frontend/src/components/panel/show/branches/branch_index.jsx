@@ -25,7 +25,7 @@ export class BranchIndex extends Component {
                 
                 { this.props.panel ?
                     this.props.panel.childIds.map((childId) => {
-                    return <BranchIndexItem panelId={childId} />
+                    return <BranchIndexItem panelId={childId} key={childId}/>
                 }) :
                     ""
                 }

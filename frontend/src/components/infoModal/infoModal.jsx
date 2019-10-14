@@ -1,45 +1,67 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom'
-import {closeModals, toggleModal} from '../../actions/ui_actions'
+import {closeModals, toggleModal, showInfoModal, hideInfoModal} from '../../actions/ui_actions'
 const mapStateToProps = state => ({
   currentModal: state.ui.currentModal,
   currentUser: state.session.user,
-  isAuthenticated: state.session.isAuthenticated
+  isAuthenticated: state.session.isAuthenticated,
+  showInfoModal: state.ui.showInfoModal
+  
 })
 const mapDispatchtoProps = dispatch => ({
   toggleModal: modal => dispatch(toggleModal(modal)),
-  closeModals: () => dispatch(closeModals())
-})
+  closeModals: () => dispatch(closeModals()),
+  toggleInfoModal: () => dispatch(showInfoModal()),
+  hideInfoModal: () => dispatch(hideInfoModal())
+});
 
 class InfoModal extends React.Component{ 
   constructor(props){
     super(props)
-    this.state = { text: '', gif: '', hidden: 'hidden', indexCounter: 0}
-    this.IndexInfo = { text: ['Index Info', "second", 'IndexInfo'], gif: ['browse.gif', 'browse.gif', 'browse.gif']}
+    this.state = { text: '', gif: '', hidden: 'hidden', indexCounter: 0, showInfoModal: true}
     this.handleIndexCounter = this.handleIndexCounter.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
   }
+
   
   componentDidMount(){
-    // this.props.history.listen(location, )
-    console.log(this.props.location)
     this.listen = this.props.history.listen(location => {
-      console.log(location, 'hey this is the location')
-      if (location.pathname === '/' && this.props.isAuthenticated === true){
+      console.log(location.pathname, 'hey this is the location')
+      console.log(this.props.isAuthenticated)
+      if (location.pathname === '/' && this.props.isAuthenticated === true && this.props.showInfoModal === true){
         if(this.props.currentUser.username === 'demo' || this.props.currentUser.authoredRoots.length === 0){
-          this.loadIndex();
-
+          this.indexInfo = { text: [
+            'Welcome to Offshoot!',
+            'Click roots to expand, click again to visit their show page.',
+            'Create Roots stories!',
+            'Create Roots stories!',
+            'Branch off the stories of other users',
+            'Like stories that you want to keep track of',
+            'Leave comments!',
+            'Swipe rigth to navigate backwards from a shoot',
+            "Enjoy!", 
+          ], 
+          gif: [
+            'welcome.gif',
+            'IndexBrowse.gif', 
+            'navToCreate.gif',
+            'createRoot.gif', 
+            'makeBranch.gif',
+            'liking.gif',
+            'commentShow.gif',
+            'swipeRight.gif',
+            'browse.gif'
+          ] }
+          this.loadModal(this.indexInfo);
         }
       } 
     })
-    if(this.props.currentUser.username === 'demo'){
-      this.loadIndex();
-    }
   }
 
-  loadIndex(){
-    this.setState({ text: this.IndexInfo.text, gif: this.IndexInfo.gif }, () => {
+  loadModal(modalInfoToLoad){
+    this.setState({ text: modalInfoToLoad.text, gif: modalInfoToLoad.gif }, () => {
       this.props.toggleModal('info-modal')
     })
   }
@@ -53,6 +75,13 @@ class InfoModal extends React.Component{
   handleClose(){
     this.setState({text: '', gif: '', indexCounter: 0})
     this.props.closeModals()
+  }
+  handleCheck(){
+    if (this.state.showInfoModal === true){
+      this.setState({ showInfoModal: false }, () => (this.props.hideInfoModal()))
+    } else if (this.state.showInfoModal === false) {
+      this.setState({ showInfoModal: true }, () => (this.props.toggleInfoModal()))
+    }
   }
 
   render(){
@@ -77,7 +106,17 @@ class InfoModal extends React.Component{
             {this.state.indexCounter === this.state.text.length - 1 ? ((<button className={"nonFuncNav"}>{`>`}</button>)) : (<button onClick={this.handleIndexCounter(1)}>{`>`}</button>)}
 
           </div>
+          <div className='modal-check'>
+            <span>Do not show again </span>
+            <input 
+              type="checkbox"  
+              onChange={this.handleCheck} 
+              checked={!this.state.showInfoModal}
+            /> 
+      
+          </div>
         </div>
+        
       </div>
       
     );
