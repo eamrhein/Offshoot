@@ -36,8 +36,8 @@ router.patch('/follow_root/:id', (req, res) => {
         return res.status(400).json({ root: 'liked panel not found in db' });
       } else {
         // fix for panels inited with likes
-        console.log(likedPanel);
-        typeof likedPanel.likes === 'number' ? likedPanel.likes++ : likedPanel.likes = 1;
+        console.log(likedPanel.likes);
+        typeof likedPanel.likes === 'number' ? likedPanel.likes++ : console.log("honk");/*Panel.updateOne({_id: likedPanel._id}, { $set: { likes: 0 }}?);*/
         // no need to do anything with data only check for error
         // FIX THIS
         likedPanel.save(err => { 
@@ -106,6 +106,7 @@ router.delete('/unauthor_root/:id', (req, res) => {
     if (currentUser.authoredRoots.includes(req.body.rootId)) {
       return res.status(400).json({ root: 'authored root already saved to user' });
     }
+    
     currentUser.authoredRoots = currentUser.followedRoots.filter((id) => id === req.body.rootId);
     currentUser.save()
       .then((user) => {
@@ -137,6 +138,24 @@ router.delete('/unfollow_root/', (req, res) => {
     if (!currentUser.followedRoots.includes(req.body.rootId)) {
       return res.status(400).json({ currentUser: 'current roots already unfollowed' });
     }
+    // decrement panel likes
+    Panel.findById(req.body.rootId).then(likedPanel => {
+      if (!likedPanel) {
+        return res.status(400).json({ root: 'liked panel not found in db' });
+      } else {
+        // fix for panels inited with likes
+        console.log(likedPanel.likes);
+        typeof likedPanel.likes === 'number' ? likedPanel.likes-- : console.log("honk");/*Panel.updateOne({_id: likedPanel._id}, { $set: { likes: 0 }}?);*/
+        // no need to do anything with data only check for error
+        // FIX THIS
+        likedPanel.save(err => {
+          if (err) {
+            console.log(err);
+            return res.status(400).json({ root: 'could not increment likes' });
+          }
+        });
+      }
+    });
     currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
     currentUser.save()
       .then((user) => {
