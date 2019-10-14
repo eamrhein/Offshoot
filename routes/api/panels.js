@@ -78,7 +78,7 @@ router
       res.status(422).json(errors);
     } else if (req.params.id === req.body.id) {
       Panel.findById(req.params.id).then(() => {
-        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = req.body;
+        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = req.body;
 
         const updatedPanel = new Panel({
           _id: id,

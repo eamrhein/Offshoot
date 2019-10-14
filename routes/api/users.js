@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
+const Panel = require('../../models/Panel');
 const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -34,11 +35,16 @@ router.patch('/follow_root/:id', (req, res) => {
       if (!likedPanel) {
         return res.status(400).json({ root: 'liked panel not found in db' });
       } else {
-        likedPanel.likes++;
+        // fix for panels inited with likes
+        console.log(likedPanel);
+        typeof likedPanel.likes === 'number' ? likedPanel.likes++ : likedPanel.likes = 1;
         // no need to do anything with data only check for error
+        // FIX THIS
         likedPanel.save(err => { 
+          if (err) {
           console.log(err); 
-          res.status(400).json({ root: 'could not increment likes' });
+          return res.status(400).json({ root: 'could not increment likes' });
+          }
         });
       }
     });
