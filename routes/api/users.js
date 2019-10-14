@@ -29,6 +29,19 @@ router.patch('/follow_root/:id', (req, res) => {
     if (currentUser.followedRoots.includes(req.body.rootId)) {
       return res.status(400).json({ root: 'current root is already being followed' });
     }
+    // increment likes on post
+    Panel.findById(req.body.rootId).then(likedPanel => {
+      if (!likedPanel) {
+        return res.status(400).json({ root: 'liked panel not found in db' });
+      } else {
+        likedPanel.likes++;
+        // no need to do anything with data only check for error
+        likedPanel.save(err => { 
+          console.log(err); 
+          res.status(400).json({ root: 'could not increment likes' });
+        });
+      }
+    });
     currentUser.followedRoots.push(req.body.rootId);
     currentUser.save()
       .then((user) => {
