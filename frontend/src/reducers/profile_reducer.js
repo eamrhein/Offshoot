@@ -6,7 +6,7 @@ import {
 const ProfileReducer = (state = {}, action) => {
   switch(action.type){
     case RECEIVE_USER_PROFILE:
-      return Object.assign({}, state, {[action.userProfile.data.id]: action.userProfile.data})
+      return Object.assign({}, state, {[action.userProfile.data.id]: action.userProfile.data});
     case REMOVE_USER_PROFILE:
       return Object.assign({});
     default:

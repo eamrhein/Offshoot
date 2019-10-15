@@ -19,24 +19,24 @@ const userAuthoredUpdate = (currentUser) => ({
 
 export const like = userAndpanelIds => dispatch => (
   APIUTIL.like(userAndpanelIds)
-    .then((user) => dispatch(userAuthoredUpdate(user)))
+    .then((payload) => dispatch(userAuthoredUpdate(payload)))
     .catch((err) => dispatch(receiveErrors(err)))
-)
+);
 
 export const unlike = userAndpanelIds => dispatch => (
   APIUTIL.unlike(userAndpanelIds)
-    .then((user) => dispatch(userAuthoredUpdate(user)))
+    .then((payload) => dispatch(userAuthoredUpdate(payload)))
     .catch((err) => dispatch(receiveErrors(err)))
-)
+);
 
 export const authorRoot = userAndpanelIds => dispatch => (
   APIUTIL.authorRoot(userAndpanelIds)
     .then((user) => dispatch(userAuthoredUpdate(user)))
     .catch((err) => dispatch(receiveErrors(err)))
-)
+);
 
 export const unauthorRoot = userAndpanelIds => dispatch => (
   APIUTIL.unauthorRoot(userAndpanelIds)
     .then((user) => dispatch(userAuthoredUpdate(user)))
     .catch((err) => dispatch(receiveErrors(err)))
-)
+);
