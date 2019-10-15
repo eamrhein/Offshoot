@@ -3,7 +3,7 @@ import {
   RECEIVE_USER_LOGOUT,
   RECEIVE_USER_SIGN_IN
 } from '../actions/session_actions';
-import {USER_AUTHORED_UPDATE} from '../actions/user_actions';
+import {USER_AUTHORED_UPDATE, LIKE_POST, UNLIKE_POST} from '../actions/user_actions';
 const initialState = {
   isAuthenticated: false,
   user: {}
@@ -33,6 +33,19 @@ export default function (state = initialState, action) {
         isAuthenticated: !!action.currentUser,
         user: action.currentUser.data
       }
+
+    case LIKE_POST:
+      return {
+        ...state,
+        user: action.payload.user
+      };
+
+    case UNLIKE_POST:
+      return {
+        ...state,
+        user: action.payload.user
+    };
+
     default:
       return state;
   }

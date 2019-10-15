@@ -1,14 +1,20 @@
 import {RECEIVE_PANEL, RECEIVE_PANELS, REMOVE_PANELS} from '../actions/panel_actions';
+import {LIKE_POST, UNLIKE_POST} from '../actions/user_actions';
 
 const PanelsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_PANEL:
-      return Object.assign({}, state, {[action.panel.data.id] : action.panel.data })
+      return Object.assign({}, state, {[action.panel.data.id] : action.panel.data });
     case RECEIVE_PANELS:
-      return Object.assign({}, state, action.panels.data)
+      return Object.assign({}, state, action.panels.data);
     case REMOVE_PANELS:
       return Object.assign({});
+    case LIKE_POST:
+      return Object.assign({}, state, {[action.panel.id] : action.panel });
+    case UNLIKE_POST:
+      return Object.assign({}, state, { [action.panel.id]: action.panel });
+
     default:
       return state;
   }
