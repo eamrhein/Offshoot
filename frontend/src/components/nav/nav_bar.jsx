@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import InfoModal from '../infoModal/infoModal';
 
 class NavBar extends React.Component {
 
@@ -13,11 +14,21 @@ class NavBar extends React.Component {
         this.props.toggleModal("nav-dropdown");
     }
 
-
     render() {
         return (
         <div className="nav-bar">
-            <Link to="/"><img className="logo" src="logo512.png" alt="offshoot logo"></img></Link>
+            <div>   
+                    <Link to="/"><img className="logo" src="logo512.png" alt="offshoot logo"></img></Link>
+
+                    <div className="info-modal-container" >
+                        <InfoModal  />
+                    </div>
+                
+            </div>
+
+            
+
+            
             <div className={this.props.currentModal === "nav-dropdown" ? "dropdown-container open" : "dropdown-container"}>
                 <i className="material-icons dropdown-button" onClick={this.handleHamburger}>menu</i>
                 <div className="dropdown">
