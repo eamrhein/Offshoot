@@ -20,6 +20,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 
 router.patch('/like/:id', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
+  const payload = { user: undefined, panel: undefined };
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -40,10 +41,13 @@ router.patch('/like/:id', (req, res) => {
         typeof likedPanel.likes === 'number' ? likedPanel.likes++ : console.log("honk");/*Panel.updateOne({_id: likedPanel._id}, { $set: { likes: 0 }}?);*/
         // no need to do anything with data only check for error
         // FIX THIS
-        likedPanel.save(err => { 
+        likedPanel.save( (err, panel) => {
           if (err) {
           console.log(err); 
           return res.status(400).json({ root: 'could not increment likes' });
+          } else { 
+            payload.panel = panel;
+            console.log(panel);
           }
         });
       }
@@ -51,14 +55,15 @@ router.patch('/like/:id', (req, res) => {
     currentUser.followedRoots.push(req.body.rootId);
     currentUser.save()
       .then((user) => {
-        const { _id, username, email, followedRoots, authoredRoots } = user
-        const payload = {
-          id: _id,
-          username,
-          email,
-          followedRoots,
-          authoredRoots
-        };
+        // const { _id, username, email, followedRoots, authoredRoots } = user
+        // const payload = {
+        //   id: _id,
+        //   username,
+        //   email,
+        //   followedRoots,
+        //   authoredRoots
+        // };
+        payload.user = user;
         res.json(payload);
       })
       .catch((err) => console.log(err));
@@ -126,7 +131,7 @@ router.delete('/unauthor_root/:id', (req, res) => {
 
 router.delete('/unlike/', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
-
+  const payload = { user: undefined, panel: undefined };
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -147,10 +152,12 @@ router.delete('/unlike/', (req, res) => {
         typeof likedPanel.likes === 'number' ? likedPanel.likes-- : console.log("honk");/*Panel.updateOne({_id: likedPanel._id}, { $set: { likes: 0 }}?);*/
         // no need to do anything with data only check for error
         // FIX THIS
-        likedPanel.save(err => {
+        likedPanel.save((err, panel) => {
           if (err) {
             console.log(err);
-            return res.status(400).json({ root: 'could not increment likes' });
+            return res.status(400).json({ root: 'could not decrement likes' });
+          } else {
+            payload.panel = panel;
           }
         });
       }
@@ -158,14 +165,16 @@ router.delete('/unlike/', (req, res) => {
     currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
     currentUser.save()
       .then((user) => {
-        const { _id, username, email, followedRoots, authoredRoots } = user
-        const payload = {
-          id: _id,
-          username,
-          email,
-          followedRoots,
-          authoredRoots
-        };
+        // const { _id, username, email, followedRoots, authoredRoots } = user
+        // const payload = {
+        //   id: _id,
+        //   username,
+        //   email,
+        //   followedRoots,
+        //   authoredRoots
+        // };
+        payload.user = user;
+        console.log(payload);
         res.json(payload);
       })
       .catch((err) => console.log(err));
