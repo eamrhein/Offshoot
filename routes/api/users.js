@@ -23,7 +23,7 @@ router.patch('/like/:id', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId)])
+  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId).populate('authorId')])
     .then((userAndpanel) => {
       const user = userAndpanel[0];
       const panel = userAndpanel[1];
@@ -49,7 +49,8 @@ router.patch('/like/:id', (req, res) => {
           const { username, email, followedRoots, authoredRoots } = user;
           const panelData = {
             id: _id,
-            authorId,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
             title,
             panelText,
             photoURL,
@@ -139,7 +140,7 @@ router.delete('/unlike/', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId)])
+  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId).populate('authorId')])
     .then((userAndpanel) => {
       const user = userAndpanel[0];
       const panel = userAndpanel[1];
@@ -165,7 +166,8 @@ router.delete('/unlike/', (req, res) => {
           const { username, email, followedRoots, authoredRoots } = user;
           const panelData = {
             id: _id,
-            authorId,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
             title,
             panelText,
             photoURL,
