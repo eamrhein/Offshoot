@@ -52,7 +52,6 @@ export class Panel extends Component {
     }
 
     render() {
-        console.log(`likes: ${this.props.panel.likes}`);
         return (
             <div className={
                 this.props.currentModal === `active-panel-${this.props.panelId}` ?
@@ -67,7 +66,7 @@ export class Panel extends Component {
                         </Link>
                         :
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
-                        { this.props.currentUser !== undefined ? 
+                        { this.props.currentUser !== undefined ?
                         <ul className="panel-action-buttons">
                             <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
                             {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
@@ -122,6 +121,7 @@ const mapStateToProps = (state, ownProps) => {
             parentId: null,
             childIds: [],
             title: "...",
+            likes: 0,
             panelText: "text not found",
             photoURL: "panel_not_found.png"
         }, panel),

@@ -11,10 +11,16 @@ const PanelsReducer = (state = {}, action) => {
     case REMOVE_PANELS:
       return Object.assign({});
     case LIKE_POST:
-      return Object.assign({}, state, {[action.panel.id] : action.panel });
+      console.log(action);
+      return {
+        ...state,
+      [action.payload.data.panel.id]: action.payload.data.panel,
+      }
     case UNLIKE_POST:
-      return Object.assign({}, state, { [action.panel.id]: action.panel });
-
+      return {
+        ...state,
+        [action.payload.data.panel.id]: action.payload.data.panel
+      }
     default:
       return state;
   }

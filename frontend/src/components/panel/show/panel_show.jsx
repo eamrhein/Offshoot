@@ -48,8 +48,9 @@ export class PanelShow extends Component {
                                 ""}
                                 </div>
                                 <div>
+                                <span>This Panel has been liked {this.props.panel.likes} time{ this.props.panel.likes > 1 ? `s` : ``}</span>
                                 <LikeButton panelId={this.props.panel.id} />
-                                {this.props.currentUser.id === this.props.panel.authorId ? 
+                                {this.props.currentUser.id === this.props.panel.authorId ?
                                 <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
                                 </div>
                             </div>

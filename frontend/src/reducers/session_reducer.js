@@ -31,21 +31,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !!action.currentUser,
-        user: action.currentUser.data
+        user: action.currentUser.data.user,
       }
-
-    case LIKE_POST:
-      return {
-        ...state,
-        user: action.payload.user
-      };
-
-    case UNLIKE_POST:
-      return {
-        ...state,
-        user: action.payload.user
-    };
-
     default:
       return state;
   }

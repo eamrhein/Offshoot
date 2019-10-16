@@ -31,13 +31,19 @@ export const unlikePost = payload => ({
 
 export const like = userAndpanelIds => dispatch => (
   APIUTIL.like(userAndpanelIds)
-    .then((payload) => dispatch(userAuthoredUpdate(payload)))
+    .then((payload) => {
+      dispatch(userAuthoredUpdate(payload));
+      dispatch(likePost(payload));
+    })
     .catch((err) => dispatch(receiveErrors(err)))
 );
 
 export const unlike = userAndpanelIds => dispatch => (
   APIUTIL.unlike(userAndpanelIds)
-    .then((payload) => dispatch(userAuthoredUpdate(payload)))
+    .then((payload) => {
+      dispatch(userAuthoredUpdate(payload));
+      dispatch(likePost(payload));
+    })
     .catch((err) => dispatch(receiveErrors(err)))
 );
 

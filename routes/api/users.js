@@ -20,54 +20,59 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 
 router.patch('/like/:id', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
-  const payload = { user: undefined, panel: undefined };
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findById(req.body.userId).then((currentUser) => {
-    if (!currentUser) {
-      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-    }
-    if (currentUser.followedRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ root: 'panel is already liked by user' });
-    }
-    // increment likes on post
-    Panel.findById(req.body.rootId).then(likedPanel => {
-      if (!likedPanel) {
-        return res.status(400).json({ root: 'liked panel not found in db' });
-      } else {
-        // fix for panels inited with likes
-        console.log(likedPanel.likes);
-        typeof likedPanel.likes === 'number' ? likedPanel.likes++ : console.log("honk");/*Panel.updateOne({_id: likedPanel._id}, { $set: { likes: 0 }}?);*/
-        // no need to do anything with data only check for error
-        // FIX THIS
-        likedPanel.save( (err, panel) => {
-          if (err) {
-          console.log(err); 
-          return res.status(400).json({ root: 'could not increment likes' });
-          } else { 
-            payload.panel = panel;
-            console.log(panel);
-          }
-        });
+  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId)])
+    .then((userAndpanel) => {
+      const user = userAndpanel[0];
+      const panel = userAndpanel[1];
+      if (!user) {
+        return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
       }
-    });
-    currentUser.followedRoots.push(req.body.rootId);
-    currentUser.save()
-      .then((user) => {
-        // const { _id, username, email, followedRoots, authoredRoots } = user
-        // const payload = {
-        //   id: _id,
-        //   username,
-        //   email,
-        //   followedRoots,
-        //   authoredRoots
-        // };
-        payload.user = user;
-        res.json(payload);
-      })
-      .catch((err) => console.log(err));
-  });
+      if (user.followedRoots.includes(req.body.rootId)) {
+        return res.status(400).json({ root: 'panel is already liked by user' });
+      }
+      if (!panel) {
+        return res.status(400).json({ root: 'liked panel not found in db' });
+      }
+      if (typeof panel.likes === 'undefined') {
+        panel.likes = 0;
+      }
+      panel.likes += 1;
+      user.followedRoots.push(req.body.rootId);
+      Promise.all([user.save(), panel.save()])
+        .then((userAndPanel) => {
+          const user = userAndpanel[0];
+          const panel = userAndpanel[1];
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
+          const { username, email, followedRoots, authoredRoots } = user;
+          const panelData = {
+            id: _id,
+            authorId,
+            title,
+            panelText,
+            photoURL,
+            parentId,
+            rootId,
+            childIds,
+            likes,
+            comments
+          };
+          const userData = {
+            id: user._id,
+            username,
+            email,
+            followedRoots,
+            authoredRoots
+          };
+          const payload = {
+            user: userData,
+            panel: panelData
+          };
+          res.json(payload);
+        }).catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 });
 
 router.patch('/author_root/:id', (req, res) => {
@@ -111,7 +116,7 @@ router.delete('/unauthor_root/:id', (req, res) => {
     if (currentUser.authoredRoots.includes(req.body.rootId)) {
       return res.status(400).json({ root: 'authored root already saved to user' });
     }
-    
+
     currentUser.authoredRoots = currentUser.followedRoots.filter((id) => id === req.body.rootId);
     currentUser.save()
       .then((user) => {
@@ -131,54 +136,59 @@ router.delete('/unauthor_root/:id', (req, res) => {
 
 router.delete('/unlike/', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
-  const payload = { user: undefined, panel: undefined };
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findById(req.body.userId).then((currentUser) => {
-    if (!currentUser) {
-      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-    }
-    if (!currentUser.followedRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ currentUser: 'current panel already unliked' });
-    }
-    // decrement panel likes
-    Panel.findById(req.body.rootId).then(likedPanel => {
-      if (!likedPanel) {
-        return res.status(400).json({ root: 'liked panel not found in db' });
-      } else {
-        // fix for panels inited with likes
-        console.log(likedPanel.likes);
-        typeof likedPanel.likes === 'number' ? likedPanel.likes-- : console.log("honk");/*Panel.updateOne({_id: likedPanel._id}, { $set: { likes: 0 }}?);*/
-        // no need to do anything with data only check for error
-        // FIX THIS
-        likedPanel.save((err, panel) => {
-          if (err) {
-            console.log(err);
-            return res.status(400).json({ root: 'could not decrement likes' });
-          } else {
-            payload.panel = panel;
-          }
-        });
+  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId)])
+    .then((userAndpanel) => {
+      const user = userAndpanel[0];
+      const panel = userAndpanel[1];
+      if (!user) {
+        return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
       }
-    });
-    currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
-    currentUser.save()
-      .then((user) => {
-        // const { _id, username, email, followedRoots, authoredRoots } = user
-        // const payload = {
-        //   id: _id,
-        //   username,
-        //   email,
-        //   followedRoots,
-        //   authoredRoots
-        // };
-        payload.user = user;
-        console.log(payload);
-        res.json(payload);
-      })
-      .catch((err) => console.log(err));
-  });
+      if (!user.followedRoots.includes(req.body.rootId)) {
+        return res.status(400).json({ root: 'panel is already unliked by user' });
+      }
+      if (!panel) {
+        return res.status(400).json({ root: 'liked panel not found in db' });
+      }
+      if (typeof panel.likes === 'undefined') {
+        panel.likes = 0;
+      }
+      panel.likes -= 1;
+      user.followedRoots = user.followedRoots.filter((id) => id !== req.body.rootId);
+      Promise.all([user.save(), panel.save()])
+        .then((userAndPanel) => {
+          const user = userAndpanel[0];
+          const panel = userAndpanel[1];
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
+          const { username, email, followedRoots, authoredRoots } = user;
+          const panelData = {
+            id: _id,
+            authorId,
+            title,
+            panelText,
+            photoURL,
+            parentId,
+            rootId,
+            childIds,
+            likes,
+            comments
+          };
+          const userData = {
+            id: user._id,
+            username,
+            email,
+            followedRoots,
+            authoredRoots
+          };
+          const payload = {
+            user: userData,
+            panel: panelData
+          };
+          res.json(payload);
+        }).catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 });
 
 router.post('/register', (req, res) => {

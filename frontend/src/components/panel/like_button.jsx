@@ -26,7 +26,7 @@ class LikeButton extends React.Component {
             }
         }
     }
-    
+
     renderLikeOnLoad() {
         if (this.props.session.isAuthenticated) {
             if (this.props.currentUser.followedRoots.includes(this.props.panelId)) return 'liked';

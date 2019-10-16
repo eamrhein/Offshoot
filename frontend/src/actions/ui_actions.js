@@ -17,7 +17,7 @@ export const toggleModal = (modalName) => ({
 export const closeModals = () => ({
     type: CLOSE_MODALS
 });
-
+  
 export const hideInfoModal = () => ({
     type: HIDE_INFO_MODAL
 })
