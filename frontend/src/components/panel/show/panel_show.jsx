@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CommentsIndex from '../comments/comments_index';
-import { fetchPanel } from '../../../actions/panel_actions';
+import { fetchPanel, clearPanelState } from '../../../actions/panel_actions';
 import { useSwipeable, Swipeable } from 'react-swipeable';
 
 import { Link } from 'react-router-dom';
@@ -19,6 +19,9 @@ export class PanelShow extends Component {
 
     componentDidMount() {
         this.props.fetchPanel(this.props.match.params.panelId);
+    }
+    componentWillUnmount(){
+        this.props.clearPanelState();
     }
 
     handleSwipe() {
@@ -77,7 +80,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchPanel: (panelId) => dispatch(fetchPanel(panelId))
+    fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
+    clearPanelState: () => dispatch(clearPanelState())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow);

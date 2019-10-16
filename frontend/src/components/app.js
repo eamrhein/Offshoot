@@ -16,23 +16,22 @@ import SplashContainer from './session/splash_container';
 
 const App = () => (
   <div>
-    <NavBarContainer />
     <Switch>
       <AuthRoute exact path='/login' component={Login} />
       <AuthRoute exact path='/signup' component={Register} />
       <Route path="/splash" component={SplashContainer} />
-      {/* <Route path="/" component={NavBarContainer} /> */}
+      <ProtectedRoute path="/" component={NavBarContainer} />
     </Switch>
     <img className="backdrop" alt="backdrop" src="backdrop.png"/>
     <Switch>
       <ProtectedRoute exact path='/panels/liked' component={LikedIndexContainer} />
       <ProtectedRoute exact path='/panels/authored' component={AuthoredIndexContainer} />
       <ProtectedRoute exact path="/" component={MainIndexContainer} />
-      <Route exact path='/users/:userId' component={UserProfile} />
+      <ProtectedRoute exact path='/users/:userId' component={UserProfile} />
       <ProtectedRoute exact path="/roots/new" component={createPanelContainer} />
       <ProtectedRoute path="/panels/:panelId/branch" component={branchPanelContainer} />
       <ProtectedRoute path="/panels/:panelId/edit" component={editPanelContainer} />
-      <Route path="/panels/:panelId" component={PanelShow} />
+      <ProtectedRoute path="/panels/:panelId" component={PanelShow} />
     </Switch>
   </div>
 );
