@@ -27,10 +27,7 @@ class InfoModal extends React.Component{
 
   
   componentDidMount(){
-    this.listen = this.props.history.listen(location => {
-      console.log(location.pathname, 'hey this is the location')
-      console.log(this.props.isAuthenticated)
-      if (location.pathname === '/' && this.props.isAuthenticated === true && this.props.showInfoModal === true){
+      if (this.props.location.pathname === '/' && this.props.isAuthenticated === true && this.props.showInfoModal === true){
         if(this.props.currentUser.username === 'demo' || this.props.currentUser.authoredRoots.length === 0){
           this.indexInfo = { text: [
             'Welcome to Offshoot!',
@@ -57,7 +54,6 @@ class InfoModal extends React.Component{
           this.loadModal(this.indexInfo);
         }
       } 
-    })
   }
 
   loadModal(modalInfoToLoad){
