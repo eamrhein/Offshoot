@@ -34,9 +34,17 @@ class LikeButton extends React.Component {
     }
 
     render() {
-        return(
-            <div>{this.props.likes}<i className={`material-icons like-button ${this.renderLikeOnLoad()}`} onClick={this.handleLike} >favorite</i></div>
-        )
+        return (
+          <div>
+            {this.props.panels[this.props.panelId].likes}
+            <i
+              className={`material-icons like-button ${this.renderLikeOnLoad()}`}
+              onClick={this.handleLike}
+            >
+              favorite
+            </i>
+          </div>
+        );
     }
 
 }
@@ -44,7 +52,8 @@ class LikeButton extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     currentUser: state.session.user,
-    session: state.session
+    session: state.session,
+    panels: state.entities.panels,
 });
 
 const mapDispatchToProps = (dispatch) => ({
