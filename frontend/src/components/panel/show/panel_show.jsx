@@ -82,6 +82,6 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
     clearPanelState: () => dispatch(clearPanelState())
-})
+  })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow);
