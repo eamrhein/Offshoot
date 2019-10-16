@@ -19,9 +19,11 @@ class Splash extends React.Component {
             password: '123456'
         }
 
-        this.props.login(demoUser);
+        this.props.login(demoUser).then(()=> {
+            this.props.history.push('/')
+        })
     }
-
+ 
     render() {
 
         return (

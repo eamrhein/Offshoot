@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-
-import { toggleModal } from '../../actions/ui_actions'
+import {withRouter} from 'react-router-dom'
+import { toggleModal, closeModals } from '../../actions/ui_actions'
 import { logout } from '../../actions/session_actions';
 import NavBar from './nav_bar';
 
@@ -15,7 +15,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     toggleModal: (modal) => dispatch(toggleModal(modal)),
     logout: () => dispatch(logout()),
+    closeModals: () => dispatch(closeModals())
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar))

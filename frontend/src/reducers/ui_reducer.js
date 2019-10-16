@@ -1,11 +1,14 @@
 import { 
     RECEIVE_CURRENT_MODAL,
     TOGGLE_MODAL,
-    CLOSE_MODALS
+    CLOSE_MODALS,
+    SHOW_INFO_MODAL,
+    HIDE_INFO_MODAL
 } from "../actions/ui_actions";
 
 const initialState = {
-    currentModal: null
+    currentModal: null,
+    showInfoModal: true
 }
 
 const uiReducer = (state = initialState, action) => {
@@ -23,6 +26,12 @@ const uiReducer = (state = initialState, action) => {
             return newState;
         case CLOSE_MODALS:
             newState.currentModal = null;
+            return newState;
+        case SHOW_INFO_MODAL:
+            newState.showInfoModal = true;
+            return newState;
+        case HIDE_INFO_MODAL:
+            newState.showInfoModal = false;
             return newState;
         default:
             return state;

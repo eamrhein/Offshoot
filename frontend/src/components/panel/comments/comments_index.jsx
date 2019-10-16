@@ -29,7 +29,7 @@ const CommentsIndex = (props) => {
   }
 
   comments = comments.map((comment) => (
-    <div className="comment" key={comment.id}>
+    <div className="comment" key={comment._id}>
       {createDelete(props.currentUser.id, comment.authorId, comment._id)}
       <div>
         <span className="username">{comment.username}</span> <span className="comment-body">{comment.content}</span>
