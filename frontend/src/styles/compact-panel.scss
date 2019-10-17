@@ -1,5 +1,4 @@
 .panel-index {
-
     .panel {
         display: flex;
         flex-direction: column;
@@ -64,33 +63,7 @@
             position: relative;
             width: 330px;
         }
-
-        .panel-action-buttons {
-
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-
-            display: flex;
-            flex-direction: column;
-
-            color: rgba($color: $secondary, $alpha: 0.0);
-
-            transition-property: color;
-            transition-duration: 0.5s;
-            .like-button {
-              cursor: pointer;
-            }
-            .like-button:active {
-                color: $like-active-color;
-            }
-            .liked {
-                color: $like-active-color;
-                opacity: 0.6;
-            }
-
-    }
-
+  }
     .title-and-panel {
         display: flex;
         flex-direction: column-reverse;
@@ -98,7 +71,6 @@
 
     figcaption {
         display: block;
-
         width: 330px;
         box-sizing: border-box;
         padding: 0px 10px;
@@ -123,14 +95,10 @@
         }
 
         .panel-action-buttons {
-
             float: right;
-
             display: flex;
             flex-direction: column;
-
             color: rgba($color: $secondary, $alpha: 0.8);
-
             transition-property: color;
             transition-duration: 0.5s;
 
