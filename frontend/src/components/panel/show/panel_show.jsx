@@ -42,16 +42,19 @@ export class PanelShow extends Component {
                             <div className="desktop-view-buttons">
                                 <div>
                                 {this.props.panel.rootId ?
-                                    <i className="material-icons back-button"><Link to={`/panels/${this.props.panel.rootId}`}>fast_rewind</Link></i> : ""
+                                    <div className="root-button-container">
+                                    <i className="material-icons root-button"><Link to={`/panels/${this.props.panel.rootId}`}>fast_rewind</Link></i>
+                                    </div> : ""
                                 }
                                 {this.props.panel.parentId ?
-                                    <i className="material-icons back-button">
-                                    <Link to={`/panels/${this.props.panel.parentId}`}>skip_previous</Link>
-                                    </i> :
+                                    <div className="back-button-container">
+                                        <i className="material-icons back-button">
+                                            <Link to={`/panels/${this.props.panel.parentId}`}>skip_previous</Link>
+                                        </i>
+                                    </div> :
                                 ""}
                                 </div>
                                 <div>
-                                <span>This Panel has been liked {this.props.panel.likes} time{ this.props.panel.likes > 1 ? `s` : ``}</span>
                                 <LikeButton panelId={this.props.panel.id} />
                                 {this.props.currentUser.id === this.props.panel.authorId ?
                                 <div className="edit-button-container">

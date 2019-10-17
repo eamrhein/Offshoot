@@ -42,7 +42,7 @@ class LikeButton extends React.Component {
               >
               favorite
             </i>
-            <span>{this.props.panels[this.props.panelId].likes}</span>
+            <span>{this.props.panels[this.props.panelId].likes || "0"}</span>
           </div>
         );
     }
