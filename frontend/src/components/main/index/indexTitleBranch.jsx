@@ -11,7 +11,7 @@ class indexTitleBrancher extends React.Component {
     this.setOffShootDir();
     // this.setState()
     this.getPanelDims()
-    let left = this.growBranch('left',this.props.panel.childIds, this.left, this.bottom, this.height)
+    let left = this.growBranch('left',this.props.panel.childIds, this.left, this.bottom, this.height, 1)
     // debugger
     this.setState({left: left})
   }
@@ -39,12 +39,13 @@ class indexTitleBrancher extends React.Component {
     this.right = panel.right;
     this.top = panel.top;
     this.bottom = panel.bottom;
-    this.height = this.top - this.bottom
+    this.height = this.bottom - this.top
+    // debugger
   }
 
   // x is the side
   // y is the bottom
-  growBranch(dir, arr, x, y, height){
+  growBranch(dir, arr, x, y, height, lineWidth){
     // debugger
     if (arr.length === 0 || arr[0] === undefined) return [];
     let panels = [];
@@ -53,21 +54,21 @@ class indexTitleBrancher extends React.Component {
       let xOrigin = x;
       let yOrigin = y;
       let yOffset = Math.floor(this.height / (arr.length + 2))
-      let xdest = xOrigin - 50;  
+      let xdest = xOrigin - 100;  
       let linewidth = Math.abs(xOrigin - xdest);
       arr.forEach((id, idx) => {
-        // debugger
+        // debuggert
         let panel = this.props.childPanels[id]
         let  ydest = (yOffset * (idx + 1))
         let lineHeight = Math.abs(ydest - yOrigin)
-        // panels.push(<svg width={`${linewidth}`} height={`${lineHeight}`} id={`${xOrigin}` + `${panel.id}`}>
-        //   <line x1={`${xOrigin}`} x2={`${xdest}`} y1={`${yOrigin}`} y2={`${ydest}`} stroke={'black'}/>
-        // </svg>)
+        panels.push(<svg width={`${this.left}`} height={`${this.height}`} id={`${xOrigin}` + `${panel.id}`} style={{position: 'absolute'}}>
+          <line x1={xdest} x2={xOrigin} y1={ydest} y2={yOrigin} stroke={'brown'} strokeWidth={lineWidth}/>
+        </svg>)
         panels.push( <Leaf panel={panel} key={id} xpos={xdest} ypos={ydest}/>)
         
         childIdsToRun = childIdsToRun.concat(panel.childIds)
     })
-      return panels.concat(this.growBranch('left', childIdsToRun, xdest - 50, y, height / 2))
+      return panels.concat(this.growBranch('left', childIdsToRun, xdest , y, height / 2, linewidth /  2))
     } else if (dir === 'right'){
 
     }
@@ -80,13 +81,21 @@ class indexTitleBrancher extends React.Component {
   // need code to trigger on media query
 
   render(){
+    let leftStyles = {
+      width: this.left,
+      height: this.height
+    }
+    let rightStyles = {
+      width: this.left,
+      height: this.height,
+    }
     return(<div className={'brancher'}>
-      <div className={'left-branch'}>
+      <div className={'left-branch'} style={leftStyles}>
         {this.state.left}
       </div>
       
       <Panel panel={this.props.panel} />
-      <div className={'right-branch'}>
+      <div className={'right-branch'} style={rightStyles}>
         {this.state.right}
 
       </div>

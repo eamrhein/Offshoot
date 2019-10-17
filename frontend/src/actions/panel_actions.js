@@ -19,7 +19,7 @@ const removePanels = () => ({
 
 export const clearPanelState = () => dispatch => (
   dispatch(removePanels())
-)
+);
 
 export const createPanel = panel => dispatch => (
   PanelAPIutil.createPanel(panel)

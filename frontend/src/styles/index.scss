@@ -49,13 +49,18 @@ h1 {
     .brancher {
         display: flex;
         flex-direction: row;
+        border: 1px solid black;
         .left-branch{
+            box-sizing: border-box;
+            border: 1px solid black;
             position: relative;
-            z-index: 10;
+
         }
         .right-branch {
+            box-sizing: border-box;
+            border: 1px solid black;
             position: relative;
-            z-index: 10;
+
         }
     }
 }

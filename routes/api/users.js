@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
+const Panel = require('../../models/Panel');
 const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -17,33 +18,62 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   });
 });
 
-router.patch('/follow_root/:id', (req, res) => {
+router.patch('/like/:id', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findById(req.body.userId).then((currentUser) => {
-    if (!currentUser) {
-      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-    }
-    if (currentUser.followedRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ root: 'current root is already being followed' });
-    }
-    currentUser.followedRoots.push(req.body.rootId);
-    currentUser.save()
-      .then((user) => {
-        const { _id, username, email, followedRoots, authoredRoots } = user
-        const payload = {
-          id: _id,
-          username,
-          email,
-          followedRoots,
-          authoredRoots
-        };
-        res.json(payload);
-      })
-      .catch((err) => console.log(err));
-  });
+  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId).populate('authorId')])
+    .then((userAndpanel) => {
+      const user = userAndpanel[0];
+      const panel = userAndpanel[1];
+      if (!user) {
+        return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+      }
+      if (user.followedRoots.includes(req.body.rootId)) {
+        return res.status(400).json({ root: 'panel is already liked by user' });
+      }
+      if (!panel) {
+        return res.status(400).json({ root: 'liked panel not found in db' });
+      }
+      if (typeof panel.likes === 'undefined') {
+        panel.likes = 0;
+      }
+      panel.likes += 1;
+      user.followedRoots.push(req.body.rootId);
+      Promise.all([user.save(), panel.save()])
+        .then((userAndPanel) => {
+          const user = userAndpanel[0];
+          const panel = userAndpanel[1];
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
+          const { username, email, followedRoots, authoredRoots } = user;
+          const panelData = {
+            id: _id,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
+            title,
+            panelText,
+            photoURL,
+            parentId,
+            rootId,
+            childIds,
+            likes,
+            comments
+          };
+          const userData = {
+            id: user._id,
+            username,
+            email,
+            followedRoots,
+            authoredRoots
+          };
+          const payload = {
+            user: userData,
+            panel: panelData
+          };
+          res.json(payload);
+        }).catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 });
 
 router.patch('/author_root/:id', (req, res) => {
@@ -87,6 +117,7 @@ router.delete('/unauthor_root/:id', (req, res) => {
     if (currentUser.authoredRoots.includes(req.body.rootId)) {
       return res.status(400).json({ root: 'authored root already saved to user' });
     }
+
     currentUser.authoredRoots = currentUser.followedRoots.filter((id) => id === req.body.rootId);
     currentUser.save()
       .then((user) => {
@@ -104,35 +135,62 @@ router.delete('/unauthor_root/:id', (req, res) => {
   });
 });
 
-router.delete('/unfollow_root/', (req, res) => {
+router.delete('/unlike/', (req, res) => {
   const { errors, isValid } = valdiateFollowRoot(req.body);
-
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findById(req.body.userId).then((currentUser) => {
-    console.log(currentUser);
-    if (!currentUser) {
-      return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
-    }
-    if (!currentUser.followedRoots.includes(req.body.rootId)) {
-      return res.status(400).json({ currentUser: 'current roots already unfollowed' });
-    }
-    currentUser.followedRoots = currentUser.followedRoots.filter((id) => id !== req.body.rootId);
-    currentUser.save()
-      .then((user) => {
-        const { _id, username, email, followedRoots, authoredRoots } = user
-        const payload = {
-          id: _id,
-          username,
-          email,
-          followedRoots,
-          authoredRoots
-        };
-        res.json(payload);
-      })
-      .catch((err) => console.log(err));
-  });
+  Promise.all([User.findById(req.body.userId), Panel.findById(req.body.rootId).populate('authorId')])
+    .then((userAndpanel) => {
+      const user = userAndpanel[0];
+      const panel = userAndpanel[1];
+      if (!user) {
+        return res.status(400).json({ currentUser: "current user id isn't saved to the database " });
+      }
+      if (!user.followedRoots.includes(req.body.rootId)) {
+        return res.status(400).json({ root: 'panel is already unliked by user' });
+      }
+      if (!panel) {
+        return res.status(400).json({ root: 'liked panel not found in db' });
+      }
+      if (typeof panel.likes === 'undefined') {
+        panel.likes = 0;
+      }
+      panel.likes -= 1;
+      user.followedRoots = user.followedRoots.filter((id) => id !== req.body.rootId);
+      Promise.all([user.save(), panel.save()])
+        .then((userAndPanel) => {
+          const user = userAndpanel[0];
+          const panel = userAndpanel[1];
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
+          const { username, email, followedRoots, authoredRoots } = user;
+          const panelData = {
+            id: _id,
+            authorId: authorId._id,
+            authorUsername: authorId.username,
+            title,
+            panelText,
+            photoURL,
+            parentId,
+            rootId,
+            childIds,
+            likes,
+            comments
+          };
+          const userData = {
+            id: user._id,
+            username,
+            email,
+            followedRoots,
+            authoredRoots
+          };
+          const payload = {
+            user: userData,
+            panel: panelData
+          };
+          res.json(payload);
+        }).catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 });
 
 router.post('/register', (req, res) => {

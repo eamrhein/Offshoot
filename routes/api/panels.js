@@ -10,7 +10,7 @@ const validateComment = require('../../validation/comment');
 router
   .get('/:id', (req, res) => {
     Panel.findById(req.params.id).populate('authorId').then((panel) => {
-      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+      const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
       res.json({
         id: _id,
         authorId: authorId._id,
@@ -21,6 +21,7 @@ router
         parentId,
         rootId,
         childIds,
+        likes,
         comments
       });
     }).catch(err => console.log(err));
@@ -42,6 +43,7 @@ router
         rootId,
         photoURL,
         childIds,
+        likes: 0,
         comments
       });
 
@@ -50,7 +52,7 @@ router
         Panel.findById(panel._id)
           .populate('authorId')
           .then(panel => {
-            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
             const RestructuredPanel = {
               id: _id,
               authorId: authorId._id,
@@ -61,6 +63,7 @@ router
               rootId,
               photoURL,
               childIds,
+              likes,
               comments
             };
             res.json(RestructuredPanel);
@@ -75,7 +78,7 @@ router
       res.status(422).json(errors);
     } else if (req.params.id === req.body.id) {
       Panel.findById(req.params.id).then(() => {
-        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = req.body;
+        const { id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = req.body;
 
         const updatedPanel = new Panel({
           _id: id,
@@ -86,6 +89,7 @@ router
           rootId,
           photoURL,
           childIds,
+          likes,
           comments
         });
         updatedPanel.isNew = false;
@@ -106,6 +110,7 @@ router
                   rootId,
                   photoURL,
                   childIds,
+                  likes,
                   comments
                 };
                 res.json(RestructuredPanel);
@@ -178,7 +183,7 @@ router
       Panel.find({}).populate('authorId').then(panelsArray => {
         const panelsToReturnPojo = {};
         panelsArray.forEach(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
           const RestructuredPanel = {
             id: _id,
             authorId: authorId._id,
@@ -189,6 +194,7 @@ router
             rootId,
             photoURL,
             childIds,
+            likes,
             comments
           };
           if (RestructuredPanel.parentId === null) {
@@ -223,7 +229,7 @@ router.patch('/create-comment/:id', (req, res) => {
         Panel.findById(panel._id)
           .populate('authorId')
           .then(panel => {
-            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
             const RestructuredPanel = {
               id: _id,
               authorId: authorId._id,
@@ -234,6 +240,7 @@ router.patch('/create-comment/:id', (req, res) => {
               rootId,
               photoURL,
               childIds,
+              likes,
               comments
             };
             res.json(RestructuredPanel);
@@ -256,7 +263,7 @@ router.patch('/delete-comment/:id', (req, res) => {
         Panel.findById(panel._id)
           .populate('authorId')
           .then(panel => {
-            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
             const RestructuredPanel = {
               id: _id,
               authorId: authorId._id,
@@ -267,6 +274,7 @@ router.patch('/delete-comment/:id', (req, res) => {
               rootId,
               photoURL,
               childIds,
+              likes,
               comments
             };
             res.json(RestructuredPanel);

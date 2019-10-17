@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CommentsIndex from '../comments/comments_index';
-import { fetchPanel } from '../../../actions/panel_actions';
+import { fetchPanel, clearPanelState } from '../../../actions/panel_actions';
 import { useSwipeable, Swipeable } from 'react-swipeable';
 
 import { Link } from 'react-router-dom';
@@ -19,6 +19,9 @@ export class PanelShow extends Component {
 
     componentDidMount() {
         this.props.fetchPanel(this.props.match.params.panelId);
+    }
+    componentWillUnmount(){
+        this.props.clearPanelState();
     }
 
     handleSwipe() {
@@ -48,8 +51,9 @@ export class PanelShow extends Component {
                                 ""}
                                 </div>
                                 <div>
+                                <span>This Panel has been liked {this.props.panel.likes} time{ this.props.panel.likes > 1 ? `s` : ``}</span>
                                 <LikeButton panelId={this.props.panel.id} />
-                                {this.props.currentUser.id === this.props.panel.authorId ? 
+                                {this.props.currentUser.id === this.props.panel.authorId ?
                                 <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
                                 </div>
                             </div>
@@ -76,7 +80,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchPanel: (panelId) => dispatch(fetchPanel(panelId))
-})
+    fetchPanel: (panelId) => dispatch(fetchPanel(panelId)),
+    clearPanelState: () => dispatch(clearPanelState())
+  })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanelShow);

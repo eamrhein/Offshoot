@@ -8,7 +8,7 @@ class Leaf extends React.Component {
   render(){
     let styles = {
       position: "absolute", 
-      top: this.props.ypos, 
+      bottom: this.props.ypos, 
       left: this.props.xpos
     }
     return(

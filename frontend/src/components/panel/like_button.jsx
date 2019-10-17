@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { followRoot, unfollowRoot } from '../../actions/user_actions'
+import { like, unlike } from '../../actions/user_actions'
 
 class LikeButton extends React.Component {
 
@@ -16,28 +16,35 @@ class LikeButton extends React.Component {
         e.preventDefault();
         if (this.props.session.isAuthenticated) {
             const { likePanel, unlikePanel, panelId } = this.props;
-            let likeElement = e.target
+            let likeElement = e.target;
             if (!e.target.classList.contains('liked')) {
                 likePanel({ userId: this.props.currentUser.id, rootId: this.props.panelId })
-                    .then(() => likeElement.classList.add('liked'))
+                    .then(() => likeElement.classList.add('liked'));
             } else {
                 unlikePanel({ userId: this.props.currentUser.id, rootId: this.props.panelId })
-                    .then(() => likeElement.classList.remove('liked'))
+                    .then(() => likeElement.classList.remove('liked'));
             }
         }
-
-
     }
+
     renderLikeOnLoad() {
         if (this.props.session.isAuthenticated) {
-            if (this.props.currentUser.followedRoots.includes(this.props.panelId)) return 'liked'
+            if (this.props.currentUser.followedRoots.includes(this.props.panelId)) return 'liked';
         }
     }
 
     render() {
-        return(
-            <i className={`material-icons like-button ${this.renderLikeOnLoad()}`} onClick={this.handleLike} >favorite</i>
-        )
+        return (
+          <div>
+            {this.props.panels[this.props.panelId].likes}
+            <i
+              className={`material-icons like-button ${this.renderLikeOnLoad()}`}
+              onClick={this.handleLike}
+            >
+              favorite
+            </i>
+          </div>
+        );
     }
 
 }
@@ -45,12 +52,13 @@ class LikeButton extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     currentUser: state.session.user,
-    session: state.session
+    session: state.session,
+    panels: state.entities.panels,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    likePanel: (userAndPanelIds) => dispatch(followRoot(userAndPanelIds)),
-    unlikePanel: (userAndPanelIds) => dispatch(unfollowRoot(userAndPanelIds))
+    likePanel: (userAndPanelIds) => dispatch(like(userAndPanelIds)),
+    unlikePanel: (userAndPanelIds) => dispatch(unlike(userAndPanelIds))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LikeButton));
