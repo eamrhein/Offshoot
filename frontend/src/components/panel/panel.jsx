@@ -60,7 +60,7 @@ export class Panel extends Component {
                 id={`${this.props.panel.id}`}
                 >
                 <div className="panel-proper">
-                    <h1>{`> ${this.props.panel.title}`}</h1>
+                    {this.props.type === "show" ? <h1>{`${this.props.panel.title}`}</h1> : "" }
                     <figure className="panel-figure">
                         {this.props.currentModal === `active-panel-${this.props.panelId}` ?
                         <Link to={`/panels/${this.props.panelId}`}>
@@ -68,9 +68,10 @@ export class Panel extends Component {
                         </Link>
                         :
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
+
                         { this.props.currentUser !== undefined ?
                         <ul className="panel-action-buttons">
-                            <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
+                            <LikeButton panelId={this.props.panelId} />
                             {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                                 "material-icons share-button active" :
                                 "material-icons share-button"
@@ -78,20 +79,28 @@ export class Panel extends Component {
                             {/* <Link to={`/panels/${this.props.panelId}`}><i className="material-icons share-button">share</i></Link> */}
                         </ul>
                         : ""}
+
                     </figure>
 
                     <figcaption>
-                        <Link to={`/users/${this.props.panel.authorId}`}>{`${this.props.panel.authorUsername}`}</Link>
-                        <span>{this.props.panel.panelText}</span>
+                        {this.props.currentUser !== undefined ?
+                            <div className="panel-action-buttons">
+                                <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
+                                <div className="branch-button-container">
+                                    <Link to={`/panels/${this.props.panel.id}`}>
+                                        <i className="material-icons branch-button">
+                                            call_split
+                                        </i>
+                                    </Link>
+                                    <span>{this.props.panel.childIds.length}</span>
+                                </div>
+                            </div>
+                        : ""}
+                        <Link to={`/users/${this.props.panel.authorId}`} className="name">{`${this.props.panel.authorUsername}`}</Link>
+                        {this.props.type === "compact" ? <h1>{this.props.panel.title}</h1> : "" }
+                        <p>{this.props.panel.panelText}</p>
                     </figcaption>
                 </div>
-                {/* <div className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
-                    "share-drawer open" :
-                    "share-drawer"
-                }>
-                    <span>Link copied to clipboard.</span>
-                    <input type="text" value={`${window.location.href}panels/${this.props.panelId}`} id="panelLink" readOnly></input>
-                </div> */}
             </div>
         )
     }

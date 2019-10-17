@@ -35,14 +35,21 @@ class LikeButton extends React.Component {
 
     render() {
         return (
-          <div>
-            {this.props.panels[this.props.panelId].likes}
+
+          <div className="like-button-container">
+
+          
+            <span>
+              {this.props.panels[this.props.panelId].likes} like
+              {this.props.panels[this.props.panelId].likes > 1 ? `s` : ``}
+            </span>
             <i
               className={`material-icons like-button ${this.renderLikeOnLoad()}`}
               onClick={this.handleLike}
-            >
+              >
               favorite
             </i>
+            <span>{this.props.panels[this.props.panelId].likes || "0"}</span>
           </div>
         );
     }
