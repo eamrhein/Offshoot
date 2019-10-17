@@ -30,7 +30,7 @@ class ConditionalIndex extends React.Component {
 
         this.loadedPanels = Object.keys(this.props.panels).reverse()
           //panel object threaded to panel component
-          .map(id => <Panel panel={this.props.panels[id]} key={id} />)
+          .map(id => <Panel panel={this.props.panels[id]} key={id} type="compact" />)
         this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
       });
   }

@@ -38,7 +38,7 @@ export class PanelShow extends Component {
             <Swipeable onSwipedRight={this.handleSwipe} className="panel-show">
                     <div className="story-area">
                         <div className="panel-and-buttons">
-                        <Panel panelId={this.props.match.params.panelId}/>
+                        <Panel panelId={this.props.match.params.panelId} type="show"/>
                             <div className="desktop-view-buttons">
                                 <div>
                                 {this.props.panel.rootId ?
@@ -54,7 +54,10 @@ export class PanelShow extends Component {
                                 <span>This Panel has been liked {this.props.panel.likes} time{ this.props.panel.likes > 1 ? `s` : ``}</span>
                                 <LikeButton panelId={this.props.panel.id} />
                                 {this.props.currentUser.id === this.props.panel.authorId ?
-                                <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
+                                <div className="edit-button-container">
+                                    <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i>
+                                </div>
+                                 : ""}
                                 </div>
                             </div>
                         </div>

@@ -65,10 +65,45 @@
             width: 330px;
         }
 
+    
+
+
+    }
+
+    .title-and-panel {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    figcaption {
+        display: block;
+
+        width: 330px;
+        box-sizing: border-box;
+        padding: 0px 10px;
+        z-index: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 10px;
+        
+        background-color: $primary;
+
+        .name {
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            background-color: $darkest-primary;
+            color: $primary;
+            border-radius: $small-radius;
+            text-align: center;
+            padding: 0 5px;
+            margin-right: 5px;
+        }
+
         .panel-action-buttons {
-            position: absolute;
-            right: 5px;
-            bottom: 0px;
+
+            float: right;
 
             display: flex;
             flex-direction: column;
@@ -86,67 +121,50 @@
                 color: $like-active-color;
                 opacity: 0.6;
             }
-
-
-        }
-    }
-
-    .title-and-panel {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    figcaption {
-        display: block;
-
-        width: 330px;
-        box-sizing: border-box;
-        padding: 5px 10px;
-        z-index: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        border-radius: 10px;
-        
-        background-color: $primary;
-
-        a {
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            background-color: $darkest-primary;
-            color: $primary;
-            border-radius: $small-radius;
-            text-align: center;
-            padding: 0 5px;
-            margin-right: 5px;
         }
 
-        span {
+        p {
+
+            margin-top: 5px;
+            margin-bottom: 10px;
 
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
 
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-top: 5px;
         }
+
     }
 
     h1 {
-        margin-left: 10px;
+        margin-bottom: 5px;
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
+        font-weight: bold;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        display: inline;
     }
 
 }
 
-.like-button-container {
+.branch-button {
+    transform: rotate(90deg);
+}
+
+.branch-button:hover {
+    color: $darkest-primary;
+}
+
+.material-icons {
+    cursor: pointer;
+}
+
+[class*="-button-container"] {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: center;
 
     span {
