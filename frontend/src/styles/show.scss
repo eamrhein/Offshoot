@@ -10,7 +10,7 @@
         align-items: center;
         flex-direction: column;
     }
-    
+
     .panel-proper {
         display: flex;
         flex-direction: column;
@@ -92,7 +92,7 @@
         z-index: 1;
 
         border-radius: $small-radius;
-        
+
         background-color: $primary;
         a {
             font-weight: bold;
@@ -162,7 +162,7 @@
     align-items: center;
 
     width: 100vw;
-    
+
 
             li {
 
@@ -181,7 +181,7 @@
 
                 }
 
-                
+
                 a {
 
                     i {
@@ -229,9 +229,12 @@
         justify-content: space-between;
         align-items: center;
         margin: 5px;
+        white-space: initial;
+        overflow: hidden;
     }
 
     .username {
+        font-family: monospace;
         margin-right: 5px;
     }
 
@@ -322,5 +325,5 @@
         margin-top: 39px;
         width: auto;
     }
-    
+
 }
