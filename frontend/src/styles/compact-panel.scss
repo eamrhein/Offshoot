@@ -15,7 +15,7 @@
         transition-property: height;
         transition-duration: .5s;
     }
-    
+
     .panel-proper {
         display: flex;
         flex-direction: column;
@@ -74,6 +74,7 @@
         }
 
         .panel-action-buttons {
+
             position: absolute;
             bottom: 5px;
             right: 5px;
@@ -85,7 +86,9 @@
 
             transition-property: color;
             transition-duration: 0.5s;
-
+            .like-button {
+              cursor: pointer;
+            }
             .like-button:active {
                 color: $like-active-color;
             }
@@ -116,7 +119,7 @@
         text-overflow: ellipsis;
         border-radius: 10px;
         text-align: center;
-        
+
         background-color: $primary;
 
         transition-property: top, visibility;
@@ -144,7 +147,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        
+
     }
 
     .panel.active {

@@ -15,7 +15,7 @@ class LikeButton extends React.Component {
         //toggle like
         e.preventDefault();
         if (this.props.session.isAuthenticated) {
-            const { likePanel, unlikePanel, panelId } = this.props;
+            const { likePanel, unlikePanel } = this.props;
             let likeElement = e.target;
             if (!e.target.classList.contains('liked')) {
                 likePanel({ userId: this.props.currentUser.id, rootId: this.props.panelId })
