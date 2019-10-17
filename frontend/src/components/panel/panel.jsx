@@ -58,7 +58,9 @@ export class Panel extends Component {
             <div className={
                 this.props.currentModal === `active-panel-${this.props.panelId}` ?
                 "panel active" :
-                "panel"}>
+                "panel"}
+                id={`${this.props.panel.id}`}
+                >
                 <div className="panel-proper">
                     <h1>{`> ${this.props.panel.title}`}</h1>
                     <figure className="panel-figure">

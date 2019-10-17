@@ -45,5 +45,10 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    // overflow: hidden;
+    .brancher {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+    }
 }

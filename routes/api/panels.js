@@ -120,26 +120,60 @@ router
   })
   .get('/', (req, res) => {
     if (req.query.panelsArray) {
-      Panel.find({ _id: { $in: req.query.panelsArray } }).populate('authorId').then(panelsArray => {
-        const panelsToReturnPojo = {};
-        panelsArray.forEach(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-          const RestructuredPanel = {
-            id: _id,
-            authorId: authorId._id,
-            authorUsername: authorId.username,
-            title,
-            panelText,
-            parentId,
-            rootId,
-            photoURL,
-            childIds,
-            comments
-          };
-          panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+      if (req.query.panelsArray[0] === 'CHILDREN') {
+        let childrenToReturn = [];
+        function getTheChildren(arr){
+          if (arr.length === 0) {
+              const panelsToReturnPojo = {};
+              childrenToReturn.forEach(panel => {
+                const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+                const RestructuredPanel = {
+                  id: _id,
+                  authorId: authorId._id,
+                  authorUsername: authorId.username,
+                  title,
+                  panelText,
+                  parentId,
+                  rootId,
+                  photoURL,
+                  childIds,
+                  comments
+                };
+                panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+              });
+              res.send(panelsToReturnPojo);
+          }
+          Panel.find({ _id: { $in: arr } }).populate('authorId').then(panelsArray => {
+            debugger
+            childrenToReturn = childrenToReturn.concat(panelsArray);
+            let recursiveArr = [];
+            panelsArray.forEach(panel => (recursiveArr = recursiveArr.concat(panel.childIds)));
+            getTheChildren(recursiveArr)
+          }).catch(err => console.log(err));
+        }
+        getTheChildren(req.query.panelsArray.slice(1))
+      } else {
+        Panel.find({ _id: { $in: req.query.panelsArray } }).populate('authorId').then(panelsArray => {
+          const panelsToReturnPojo = {};
+          panelsArray.forEach(panel => {
+            const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+            const RestructuredPanel = {
+              id: _id,
+              authorId: authorId._id,
+              authorUsername: authorId.username,
+              title,
+              panelText,
+              parentId,
+              rootId,
+              photoURL,
+              childIds,
+              comments
+            };
+            panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+          });
+          res.send(panelsToReturnPojo);
         });
-        res.send(panelsToReturnPojo);
-      });
+      }
     } else {
       Panel.find({}).populate('authorId').then(panelsArray => {
         const panelsToReturnPojo = {};

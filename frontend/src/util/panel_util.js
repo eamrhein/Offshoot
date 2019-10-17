@@ -15,3 +15,7 @@ export const updatePanel = (panel) => {
 export const fetchPanels = (optionalArg) => {
   return axios.get(`/api/panels/`, {params: {panelsArray: optionalArg}});
 }
+
+export const fetchChildren = (optionalArg) => {
+  return axios.get(`/api/panels/`, { params: { panelsArray: ['CHILDREN'].concat(optionalArg) } });
+}
