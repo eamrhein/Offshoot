@@ -58,7 +58,9 @@ export class Panel extends Component {
                 "panel active" :
                 "panel"}>
                 <div className="panel-proper">
-                    <h1>{`> ${this.props.panel.title}`}</h1>
+
+                    <div className="title-and-panel">
+                    <h1>{`${this.props.panel.title}`}</h1>
                     <figure className="panel-figure">
                         {this.props.currentModal === `active-panel-${this.props.panelId}` ?
                         <Link to={`/panels/${this.props.panelId}`}>
@@ -77,7 +79,7 @@ export class Panel extends Component {
                         </ul>
                         : ""}
                     </figure>
-
+                    </div>
                     <figcaption>
                         <Link to={`/users/${this.props.panel.authorId}`}>{`${this.props.panel.authorUsername}`}</Link>
                         <span>{this.props.panel.panelText}</span>

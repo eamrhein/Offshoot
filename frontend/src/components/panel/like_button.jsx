@@ -35,8 +35,8 @@ class LikeButton extends React.Component {
 
     render() {
         return (
-          <div>
-            {this.props.panels[this.props.panelId].likes}
+          <div className="like-button-container">
+            <span>{this.props.panels[this.props.panelId].likes}</span>
             <i
               className={`material-icons like-button ${this.renderLikeOnLoad()}`}
               onClick={this.handleLike}

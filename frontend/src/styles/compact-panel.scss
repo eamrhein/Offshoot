@@ -10,10 +10,7 @@
         margin: 20px 0px;
         position: relative;
         z-index: 2;
-
-        height: 260px;
-        transition-property: height;
-        transition-duration: .5s;
+        padding-bottom: 10px;
     }
     
     .panel-proper {
@@ -56,17 +53,12 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        height: 220px;
         width: 330px;
         overflow: hidden;
-        position: absolute;
         padding: 10px 0px;
-        // border-radius: 10px;
-        top: 10px;
-        transition-property: top;
-        transition-duration: 0.5s;
         z-index: 2;
         background-color: $primary;
+        border-radius: 10px;
 
         img {
             position: relative;
@@ -75,13 +67,13 @@
 
         .panel-action-buttons {
             position: absolute;
-            bottom: 5px;
             right: 5px;
+            bottom: 0px;
 
             display: flex;
             flex-direction: column;
 
-            color: rgba($color: $secondary, $alpha: 0.0);
+            color: rgba($color: $secondary, $alpha: 0.8);
 
             transition-property: color;
             transition-duration: 0.5s;
@@ -89,79 +81,76 @@
             .like-button:active {
                 color: $like-active-color;
             }
+
             .liked {
                 color: $like-active-color;
                 opacity: 0.6;
             }
 
-            .share-button.active {
-                color: $primary;
-            }
 
         }
     }
 
+    .title-and-panel {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
     figcaption {
         display: block;
-        position: absolute;
-        visibility: hidden;
 
-        top: 150px;
         width: 330px;
-        height: 90px;
         box-sizing: border-box;
-        padding: 15px 20px;
+        padding: 5px 10px;
         z-index: 1;
         overflow: hidden;
         text-overflow: ellipsis;
         border-radius: 10px;
-        text-align: center;
         
         background-color: $primary;
 
-        transition-property: top, visibility;
-        transition-duration: 0.5s;
+        a {
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            background-color: $darkest-primary;
+            color: $primary;
+            border-radius: $small-radius;
+            text-align: center;
+            padding: 0 5px;
+            margin-right: 5px;
+        }
 
         span {
-
-            display: -webkit-box;
-            height: 65px;
-            width: 290px;
 
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
 
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-top: 5px;
         }
     }
 
     h1 {
-        margin: 10px;
-        width: 330px;
-        display: block;
-        // background-color: $light-primary;
+        margin-left: 10px;
+        text-align: left;
+        font-size: 16px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        
     }
 
-    .panel.active {
-        height: 360px;
+}
 
-        .panel-action-buttons {
-            color: rgba($color: $secondary, $alpha: 0.8);
-        }
+.like-button-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
 
-        figure {
-            top: 40px;
-        }
-
-        figcaption {
-            top: 280px;
-            visibility: visible;
-        }
+    span {
+        margin: 0px 5px;
+        font-size: 16px;
     }
-
 }
