@@ -68,7 +68,7 @@ export class Panel extends Component {
                         <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
                         { this.props.currentUser !== undefined ?
                         <ul className="panel-action-buttons">
-                            <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
+                            <LikeButton panelId={this.props.panelId} />
                             {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
                                 "material-icons share-button active" :
                                 "material-icons share-button"
