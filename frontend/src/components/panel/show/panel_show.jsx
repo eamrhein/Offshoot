@@ -38,23 +38,30 @@ export class PanelShow extends Component {
             <Swipeable onSwipedRight={this.handleSwipe} className="panel-show">
                     <div className="story-area">
                         <div className="panel-and-buttons">
-                        <Panel panelId={this.props.match.params.panelId}/>
+                        <Panel panelId={this.props.match.params.panelId} type="show"/>
                             <div className="desktop-view-buttons">
                                 <div>
                                 {this.props.panel.rootId ?
-                                    <i className="material-icons back-button"><Link to={`/panels/${this.props.panel.rootId}`}>fast_rewind</Link></i> : ""
+                                    <div className="root-button-container">
+                                    <i className="material-icons root-button"><Link to={`/panels/${this.props.panel.rootId}`}>fast_rewind</Link></i>
+                                    </div> : ""
                                 }
                                 {this.props.panel.parentId ?
-                                    <i className="material-icons back-button">
-                                    <Link to={`/panels/${this.props.panel.parentId}`}>skip_previous</Link>
-                                    </i> :
+                                    <div className="back-button-container">
+                                        <i className="material-icons back-button">
+                                            <Link to={`/panels/${this.props.panel.parentId}`}>skip_previous</Link>
+                                        </i>
+                                    </div> :
                                 ""}
                                 </div>
                                 <div>
 
                                 <LikeButton panelId={this.props.panel.id} />
                                 {this.props.currentUser.id === this.props.panel.authorId ?
-                                <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i> : ""}
+                                <div className="edit-button-container">
+                                    <i className="material-icons edit-button"><Link to={`${this.props.location.pathname}/edit`}>edit</Link></i>
+                                </div>
+                                 : ""}
                                 </div>
                             </div>
                         </div>
