@@ -55,6 +55,7 @@ export class PanelShow extends Component {
                                 ""}
                                 </div>
                                 <div>
+
                                 <LikeButton panelId={this.props.panel.id} />
                                 {this.props.currentUser.id === this.props.panel.authorId ?
                                 <div className="edit-button-container">

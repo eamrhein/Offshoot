@@ -84,11 +84,11 @@ class ConditionalIndex extends React.Component {
   render(){
 
     return (
-      <div className='panel-index'>
+      <div className="panel-index">
         {this.state.panels}
         {/* {this.state.panels.length === 0 ? <div>{`${this.props.indexType} more panels!`}</div> : ''} */}
       </div>
-    )
+    );
   }
 }
 
