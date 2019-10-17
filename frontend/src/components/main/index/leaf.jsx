@@ -14,6 +14,7 @@ class Leaf extends React.Component {
     return(
       <div style={styles}>
         {this.props.panel.title.slice(0, 10)}
+        {/* {this.props.panel.rootId} */}
       </div>
     )
   }

@@ -54,15 +54,15 @@ class indexTitleBrancher extends React.Component {
       let yOrigin = y;
       let yOffset = Math.floor(this.height / (arr.length + 2))
       let xdest = xOrigin - 50;  
-      let linewidth = xOrigin - xdest;
+      let linewidth = Math.abs(xOrigin - xdest);
       arr.forEach((id, idx) => {
         // debugger
         let panel = this.props.childPanels[id]
         let  ydest = (yOffset * (idx + 1))
-        let lineHeight = ydest - yOrigin
-        panels.push(<svg width={`${linewidth}`} height={`${lineHeight}`}>
-          <line x1={`${xOrigin}`} x2={`${xdest}`} y1={`${yOrigin}`} y2={`${ydest}`} stroke={'black'}/>
-        </svg>)
+        let lineHeight = Math.abs(ydest - yOrigin)
+        // panels.push(<svg width={`${linewidth}`} height={`${lineHeight}`} id={`${xOrigin}` + `${panel.id}`}>
+        //   <line x1={`${xOrigin}`} x2={`${xdest}`} y1={`${yOrigin}`} y2={`${ydest}`} stroke={'black'}/>
+        // </svg>)
         panels.push( <Leaf panel={panel} key={id} xpos={xdest} ypos={ydest}/>)
         
         childIdsToRun = childIdsToRun.concat(panel.childIds)
@@ -81,9 +81,15 @@ class indexTitleBrancher extends React.Component {
 
   render(){
     return(<div className={'brancher'}>
-      {this.state.left}
+      <div className={'left-branch'}>
+        {this.state.left}
+      </div>
+      
       <Panel panel={this.props.panel} />
-      {this.state.right}
+      <div className={'right-branch'}>
+        {this.state.right}
+
+      </div>
     </div>)
   }
 }

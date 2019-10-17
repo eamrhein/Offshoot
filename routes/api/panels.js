@@ -141,7 +141,7 @@ router
                 };
                 panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
               });
-              res.send(panelsToReturnPojo);
+              return res.send(panelsToReturnPojo);
           }
           Panel.find({ _id: { $in: arr } }).populate('authorId').then(panelsArray => {
             debugger

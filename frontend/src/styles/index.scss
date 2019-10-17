@@ -47,8 +47,15 @@ h1 {
     align-items: center;
     // overflow: hidden;
     .brancher {
-        position: relative;
         display: flex;
         flex-direction: row;
+        .left-branch{
+            position: relative;
+            z-index: 10;
+        }
+        .right-branch {
+            position: relative;
+            z-index: 10;
+        }
     }
 }
