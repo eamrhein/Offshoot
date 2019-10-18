@@ -16,12 +16,19 @@ class ConditionalIndex extends React.Component {
       const { panelIdsToFetch, indexType } = this.props;
       if (panelIdsToFetch.length > 1 || indexType === 'Main') {
         this.fetchAndLoadPannels(panelIdsToFetch);
+      } 
+      window.addEventListener('scroll', this.handleScroll)
+
+    } else if (this.props.indexType === 'Profile') {
+      debugger
+      if (this.props.ProfilePanels.length > 0) {
+        this.fetchAndLoadPannels(this.props.ProfilePanels)
       }
+      window.addEventListener('scroll', this.handleScroll)
+
     }
-
-    window.addEventListener('scroll', this.handleScroll)
-  }
-
+    
+}
 
   fetchAndLoadPannels(idsArr){
     this.props.fetchPanels(idsArr)
@@ -31,18 +38,18 @@ class ConditionalIndex extends React.Component {
           this.loadedPanels = Object.keys(this.props.panels).reverse()
             //panel object threaded to panel component
             .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={id} childPanels={this.props.childPanels} />)
-          this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
+          this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 7)) })
         }); 
       });
     
   }
 
 
-  componentDidUpdate(prevProps){
-    if(prevProps.ProfilePanels !== this.props.ProfilePanels){
-      if(this.props.ProfilePanels.length > 0)this.fetchAndLoadPannels(this.props.ProfilePanels)
-    }
-  }
+  // componentDidUpdate(prevProps){
+  //   if(prevProps.ProfilePanels !== this.props.ProfilePanels){
+  //     if(this.props.ProfilePanels.length > 0)this.fetchAndLoadPannels(this.props.ProfilePanels)
+  //   }
+  // }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -85,7 +92,6 @@ class ConditionalIndex extends React.Component {
 
 
   render(){
-
     return (
       <div className="panel-index">
         {this.state.panels}

@@ -41,13 +41,11 @@ class indexTitleBrancher extends React.Component {
     this.bottom = panel.bottom;
     // this.height = this.bottom - this.top
     this.height = 350;
-    // debugger
   }
 
   // x is the side
   // y is the bottom
   growBranch(dir, arr, x, y, height, lineWidth){
-    // debugger
     // if (arr.length === 0 || arr[0] === undefined) return [];
     let panels = [];
     // let childIdsToRun = [];

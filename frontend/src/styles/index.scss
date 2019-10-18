@@ -68,14 +68,31 @@ h1 {
         }
             .leafContainer {
                 position: absolute;
-                z-index: 1000;
+                z-index: 1;
+                .leaf-icon{
+                    position: absolute;
+                    z-index: 1;
+                    bottom: 0;
+                }
                 .leaf-icon:hover {
                 transform-origin: bottom-left;
                 transform: rotate(20deg)
             }
 
+         }
+            .leafHover{
+                background-color: $darkest-primary;
+                color: white;
+                font-size: 20px;
+                position: absolute;
+                z-index: 100001;
+                width: 200px;
+                overflow: hidden;
+                text-align: center;
+                                
+                
+                
             }
-            
 
         }
     }

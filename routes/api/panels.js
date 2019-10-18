@@ -149,7 +149,6 @@ router
               return res.send(panelsToReturnPojo);
           }
           Panel.find({ _id: { $in: arr } }).populate('authorId').then(panelsArray => {
-            debugger
             childrenToReturn = childrenToReturn.concat(panelsArray);
             let recursiveArr = [];
             panelsArray.forEach(panel => (recursiveArr = recursiveArr.concat(panel.childIds)));
