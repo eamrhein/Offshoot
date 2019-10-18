@@ -5,17 +5,15 @@ import Leaf from './leaf'
 class indexTitleBrancher extends React.Component {
   constructor(props){
     super(props);
-    this.state = {left: [], right: []}
+    this.state = { right: []}
   }
   componentDidMount(){
     this.setOffShootDir();
-    // this.setState()
     this.getPanelDims()
-    let left = this.growBranch('left',this.props.panel.childIds, this.left, this.height /2, this.height)
-    let right = this.growBranch('right', this.props.panel.childIds, this.right, this.height / 2, this.height)
 
-    // debugger
-    this.setState({left: left, right: right})
+    let right = this.growBranch('right', this.props.panel.childIds, this.right, this.height/2, this.height)
+
+    this.setState({ right: right})
   }
   
   setOffShootDir(){
@@ -37,11 +35,12 @@ class indexTitleBrancher extends React.Component {
   // 
   getPanelDims(){
     let panel = document.getElementById(`${this.props.panel.id}`).getBoundingClientRect();
-    this.left = panel.left;
+    this.left = panel.left * 1.75;
     this.right = panel.right;
     this.top = panel.top;
     this.bottom = panel.bottom;
-    this.height = this.bottom - this.top
+    // this.height = this.bottom - this.top
+    this.height = 350;
     // debugger
   }
 
@@ -55,11 +54,15 @@ class indexTitleBrancher extends React.Component {
       let xOrigin = x;
       let yOrigin = y;
       let yOffset = Math.floor(this.height / (arr.length + 2))
-      let xdest = xOrigin + (150 * (dir === 'left' ? -1 : 1));  
-      let linewidth = Math.abs(xOrigin - xdest);
       arr.forEach((id, idx) => {
+        // get random branch lengths
+        // let xdest = xOrigin + ((Math.floor(Math.random() * 125) + 25) * (dir === 'left' ? -1 : 1));  
+        let xdest = xOrigin + (150) * (dir === 'left' ? -1 : 1);  
+
+        let linewidth = Math.abs(xOrigin - xdest);
+
         let panel = this.props.childPanels[id]
-        let  ydest = (yOffset * (idx + 1)) + yOrigin/2
+        let  ydest = (yOffset * (idx + 1)) + (yOrigin/ 2)
         // let lineHeight = Math.abs(ydest - yOrigin)
         panels.push(<svg width={`${this.left}`} height={`${this.height}`} id={`${xOrigin}` + `${panel.id}`} style={{position: 'absolute'}}>
           <line x1={xdest - (dir === 'left' ? 0 : this.right)} x2={xOrigin - (dir === 'left' ? 0 : this.right)} y1={ydest} y2={yOrigin} stroke={'brown'} />
@@ -73,18 +76,13 @@ class indexTitleBrancher extends React.Component {
   // need code to trigger on media query
 
   render(){
-    let leftStyles = {
-      width: this.left,
-      height: this.height
-    }
+
     let rightStyles = {
       width: this.left,
       height: this.height,
     }
     return(<div className={'brancher'}>
-      <div className={'left-branch'} style={leftStyles}>
-        {this.state.left}
-      </div>
+
       
       <Panel panel={this.props.panel} type={'compact'}/>
       <div className={'right-branch'} style={rightStyles}>
