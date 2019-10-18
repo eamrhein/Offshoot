@@ -15,7 +15,7 @@ class LikeButton extends React.Component {
         //toggle like
         e.preventDefault();
         if (this.props.session.isAuthenticated) {
-            const { likePanel, unlikePanel, panelId } = this.props;
+            const { likePanel, unlikePanel } = this.props;
             let likeElement = e.target;
             if (!e.target.classList.contains('liked')) {
                 likePanel({ userId: this.props.currentUser.id, rootId: this.props.panelId })
@@ -37,12 +37,6 @@ class LikeButton extends React.Component {
         return (
 
           <div className="like-button-container">
-
-          
-            <span>
-              {this.props.panels[this.props.panelId].likes} like
-              {this.props.panels[this.props.panelId].likes > 1 ? `s` : ``}
-            </span>
             <i
               className={`material-icons like-button ${this.renderLikeOnLoad()}`}
               onClick={this.handleLike}

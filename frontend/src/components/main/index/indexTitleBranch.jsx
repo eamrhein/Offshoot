@@ -11,7 +11,7 @@ class indexTitleBrancher extends React.Component {
     this.setOffShootDir();
     this.getPanelDims()
 
-    let right = this.growBranch('right', this.props.panel.childIds, this.right, this.height/2, this.height)
+    let right = this.growBranch('right', this.props.panel.childIds, this.right, this.height * 0.75 , this.height * 0.75, 5)
 
     this.setState({ right: right})
   }
@@ -53,22 +53,20 @@ class indexTitleBrancher extends React.Component {
     // let childIdsToRun = [];
       let xOrigin = x;
       let yOrigin = y;
-      let yOffset = Math.floor(this.height / (arr.length + 2))
+      let yOffset = Math.floor(height / (arr.length + 1))
       arr.forEach((id, idx) => {
         // get random branch lengths
-        // let xdest = xOrigin + ((Math.floor(Math.random() * 125) + 25) * (dir === 'left' ? -1 : 1));  
-        let xdest = xOrigin + (150) * (dir === 'left' ? -1 : 1);  
-
-        let linewidth = Math.abs(xOrigin - xdest);
+        let xdest = xOrigin + ((Math.floor(Math.random() * 100) + 75) * (dir === 'left' ? -1 : 1));  
+        // let xdest = xOrigin + (150) * (dir === 'left' ? -1 : 1);  
 
         let panel = this.props.childPanels[id]
-        let  ydest = (yOffset * (idx + 1)) + (yOrigin/ 2)
+        let  ydest = yOrigin - (yOffset * (idx + 1)) 
         // let lineHeight = Math.abs(ydest - yOrigin)
         panels.push(<svg width={`${this.left}`} height={`${this.height}`} id={`${xOrigin}` + `${panel.id}`} style={{position: 'absolute'}}>
-          <line x1={xdest - (dir === 'left' ? 0 : this.right)} x2={xOrigin - (dir === 'left' ? 0 : this.right)} y1={ydest} y2={yOrigin} stroke={'brown'} />
+          <line x1={xdest - (dir === 'left' ? 0 : this.right)} x2={xOrigin - (dir === 'left' ? 0 : this.right)} y1={ydest} y2={yOrigin} stroke={'brown'} strokeWidth={lineWidth}/>
         </svg>)
         panels.push( <Leaf panel={panel} key={id} xpos={xdest - (dir === 'left' ? 0 : this.right)} ypos={ydest * -1 + this.height}/>)
-        panels = panels.concat(this.growBranch((dir === 'left' ? 'left' : 'right'), panel.childIds, xdest, ydest, height / 2, linewidth / 2))
+        panels = panels.concat(this.growBranch((dir === 'left' ? 'left' : 'right'), panel.childIds, xdest, ydest, yOffset, lineWidth * 0.75 ))
         // childIdsToRun = childIdsToRun.concat(panel.childIds)
     })
     return panels

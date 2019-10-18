@@ -90,6 +90,7 @@ class ConditionalIndex extends React.Component {
       <div className="panel-index">
         {this.state.panels}
         {/* {this.state.panels.length === 0 ? <div>{`${this.props.indexType} more panels!`}</div> : ''} */}
+        <span>Icon credit</span>
       </div>
     );
   }
