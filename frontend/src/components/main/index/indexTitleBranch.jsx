@@ -11,7 +11,7 @@ class indexTitleBrancher extends React.Component {
     this.setOffShootDir();
     this.getPanelDims()
 
-    let right = this.growBranch('right', this.props.panel.childIds, this.right, this.height * 0.75 , this.height * 0.75, 5)
+    let right = this.growBranch('right', this.props.panel.childIds, this.right, this.height * 0.8  , this.height * 0.8, 5)
 
     this.setState({ right: right})
   }
@@ -56,13 +56,13 @@ class indexTitleBrancher extends React.Component {
       let yOffset = Math.floor(height / (arr.length + 1))
       arr.forEach((id, idx) => {
         // get random branch lengths
-        let xdest = xOrigin + ((Math.floor(Math.random() * 100) + 75) * (dir === 'left' ? -1 : 1));  
+        let xdest = xOrigin + ((Math.floor(Math.random() * 200) + 75) * (dir === 'left' ? -1 : 1));  
         // let xdest = xOrigin + (150) * (dir === 'left' ? -1 : 1);  
 
         let panel = this.props.childPanels[id]
-        let  ydest = yOrigin - (yOffset * (idx + 1)) 
+        let  ydest = yOrigin - (yOffset * (idx + 1)) + (Math.floor(Math.random() * 40))
         // let lineHeight = Math.abs(ydest - yOrigin)
-        panels.push(<svg width={`${this.left}`} height={`${this.height}`} id={`${xOrigin}` + `${panel.id}`} style={{position: 'absolute'}}>
+        panels.push(<svg width={`${this.left}`} height={`${this.height}`} id={`${xOrigin}` + `${panel.id}`} className={'svgContainer'}>
           <line x1={xdest - (dir === 'left' ? 0 : this.right)} x2={xOrigin - (dir === 'left' ? 0 : this.right)} y1={ydest} y2={yOrigin} stroke={'brown'} strokeWidth={lineWidth}/>
         </svg>)
         panels.push( <Leaf panel={panel} key={id} xpos={xdest - (dir === 'left' ? 0 : this.right)} ypos={ydest * -1 + this.height}/>)
