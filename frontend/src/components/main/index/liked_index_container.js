@@ -6,7 +6,9 @@ import { fetchChildren, clearChildState } from '../../../actions/children_action
 const mapStateToProps = state => ({
   panels: state.entities.panels,
   indexType: 'Like',
-  panelIdsToFetch: state.session.user.followedRoots
+  panelIdsToFetch: state.session.user.followedRoots,
+  childPanels: state.entities.childPanels
+
 });
 
 // for fetching panels
