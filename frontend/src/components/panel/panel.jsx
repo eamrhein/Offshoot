@@ -71,12 +71,6 @@ export class Panel extends Component {
 
                         { this.props.currentUser !== undefined ?
                         <ul className="panel-action-buttons">
-                            <LikeButton panelId={this.props.panelId} />
-                            {/* <i className={this.state.shareDrawerOpen && this.props.currentModal === `active-panel-${this.props.panelId}` ?
-                                "material-icons share-button active" :
-                                "material-icons share-button"
-                            } onClick={this.handleShare}>share</i> */}
-                            {/* <Link to={`/panels/${this.props.panelId}`}><i className="material-icons share-button">share</i></Link> */}
                         </ul>
                         : ""}
 

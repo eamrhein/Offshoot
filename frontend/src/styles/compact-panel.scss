@@ -1,24 +1,16 @@
 .panel-index {
     .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        // box-sizing: border-box;
+        margin-top: 1%;
+        margin-bottom: 3%;
+        padding: 1% 0.25% 0% 0%;
         border-radius: 10px;
         background-color: $primary;
         width: 330px;
-        margin: 20px 0px;
-        position: relative;
-        z-index: 2;
-        padding-bottom: 10px;
     }
 
     .panel-proper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        top: 0px;
-        position: relative;
-        z-index: 2;
+      padding: 0.25%;
     }
 
     // .share-drawer {
@@ -51,17 +43,18 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
-        width: 330px;
-        overflow: hidden;
-        padding: 10px 0px;
-        z-index: 2;
-        background-color: $primary;
-        border-radius: 10px;
+        // justify-content: center;
+        // width: 330px;
+        // overflow: hidden;
+        // padding: 0px 0px;
+        // z-index: 2;
+        // background-color: $primary;
+        // border-radius: 10px;
 
         img {
-            position: relative;
+            object-fit: cover;
             width: 330px;
+            height: 250px;
         }
   }
     .title-and-panel {
@@ -71,9 +64,8 @@
 
     figcaption {
         display: block;
-        width: 330px;
         box-sizing: border-box;
-        padding: 0px 10px;
+        padding: 10px 10px;
         z-index: 1;
         overflow: hidden;
         text-overflow: ellipsis;
