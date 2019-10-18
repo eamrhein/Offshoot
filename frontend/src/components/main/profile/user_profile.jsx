@@ -40,8 +40,8 @@ class ProfileShow extends React.Component {
             Authored Roots
           </h2>
         </div>
-
-      <ProfileAuthoredIndexContainer ProfilePanels={this.state.authoredRoots} />
+        {this.state.authoredRoots.length > 0 ?(<ProfileAuthoredIndexContainer ProfilePanels={this.state.authoredRoots} />) : ''}
+      
       </div>
     )
   }

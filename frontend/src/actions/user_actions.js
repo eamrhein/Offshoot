@@ -27,12 +27,15 @@ export const unlikePost = payload => ({
   payload
 });
 
+
+
 // These take in the users id and then id of the root panel id
 
 export const like = userAndpanelIds => dispatch => (
   APIUTIL.like(userAndpanelIds)
     .then((payload) => {
-      dispatch(userAuthoredUpdate(payload));
+      
+      console.log(payload)
       dispatch(likePost(payload));
     })
     .catch((err) => dispatch(receiveErrors(err)))
@@ -41,7 +44,7 @@ export const like = userAndpanelIds => dispatch => (
 export const unlike = userAndpanelIds => dispatch => (
   APIUTIL.unlike(userAndpanelIds)
     .then((payload) => {
-      dispatch(userAuthoredUpdate(payload));
+      console.log(payload)
       dispatch(likePost(payload));
     })
     .catch((err) => dispatch(receiveErrors(err)))

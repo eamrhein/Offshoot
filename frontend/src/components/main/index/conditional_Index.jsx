@@ -1,6 +1,5 @@
 import React from 'react';
-import Panel from '../../panel/panel';
-
+import IndexTitleBrancher from './indexTitleBranch'
 class ConditionalIndex extends React.Component {
   constructor(props){
     super(props)
@@ -17,30 +16,40 @@ class ConditionalIndex extends React.Component {
       const { panelIdsToFetch, indexType } = this.props;
       if (panelIdsToFetch.length > 1 || indexType === 'Main') {
         this.fetchAndLoadPannels(panelIdsToFetch);
+      } 
+      window.addEventListener('scroll', this.handleScroll)
+
+    } else if (this.props.indexType === 'Profile') {
+      debugger
+      if (this.props.ProfilePanels.length > 0) {
+        this.fetchAndLoadPannels(this.props.ProfilePanels)
       }
+      window.addEventListener('scroll', this.handleScroll)
+
     }
-
-    window.addEventListener('scroll', this.handleScroll)
-  }
-
+    
+}
 
   fetchAndLoadPannels(idsArr){
     this.props.fetchPanels(idsArr)
       .then(() => {
-
-        this.loadedPanels = Object.keys(this.props.panels).reverse()
-          //panel object threaded to panel component
-          .map(id => <Panel panel={this.props.panels[id]} key={id} type="compact" />)
-        this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 5)) })
+        let idsToFetchChildren = Object.keys(this.props.panels)
+        this.props.fetchChildren(idsToFetchChildren).then(() => {
+          this.loadedPanels = Object.keys(this.props.panels).reverse()
+            //panel object threaded to panel component
+            .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={id} childPanels={this.props.childPanels} />)
+          this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 7)) })
+        }); 
       });
+    
   }
 
 
-  componentDidUpdate(prevProps){
-    if(prevProps.ProfilePanels !== this.props.ProfilePanels){
-      if(this.props.ProfilePanels.length > 0)this.fetchAndLoadPannels(this.props.ProfilePanels)
-    }
-  }
+  // componentDidUpdate(prevProps){
+  //   if(prevProps.ProfilePanels !== this.props.ProfilePanels){
+  //     if(this.props.ProfilePanels.length > 0)this.fetchAndLoadPannels(this.props.ProfilePanels)
+  //   }
+  // }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -49,6 +58,7 @@ class ConditionalIndex extends React.Component {
     // if they don't fetch them
     // currently clearing state to prevent overlab between the authored and liked panels
     this.props.clearPanelState();
+    this.props.clearChildState();
   }
 
   handleScroll(){
@@ -82,11 +92,11 @@ class ConditionalIndex extends React.Component {
 
 
   render(){
-
     return (
       <div className="panel-index">
         {this.state.panels}
         {/* {this.state.panels.length === 0 ? <div>{`${this.props.indexType} more panels!`}</div> : ''} */}
+        <span>Icon credit</span>
       </div>
     );
   }
