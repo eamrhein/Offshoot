@@ -33,7 +33,7 @@ class ProfileShow extends React.Component {
       <div className='profile-page'>
         <div className='profile-info'>
           <div className="username">
-            <img src="acorn-icon-black.png" className="acorn-icon"></img>
+            <img alt="acorn" src="acorn-icon-black.png" className="acorn-icon"></img>
             <span>{`${this.state.username}`}</span>
           </div>
           <h2>

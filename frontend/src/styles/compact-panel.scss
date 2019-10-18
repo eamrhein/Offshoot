@@ -1,5 +1,4 @@
 .panel-index {
-
     .panel {
         display: flex;
         flex-direction: column;
@@ -12,7 +11,7 @@
         z-index: 2;
         padding-bottom: 10px;
     }
-    
+
     .panel-proper {
         display: flex;
         flex-direction: column;
@@ -64,12 +63,7 @@
             position: relative;
             width: 330px;
         }
-
-    
-
-
-    }
-
+  }
     .title-and-panel {
         display: flex;
         flex-direction: column-reverse;
@@ -77,7 +71,6 @@
 
     figcaption {
         display: block;
-
         width: 330px;
         box-sizing: border-box;
         padding: 0px 10px;
@@ -85,7 +78,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         border-radius: 10px;
-        
+        text-align: center;
         background-color: $primary;
 
         .name {
@@ -102,14 +95,10 @@
         }
 
         .panel-action-buttons {
-
             float: right;
-
             display: flex;
             flex-direction: column;
-
             color: rgba($color: $secondary, $alpha: 0.8);
-
             transition-property: color;
             transition-duration: 0.5s;
 

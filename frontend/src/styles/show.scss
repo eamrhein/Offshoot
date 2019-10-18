@@ -144,18 +144,23 @@
         }
 
         .like-button {
+            cursor: pointer;
             color: rgba($color: #000000, $alpha: 0.5)
         }
-
+        .edit-button {
+          cursor: pointer;
+        }
         .like-button.liked {
             color: $light-primary;
         }
 
     }
-
     .panel-and-buttons {
         display: flex;
         flex-direction: column;
+    }
+    textarea {
+      resize: none;
     }
 }
 
@@ -226,6 +231,24 @@
         }
 
 .comment-area {
+  .comment {
+    button {
+      display: block;
+      background-color: $lighter-secondary;
+      cursor: pointer;
+      padding: 3px;
+      border-radius: 3px;
+      box-shadow: 0 0 2px 0 rgba(0,0,0,.3);
+    }
+    button:hover {
+      background-color: $light-secondary;
+      box-shadow: 0 0 2px 0 rgba(255,255,255,.3);
+    }
+    button:active {
+      background-color: $light-secondary;
+      transform: translateY(4px);
+    }
+  }
     background-color: $light-secondary;
     width: 370px;
     margin-top: 10px;

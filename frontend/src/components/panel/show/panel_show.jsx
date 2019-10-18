@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CommentsIndex from '../comments/comments_index';
 import { fetchPanel, clearPanelState } from '../../../actions/panel_actions';
-import { useSwipeable, Swipeable } from 'react-swipeable';
+import {Swipeable } from 'react-swipeable';
 
 import { Link } from 'react-router-dom';
 
