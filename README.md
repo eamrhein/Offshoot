@@ -11,7 +11,7 @@ Offshoot is a web application that easily allows user to create and navigate sto
 
 ## Technologies
 
-+ #### Database: [Postgresql](https://www.postgresql.org/)
++ #### Database: [MongoDb](https://www.mongodb.com/)
 
 + #### Backend: [ExpressJs](https://expressjs.com/)
 
