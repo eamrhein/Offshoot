@@ -44,7 +44,7 @@
     figure {
         width: 370px;
         padding: 10px;
-        background-color: $root;
+        background-color: $primary;
         position: relative;
         border-radius: $small-radius;
         box-sizing: border-box;
@@ -97,14 +97,14 @@
 
         border-radius: $small-radius;
 
-        background-color: $root;
+        background-color: $primary;
         a {
             font-weight: bold;
             cursor: pointer;
             font-size: 14px;
             text-decoration: none;
-            background-color: $primary;
-            color: $darkest-primary;
+            background-color: $darkest-primary;
+            color: $primary;
             border-radius: $small-radius;
             text-align: center;
             padding: 0 5px;
@@ -112,7 +112,10 @@
         span {
             margin-left: 10px;
         }
-        p {}
+
+        p {
+            margin-top: 5px;
+        }
     }
 
     h1 {
