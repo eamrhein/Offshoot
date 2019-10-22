@@ -1,34 +1,51 @@
 import React from 'react';
 import IndexTitleBrancher from './indexTitleBranch'
+import Panel from '../../panel/panel'
 class ConditionalIndex extends React.Component {
   constructor(props){
     super(props)
     this.handleScroll = this.handleScroll.bind(this);
 
     this.state = {
-      panels : []
+      panels : [], 
+      panelsToRender : []
+
     }
+    this.rebuildAllPanels= this.rebuildAllPanels.bind(this);
   }
 
   componentDidMount(){
     this.loadedPanels = [];
     if (this.props.ProfilePanels === undefined){
       const { panelIdsToFetch, indexType } = this.props;
-      if (panelIdsToFetch.length > 1 || indexType === 'Main') {
+      if (panelIdsToFetch.length > 0 || indexType === 'Main') {
         this.fetchAndLoadPannels(panelIdsToFetch);
       } 
       window.addEventListener('scroll', this.handleScroll)
 
     } else if (this.props.indexType === 'Profile') {
-      debugger
       if (this.props.ProfilePanels.length > 0) {
         this.fetchAndLoadPannels(this.props.ProfilePanels)
       }
-      window.addEventListener('scroll', this.handleScroll)
+      window.addEventListener('scroll', this.rebuildAllPanels)
 
     }
-    
+    window.addEventListener('resize', this.rebuildAllPanels)
 }
+  
+
+
+  rebuildAllPanels(){
+    if(window.innerWidth < 550){
+      let mobilePanels = this.state.panelsToRender
+         .map(id => <Panel panel={this.props.panels[id]} key={'panel' + id} />)
+         this.setState({panels: mobilePanels});
+    } else {
+      let branchingPanels = this.state.panelsToRender
+        .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={'idxBranch' + id} childPanels={this.props.childPanels} />)
+        this.setState({panels: branchingPanels});
+    }
+  }
 
   fetchAndLoadPannels(idsArr){
     this.props.fetchPanels(idsArr)
@@ -37,8 +54,9 @@ class ConditionalIndex extends React.Component {
         this.props.fetchChildren(idsToFetchChildren).then(() => {
           this.loadedPanels = Object.keys(this.props.panels).reverse()
             //panel object threaded to panel component
-            .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={id} childPanels={this.props.childPanels} />)
-          this.setState({ panels: this.state.panels.concat(this.loadedPanels.splice(0, 7)) })
+          this.setState({ panelsToRender: this.state.panelsToRender.concat(this.loadedPanels.splice(0, 7)) }, ()=> {
+            this.rebuildAllPanels()
+          })
         }); 
       });
     
@@ -53,6 +71,7 @@ class ConditionalIndex extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.rebuildAllPanels);
     // could make this a conditional
     // check if the panels exist in the state, if they do add them to the state,
     // if they don't fetch them

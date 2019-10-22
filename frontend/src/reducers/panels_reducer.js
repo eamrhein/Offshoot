@@ -11,7 +11,6 @@ const PanelsReducer = (state = {}, action) => {
     case REMOVE_PANELS:
       return Object.assign({});
     case LIKE_POST:
-      console.log(action);
       return {
         ...state,
       [action.payload.data.panel.id]: action.payload.data.panel,

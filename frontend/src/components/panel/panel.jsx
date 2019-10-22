@@ -76,7 +76,13 @@ export class Panel extends Component {
 
                     </figure>
 
-                    <figcaption>
+                    <figcaption className='panel-fig'>
+                        <div className="panel-text">
+                            <Link to={`/users/${this.props.panel.authorId}`} className="name">{`${this.props.panel.authorUsername}`}</Link>
+                            {this.props.type === "compact" ? <h1>{this.props.panel.title}</h1> : ""}
+                            <p>{this.props.panel.panelText}</p>
+                        </div>
+                        
                         {this.props.currentUser !== undefined ?
                             <div className="panel-action-buttons">
                                 <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
@@ -90,9 +96,7 @@ export class Panel extends Component {
                                 </div>
                             </div>
                         : ""}
-                        <Link to={`/users/${this.props.panel.authorId}`} className="name">{`${this.props.panel.authorUsername}`}</Link>
-                        {this.props.type === "compact" ? <h1>{this.props.panel.title}</h1> : "" }
-                        <p>{this.props.panel.panelText}</p>
+                        
                     </figcaption>
                 </div>
             </div>

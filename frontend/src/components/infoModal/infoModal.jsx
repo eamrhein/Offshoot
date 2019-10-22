@@ -28,7 +28,7 @@ class InfoModal extends React.Component{
   
   componentDidMount(){
       if (this.props.location.pathname === '/' && this.props.isAuthenticated === true && this.props.showInfoModal === true){
-        if(this.props.currentUser.username === 'demo' || this.props.currentUser.authoredRoots.length === 0){
+        if(this.props.currentUser.username === 'demo user' || this.props.currentUser.authoredRoots.length === 0){
           this.indexInfo = { text: [
             'Welcome to Offshoot!',
             'Click roots to expand, click again to visit their show page.',

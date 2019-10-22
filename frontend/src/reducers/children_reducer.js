@@ -4,7 +4,7 @@ const ChildrenReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_CHILDREN:
-      return Object.assign({}, state, action.panels.data);
+      return Object.assign({}, state, action.panels.data.children);
     case CLEAR_CHILDREN:
       return Object.assign({}, state);
     default:
