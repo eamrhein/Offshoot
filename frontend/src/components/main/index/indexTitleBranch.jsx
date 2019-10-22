@@ -2,6 +2,8 @@ import React from 'react';
 import Panel from '../../panel/panel';
 import Leaf from './leaf'
 
+
+
 class indexTitleBrancher extends React.Component {
   constructor(props){
     super(props);
@@ -11,6 +13,7 @@ class indexTitleBrancher extends React.Component {
         height: this.height,
       }}
     this.handleResize = this.handleResize.bind(this)
+    this.leavesToControl = []
   }
   componentDidMount(){
     this.getPanelDims()
@@ -32,7 +35,8 @@ class indexTitleBrancher extends React.Component {
   handleResize(){
     
     let pan = document.getElementById(`${this.props.panel.id}`).getBoundingClientRect();
-    if (Math.abs(this.right - pan.right) > 300) { 
+    if (Math.abs(this.right - pan.right) > 100) { 
+  
       this.left = pan.left * 2
       this.right = pan.right
       let regrow = this.growBranch('right', this.props.panel.childIds, this.right, this.height * 0.8, this.height * 0.8, 5, window.innerWidth * 0.7)
@@ -53,10 +57,7 @@ class indexTitleBrancher extends React.Component {
     }
     
   }
-  // have a set with
-  // recursively halve the ypos
-  // recursively increase or decrease the xpos depending on the position
-  // 
+
   getPanelDims(){
     let panel = document.getElementById(`${this.props.panel.id}`).getBoundingClientRect();
     this.left = panel.left * 2;
@@ -65,6 +66,16 @@ class indexTitleBrancher extends React.Component {
     this.bottom = panel.bottom;
     // this.height = this.bottom - this.top
     this.height = 350;
+    // this.currentWidth = window.innerWidth;
+    // this.listenForResize = window.addEventListener('resize', () => {
+    //   let newLeftDims = document.getElementById(`${this.props.panel.id}`).getBoundingClientRect().left;
+    //   let multiplier = window.innerWidth > this.currentWidth ? 1 : -1;
+    //   let deltaX = Math.abs(this.currentWidth - window.innerWidth) * multiplier;
+    //   // this.setState({xOffset: newLeftDims - this.left})
+      
+    //   this.setState({xOffset: deltaX})
+    //   this.currentWidth = window.innerWidth;
+    // });
   }
 
   // x is the side
@@ -78,11 +89,11 @@ class indexTitleBrancher extends React.Component {
         // get random branch lengths
         let xdest = xOrigin + ((Math.floor(Math.random() * 200) + 75) * (dir === 'left' ? -1 : 1));  
         // let xdest = xOrigin + (150) * (dir === 'left' ? -1 : 1);  
-
+        this.leavesToControl.push(id)
         let panel = this.props.childPanels[id]
         let  ydest = yOrigin - (yOffset * (idx + 1)) + (Math.floor(Math.random() * 40))
         // let lineHeight = Math.abs(ydest - yOrigin)
-        panels.push(<svg width={`${width}`} height={`${this.height}`} id={`${xOrigin}` + `${panel.id}`} className={'svgContainer'}>
+        panels.push(<svg width={`${width}`} height={`${this.height}`} key={`svgContainer` + id} className={'svgContainer'}>
           <line 
             x1={xdest - (dir === 'left' ? 0 : this.right)} 
             x2={xOrigin - (dir === 'left' ? 0 : this.right)} 
@@ -94,12 +105,13 @@ class indexTitleBrancher extends React.Component {
             
             />
         </svg>)
-        panels.push( <Leaf panel={panel} key={id} xpos={xdest - (dir === 'left' ? 0 : this.right)} ypos={ydest * -1 + this.height}/>)
+        panels.push( <Leaf panel={panel} key={'leaf' + id} xpos={xdest - (dir === 'left' ? 0 : this.right)} ypos={ydest * -1 + this.height}/>)
         panels = panels.concat(this.growBranch((dir === 'left' ? 'left' : 'right'), panel.childIds, xdest, ydest, yOffset, lineWidth * 0.75, width ))
     })
     return panels
   }
-  // need code to trigger on media query
+
+
 
   render(){
 
