@@ -54,20 +54,17 @@ export class Panel extends Component {
     render() {
         return (
             <div className={
-                this.props.currentModal === `active-panel-${this.props.panelId}` ?
-                "panel active" :
-                "panel"}
+                "panel active" }
                 id={`${this.props.panel.id}`}
                 >
                 <div className="panel-proper">
                     {this.props.type === "show" ? <h1>{`${this.props.panel.title}`}</h1> : "" }
                     <figure className="panel-figure">
-                        {this.props.currentModal === `active-panel-${this.props.panelId}` ?
+                       
                         <Link to={`/panels/${this.props.panelId}`}>
-                            <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} />
+                            <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} />
                         </Link>
-                        :
-                        <img src={this.props.panel.photoURL} className="panel-image" alt={this.props.panel.panelText} onClick={this.handleTouch} /> }
+                        
 
                         { this.props.currentUser !== undefined ?
                         <ul className="panel-action-buttons">
