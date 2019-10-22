@@ -99,7 +99,7 @@ class indexTitleBrancher extends React.Component {
             x2={xOrigin - (dir === 'left' ? 0 : this.right)} 
             y1={ydest} 
             y2={yOrigin} 
-            stroke={'brown'} 
+            stroke={'#996633'} 
             strokeWidth={lineWidth}
             strokeLinecap='round'
             
