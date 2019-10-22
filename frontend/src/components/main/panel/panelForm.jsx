@@ -80,10 +80,11 @@ class PanelForm extends React.Component {
     const reader = new FileReader();
     const file = e.currentTarget.files[0];
     reader.onloadend = () => this.setState({ photoURL: reader.result, photoFile: file });
-
-    if (file) {
+    console.log(file.type);
+    if (file && file.type.includes("image")) {
       reader.readAsDataURL(file);
     } else {
+      // set an error here
       this.setState({ panel: {photoURL: ""}, photoFile: null });
     }
   }

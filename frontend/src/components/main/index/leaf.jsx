@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link}  from 'react-router-dom'
+import LikeButton from '../../panel/like_button';
 class Leaf extends React.Component {
   constructor(props){
     super(props)
@@ -12,8 +13,38 @@ class Leaf extends React.Component {
 
     let info = (
     <div  className={'leafHover'}>
-        <span>{this.props.panel.title.slice(0, 10)}</span>
-        {this.memoImg[this.props.panel.id] ? this.memoImg[this.props.panel.id] : (this.memoImg[this.props.panel.id] = (<img src={this.props.panel.photoURL} style={{ width: 100 }} alt="" />))}
+        <figure >
+          {this.memoImg[this.props.panel.id] ? this.memoImg[this.props.panel.id] : (this.memoImg[this.props.panel.id] = (<img src={this.props.panel.photoURL}  alt="" />))}
+
+
+          {this.props.currentUser !== undefined ?
+            <ul className="panel-action-buttons">
+            </ul>
+            : ""}
+
+        </figure>
+
+        <figcaption className='panel-fig'>
+          <div className="panel-text">
+            <h1>{this.props.panel.title}</h1>
+            {/* <p>{this.props.panel.panelText}</p> */}
+          </div>
+
+          {/* {this.props.currentUser !== undefined ?
+            <div className="panel-action-buttons">
+              <LikeButton panelId={this.props.panelId} likes={this.props.panel.likes} />
+              <div className="branch-button-container">
+                <Link to={`/panels/${this.props.panel.id}`}>
+                  <i className="material-icons branch-button">
+                    call_split
+                                        </i>
+                </Link>
+                <span>{this.props.panel.childIds.length}</span>
+              </div>
+            </div>
+            : ""} */}
+
+        </figcaption>
     </div>)
     this.setState({ info: info })
   }
@@ -40,6 +71,7 @@ class Leaf extends React.Component {
         </Link>
        {this.state.info}
       </div>
+
     )
   }
 }
