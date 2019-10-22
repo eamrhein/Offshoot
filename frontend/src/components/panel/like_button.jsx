@@ -39,7 +39,7 @@ class LikeButton extends React.Component {
           <div className="like-button-container">
             <i
               className={`material-icons like-button ${this.renderLikeOnLoad()}`}
-              onClick={this.handleLike}
+              onMouseUp={this.handleLike}
               >
               favorite
             </i>

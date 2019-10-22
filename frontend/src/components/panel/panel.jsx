@@ -43,11 +43,11 @@ export class Panel extends Component {
         document.execCommand("copy");
     }
 
-    handleTouch() {
+    handleTouch(e) {
         // this.setState({
         //     shareDrawerOpen: false
         // })
-
+        e.preventDefault();
         this.props.toggleModal(`active-panel-${this.props.panelId}`);
     }
 
