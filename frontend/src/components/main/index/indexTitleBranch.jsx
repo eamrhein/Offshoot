@@ -105,7 +105,7 @@ class indexTitleBrancher extends React.Component {
             
             />
         </svg>)
-        panels.push( <Leaf panel={panel} key={'leaf' + id} xpos={xdest - (dir === 'left' ? 0 : this.right)} ypos={ydest * -1 + this.height}/>)
+        panels.push( <Leaf panel={panel} className={'leaf' + this.props.panel.id} key={'leaf' + id} xpos={xdest - (dir === 'left' ? 0 : this.right)} ypos={ydest * -1 + this.height}/>)
         panels = panels.concat(this.growBranch((dir === 'left' ? 'left' : 'right'), panel.childIds, xdest, ydest, yOffset, lineWidth * 0.75, width ))
     })
     return panels
