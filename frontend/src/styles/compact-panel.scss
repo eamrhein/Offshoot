@@ -94,9 +94,9 @@
             transition-property: color;
             transition-duration: 0.5s;
 
-            .like-button:active {
-                color: $like-active-color;
-            }
+            // .like-button:active {
+            //     color: $like-active-color;
+            // }
 
             .liked {
                 color: $like-active-color;
