@@ -7,7 +7,9 @@ const mapStateToProps = state => ({
   panels: state.entities.panels,
   indexType: 'Profile',
   panelIdsToFetch: [],
-  childPanels: state.entities.childPanels
+  childPanels: state.entities.childPanels,
+  panelDepth: state.entities.panelDepth
+
 });
 
 // for fetching panels

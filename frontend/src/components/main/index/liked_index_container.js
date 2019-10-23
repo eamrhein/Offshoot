@@ -7,7 +7,9 @@ const mapStateToProps = state => ({
   panels: state.entities.panels,
   indexType: 'Like',
   panelIdsToFetch: state.session.user.followedRoots,
-  childPanels: state.entities.childPanels
+  childPanels: state.entities.childPanels,
+  panelDepth: state.entities.panelDepth
+
 
 });
 
