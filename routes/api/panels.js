@@ -126,10 +126,10 @@ router
   .get('/', (req, res) => {
     if (req.query.panelsArray) {
       if (req.query.panelsArray[0] === 'CHILDREN') {
+        
         const childrenOBJ = {childrenToReturn: [], rootDesc: {}}
         function getTheChildren(arr, depth = 0){
           if (arr.length === 0) {
-            
               const panelsToReturnPojo = {};
               childrenOBJ.childrenToReturn.forEach(panel => {
                 const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
@@ -155,9 +155,9 @@ router
             childrenOBJ.childrenToReturn = childrenOBJ.childrenToReturn.concat(panelsArray);
             let recursiveArr = []
             panelsArray.forEach(panel => {
-              const {rootId, title} = panel;
-              if (childrenOBJ.rootDesc[rootId] === undefined){
-                childrenOBJ.rootDesc[rootId] = {depth: 1, branchCount: 1};
+              const {rootId, title, _id} = panel;
+              if (childrenOBJ.rootDesc[_id] === undefined && rootId === null){
+                childrenOBJ.rootDesc[_id] = {depth: 0, branchCount: 1};
               } else if (childrenOBJ.rootDesc[rootId] !== undefined){
                 if (childrenOBJ.rootDesc[rootId].depth < depth) childrenOBJ.rootDesc[rootId].depth = depth;
                 childrenOBJ.rootDesc[rootId].branchCount += 1;

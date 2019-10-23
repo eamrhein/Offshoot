@@ -5,7 +5,10 @@ import ConditionalIndex from './conditional_Index';
 const mapStateToProps = state => ({
   panels: state.entities.panels,
   indexType: 'Authored',
-  panelIdsToFetch: state.session.user.authoredRoots
+  panelIdsToFetch: state.session.user.authoredRoots,
+  panelDepth: state.entities.panelDepth,
+  
+
 });
 
 // for fetching panels

@@ -5,6 +5,7 @@ import ConditionalIndex from './conditional_Index';
 const mapStateToProps = state => ({
   panels: state.entities.panels,
   childPanels: state.entities.childPanels,
+  panelDepth: state.entities.panelDepth,
   indexType: 'Main',
   panelIdsToFetch: ''
 });

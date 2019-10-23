@@ -4,46 +4,56 @@ import Panel from '../../panel/panel'
 class ConditionalIndex extends React.Component {
   constructor(props){
     super(props)
-    this.handleScroll = this.handleScroll.bind(this);
 
     this.state = {
       panels : [], 
-      panelsToRender : []
+      panelsIdsToRender : []
 
     }
+    this.handleScroll = this.handleScroll.bind(this);
     this.rebuildAllPanels= this.rebuildAllPanels.bind(this);
   }
 
   componentDidMount(){
-    this.loadedPanels = [];
+    this.loadedPanelIds = [];
     if (this.props.ProfilePanels === undefined){
       const { panelIdsToFetch, indexType } = this.props;
-      if (panelIdsToFetch.length > 0 || indexType === 'Main') {
+      if (panelIdsToFetch.length > 0 || indexType === 'Main' || indexType === 'Like') {
         this.fetchAndLoadPannels(panelIdsToFetch);
       } 
-      window.addEventListener('scroll', this.handleScroll)
+      
 
     } else if (this.props.indexType === 'Profile') {
       if (this.props.ProfilePanels.length > 0) {
         this.fetchAndLoadPannels(this.props.ProfilePanels)
       }
-      window.addEventListener('scroll', this.rebuildAllPanels)
 
     }
+    window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.rebuildAllPanels)
 }
   
 
 
   rebuildAllPanels(){
-    if(window.innerWidth < 550){
-      let mobilePanels = this.state.panelsToRender
+    if((window.innerWidth < 550 && this.props.indexType) || this.props.indexType === 'Like'){
+      let mobilePanels = this.state.panelsIdsToRender
          .map(id => <Panel panel={this.props.panels[id]} key={'panel' + id} />)
          this.setState({panels: mobilePanels});
-    } else {
-      let branchingPanels = this.state.panelsToRender
-        .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={'idxBranch' + id} childPanels={this.props.childPanels} />)
+    } else if(this.props.indexType !== 'Like') {
+      let branchingPanels = this.state.panelsIdsToRender
+        .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={'idxBranch' + id} childPanels={this.props.childPanels} panelDepth={this.props.panelDepth}/>)
         this.setState({panels: branchingPanels});
+    }
+  }
+  buildOnePanel(id){
+    if ((window.innerWidth < 550 && this.props.indexType) || this.props.indexType === 'Like'){
+      let panel = (<Panel panel={this.props.panels[id]} key={'panel' + id} />)
+      this.setState({panels: this.state.panels.concat([panel]), panelsIdsToRender: this.state.panelsIdsToRender.concat[id]})
+    } else if(this.props.indexType !== 'Like') {
+      let branchingPanels = (<IndexTitleBrancher panel={this.props.panels[id]} key={'idxBranch' + id} childPanels={this.props.childPanels} panelDepth={this.props.panelDepth}/>)
+      this.setState({ panels: this.state.panels.concat([branchingPanels]), panelsIdsToRender: this.state.panelsIdsToRender.concat([id]) })
+
     }
   }
 
@@ -52,9 +62,9 @@ class ConditionalIndex extends React.Component {
       .then(() => {
         let idsToFetchChildren = Object.keys(this.props.panels)
         this.props.fetchChildren(idsToFetchChildren).then(() => {
-          this.loadedPanels = Object.keys(this.props.panels).reverse()
+          this.loadedPanelIds = Object.keys(this.props.panels).reverse()
             //panel object threaded to panel component
-          this.setState({ panelsToRender: this.state.panelsToRender.concat(this.loadedPanels.splice(0, 7)) }, ()=> {
+          this.setState({ panelsIdsToRender: this.state.panelsIdsToRender.concat(this.loadedPanelIds.splice(0, 7)) }, ()=> {
             this.rebuildAllPanels()
           })
         }); 
@@ -81,13 +91,13 @@ class ConditionalIndex extends React.Component {
   }
 
   handleScroll(){
-    if (this.state.panels.length > 1){
+    if (this.loadedPanelIds.length > 0){
       let lastPanel = document.querySelector('.panel-index').lastChild;
       let lastPanelOffset = lastPanel.offsetTop + lastPanel.clientHeight
       let containerOffset = window.innerHeight + window.pageYOffset;
 
       if (containerOffset > lastPanelOffset) {
-        this.setState({ panels: this.state.panels.concat(this.loadedPanels.shift()) })
+        this.buildOnePanel(this.loadedPanelIds.shift())
     }
 
 
