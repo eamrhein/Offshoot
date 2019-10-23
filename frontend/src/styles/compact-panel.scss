@@ -1,16 +1,17 @@
 .panel-index {
     .panel {
         // box-sizing: border-box;
-        margin-top: 1%;
-        margin-bottom: 3%;
-        padding: 1% 0% 0.25% 0%;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        // margin-bottom: 3%;
+        padding-top: 10px;
         border-radius: 10px;
         background-color: $primary;
         width: 330px;
     }
 
     .panel-proper {
-      padding: 0.25%;
+    //   padding: 0.25%;
     }
 
     // .share-drawer {
@@ -70,7 +71,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         border-radius: 10px;
-        text-align: center;
+
         background-color: $primary;
 
         .name {
@@ -84,6 +85,8 @@
             text-align: center;
             padding: 0 5px;
             margin-right: 5px;
+            white-space: nowrap;
+            display: inline-block;
         }
 
         .panel-action-buttons {
@@ -124,7 +127,6 @@
         font-weight: bold;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         display: inline;
     }
 
@@ -151,4 +153,34 @@
         margin-left: 5px;
         font-size: 16px;
     }
+}
+
+@media only screen and (min-width: 800px) {
+
+    .panel-index {
+        
+        .name {
+            background-color: $primary;
+            color: $darkest-primary;
+        }
+
+        .branch-button:hover {
+            color: $primary;
+        }
+
+
+        figcaption {
+            background-color: $root;
+
+            .panel-action-buttons {
+                color: rgba($color: black, $alpha: 0.5);
+            }
+        }
+
+        .panel {
+            background-color: $root;
+        }
+
+    }
+
 }
