@@ -21,7 +21,7 @@ class NavBar extends React.Component {
                     <Link to="/"><img className="logo" src="logo512.png" alt="offshoot logo"></img></Link>
 
                     <div className="info-modal-container" >
-                        <InfoModal  />
+                        {/* <InfoModal  /> */}
                     </div>
                 
             </div>

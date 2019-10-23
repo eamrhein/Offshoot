@@ -132,4 +132,19 @@ h1 {
 
     }
     }
+    .panel-fig{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .panel-text {
+            display: flex;
+            flex-direction: column;
+            .name {
+                width: fit-content;
+            }
+        }
+        .panel-action-buttons{
+            justify-self: flex-end;
+        }
+    }
 }

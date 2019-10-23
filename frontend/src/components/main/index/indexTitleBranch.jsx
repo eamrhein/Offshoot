@@ -34,12 +34,12 @@ class indexTitleBrancher extends React.Component {
     });
 
     window.addEventListener('resize', this.handleResize);
-    window.setInterval(this.toggleLeaves, 5000);
+    this.leafInterval = setInterval(this.toggleLeaves, 5000);
     window.addEventListener('mouseover', this.handleMouse);
   }
   componentWillUnmount(){
     window.removeEventListener('resize', this.handleResize);
-    window.clearInterval(this.toggleLeaves);
+    window.clearInterval(this.leafInterval);
     window.removeEventListener('mouseover', this.handleMouse);
   }
 
@@ -73,7 +73,6 @@ class indexTitleBrancher extends React.Component {
         // debugger
         leaves[this.leafCounter].dispatchEvent(mOver)
         this.leafCounter === (leaves.length - 1) ? (this.leafCounter = 0) : (this.leafCounter += 1)
-        console.log(leaves)
       }
     }
     

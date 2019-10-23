@@ -18,7 +18,7 @@ class ConditionalIndex extends React.Component {
     this.loadedPanelIds = [];
     if (this.props.ProfilePanels === undefined){
       const { panelIdsToFetch, indexType } = this.props;
-      if (panelIdsToFetch.length > 0 || indexType === 'Main') {
+      if (panelIdsToFetch.length > 0 || indexType === 'Main' || indexType === 'Like') {
         this.fetchAndLoadPannels(panelIdsToFetch);
       } 
       
@@ -36,21 +36,21 @@ class ConditionalIndex extends React.Component {
 
 
   rebuildAllPanels(){
-    if(window.innerWidth < 550){
+    if((window.innerWidth < 550 && this.props.indexType) || this.props.indexType === 'Like'){
       let mobilePanels = this.state.panelsIdsToRender
          .map(id => <Panel panel={this.props.panels[id]} key={'panel' + id} />)
          this.setState({panels: mobilePanels});
-    } else {
+    } else if(this.props.indexType !== 'Like') {
       let branchingPanels = this.state.panelsIdsToRender
         .map(id => <IndexTitleBrancher panel={this.props.panels[id]} key={'idxBranch' + id} childPanels={this.props.childPanels} panelDepth={this.props.panelDepth}/>)
         this.setState({panels: branchingPanels});
     }
   }
   buildOnePanel(id){
-    if(window.innerWidth < 550){
+    if ((window.innerWidth < 550 && this.props.indexType) || this.props.indexType === 'Like'){
       let panel = (<Panel panel={this.props.panels[id]} key={'panel' + id} />)
       this.setState({panels: this.state.panels.concat([panel]), panelsIdsToRender: this.state.panelsIdsToRender.concat[id]})
-    } else {
+    } else if(this.props.indexType !== 'Like') {
       let branchingPanels = (<IndexTitleBrancher panel={this.props.panels[id]} key={'idxBranch' + id} childPanels={this.props.childPanels} panelDepth={this.props.panelDepth}/>)
       this.setState({ panels: this.state.panels.concat([branchingPanels]), panelsIdsToRender: this.state.panelsIdsToRender.concat([id]) })
 
