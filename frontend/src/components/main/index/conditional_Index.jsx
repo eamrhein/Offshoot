@@ -125,7 +125,7 @@ class ConditionalIndex extends React.Component {
       <div className="panel-index">
         {this.state.panels}
         {/* {this.state.panels.length === 0 ? <div>{`${this.props.indexType} more panels!`}</div> : ''} */}
-        <span>Icon credit</span>
+        {Object.keys(this.state.panels).length > 0 ? <span className="footer-text"><div>Leaf Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></span> : ''}
       </div>
     );
   }
