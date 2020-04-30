@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import InfoModal from '../infoModal/infoModal';
 
 class NavBar extends React.Component {
 

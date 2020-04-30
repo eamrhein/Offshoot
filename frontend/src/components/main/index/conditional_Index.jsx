@@ -4,11 +4,9 @@ import Panel from '../../panel/panel'
 class ConditionalIndex extends React.Component {
   constructor(props){
     super(props)
-
     this.state = {
       panels : [], 
       panelsIdsToRender : []
-
     }
     this.handleScroll = this.handleScroll.bind(this);
     this.rebuildAllPanels= this.rebuildAllPanels.bind(this);
@@ -21,8 +19,6 @@ class ConditionalIndex extends React.Component {
       if (panelIdsToFetch.length > 0 || indexType === 'Main' || indexType === 'Like') {
         this.fetchAndLoadPannels(panelIdsToFetch);
       } 
-      
-
     } else if (this.props.indexType === 'Profile') {
       if (this.props.ProfilePanels.length > 0) {
         this.fetchAndLoadPannels(this.props.ProfilePanels)
@@ -31,9 +27,7 @@ class ConditionalIndex extends React.Component {
     }
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.rebuildAllPanels)
-}
-  
-
+  }
 
   rebuildAllPanels(){
     if((window.innerWidth < 550 && this.props.indexType) || this.props.indexType === 'Like'){
@@ -46,6 +40,7 @@ class ConditionalIndex extends React.Component {
         this.setState({panels: branchingPanels});
     }
   }
+
   buildOnePanel(id){
     if ((window.innerWidth < 550 && this.props.indexType) || this.props.indexType === 'Like'){
       let panel = (<Panel panel={this.props.panels[id]} key={'panel' + id} />)
@@ -69,23 +64,11 @@ class ConditionalIndex extends React.Component {
           })
         }); 
       });
-    
   }
-
-
-  // componentDidUpdate(prevProps){
-  //   if(prevProps.ProfilePanels !== this.props.ProfilePanels){
-  //     if(this.props.ProfilePanels.length > 0)this.fetchAndLoadPannels(this.props.ProfilePanels)
-  //   }
-  // }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.rebuildAllPanels);
-    // could make this a conditional
-    // check if the panels exist in the state, if they do add them to the state,
-    // if they don't fetch them
-    // currently clearing state to prevent overlab between the authored and liked panels
     this.props.clearPanelState();
     this.props.clearChildState();
   }
@@ -95,36 +78,16 @@ class ConditionalIndex extends React.Component {
       let lastPanel = document.querySelector('.panel-index').lastChild;
       let lastPanelOffset = lastPanel.offsetTop + lastPanel.clientHeight
       let containerOffset = window.innerHeight + window.pageYOffset;
-
       if (containerOffset > lastPanelOffset) {
         this.buildOnePanel(this.loadedPanelIds.shift())
+      }
     }
-
-
-    // Could be refactored to remove panels off the top as needed
-    // this.fetchPanels().then(() => {
-    //   let panelsToAdd = this.props.panels
-    //   this.state.panels.forEach(panel => {
-    //     if (panelsToAdd[panel.id]){
-    //       delete panelsToAdd[panel.id];
-    //     }
-    //   });
-    //   this.setState({panels: this.state.panels.concat(panelsToAdd)})})
-     }
-
-    // Optional upwards scrolling to remove peices
-    //  slicing will in the initial if statement.
-    // else {
-    //   this.setState({ panels: [dummyDiv1, dummyDiv2].concat(this.state.panels.slice(0, this.state.panels.length - 2)) })
-    // }
   }
-
 
   render(){
     return (
       <div className="panel-index">
         {this.state.panels}
-        {/* {this.state.panels.length === 0 ? <div>{`${this.props.indexType} more panels!`}</div> : ''} */}
         {Object.keys(this.state.panels).length > 0 ? <span className="footer-text"><div>Leaf Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></span> : ''}
       </div>
     );
