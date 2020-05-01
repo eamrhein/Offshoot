@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link}  from 'react-router-dom'
-import LikeButton from '../../panel/like_button';
 class Leaf extends React.Component {
   constructor(props){
     super(props)
