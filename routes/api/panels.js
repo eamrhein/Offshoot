@@ -126,48 +126,46 @@ router
   .get('/', (req, res) => {
     if (req.query.panelsArray) {
       if (req.query.panelsArray[0] === 'CHILDREN') {
-        
-        const childrenOBJ = {childrenToReturn: [], rootDesc: {}}
-        function getTheChildren(arr, depth = 0){
+        const childrenOBJ = { childrenToReturn: [], rootDesc: {} };
+        const getTheChildren = function (arr, depth = 0) {
           if (arr.length === 0) {
-              const panelsToReturnPojo = {};
-              childrenOBJ.childrenToReturn.forEach(panel => {
-                const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
-                const RestructuredPanel = {
-                  id: _id,
-                  authorId: authorId._id,
-                  authorUsername: authorId.username,
-                  title,
-                  panelText,
-                  parentId,
-                  rootId,
-                  photoURL,
-                  childIds,
-                  comments
-                };
-                panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
-              });
-              delete childrenOBJ.childrenToReturn
-              childrenOBJ["children"] = panelsToReturnPojo
-              return res.send(childrenOBJ);
+            const panelsToReturnPojo = {};
+            childrenOBJ.childrenToReturn.forEach(panel => {
+              const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, comments } = panel;
+              const RestructuredPanel = {
+                id: _id,
+                authorId: authorId._id,
+                authorUsername: authorId.username,
+                title,
+                panelText,
+                parentId,
+                rootId,
+                photoURL,
+                childIds,
+                comments
+              };
+              panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
+            });
+            delete childrenOBJ.childrenToReturn;
+            childrenOBJ.children = panelsToReturnPojo;
+            return res.send(childrenOBJ);
           }
           Panel.find({ _id: { $in: arr } }).populate('authorId').then(panelsArray => {
             childrenOBJ.childrenToReturn = childrenOBJ.childrenToReturn.concat(panelsArray);
-            let recursiveArr = []
+            let recursiveArr = [];
             panelsArray.forEach(panel => {
-              const {rootId, title, _id} = panel;
-              if (childrenOBJ.rootDesc[_id] === undefined && rootId === null){
-                childrenOBJ.rootDesc[_id] = {depth: 0, branchCount: 1};
-              } else if (childrenOBJ.rootDesc[rootId] !== undefined){
+              const { rootId, _id } = panel;
+              if (childrenOBJ.rootDesc[_id] === undefined && rootId === null) {
+                childrenOBJ.rootDesc[_id] = { depth: 0, branchCount: 1 };
+              } else if (childrenOBJ.rootDesc[rootId] !== undefined) {
                 if (childrenOBJ.rootDesc[rootId].depth < depth) childrenOBJ.rootDesc[rootId].depth = depth;
                 childrenOBJ.rootDesc[rootId].branchCount += 1;
               }
-              recursiveArr = recursiveArr.concat(panel.childIds)
+              recursiveArr = recursiveArr.concat(panel.childIds);
             });
-            getTheChildren(recursiveArr, depth + 1)
-            
+            getTheChildren(recursiveArr, depth + 1);
           }).catch(err => console.log(err));
-        }
+        };
         getTheChildren(req.query.panelsArray.slice(1));
       } else {
         Panel.find({ _id: { $in: req.query.panelsArray } }).populate('authorId').then(panelsArray => {
@@ -195,8 +193,7 @@ router
       Panel.find({}).populate('authorId').then(panelsArray => {
         const panelsToReturnPojo = {};
         panelsArray.forEach(panel => {
-          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;
-          
+          const { _id, authorId, title, panelText, photoURL, parentId, rootId, childIds, likes, comments } = panel;          
           const RestructuredPanel = {
             id: _id,
             authorId: authorId._id,
@@ -210,7 +207,6 @@ router
             likes,
             comments
           };
-          
           if (RestructuredPanel.parentId === null) {
             panelsToReturnPojo[RestructuredPanel.id] = RestructuredPanel;
           }
