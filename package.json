@@ -24,7 +24,7 @@
     "eslint-plugin-flowtype": "^4.3.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react-hooks": "^2.1.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.5",
     "node-sass": "^4.12.0",
